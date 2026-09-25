@@ -1158,3 +1158,54 @@
   }
 
 })();
+
+  /* ==========================================================================
+     New Scroll-Triggered Parallax Animation (GSAP)
+     ========================================================================== */
+  function initParallaxBackground() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    
+    gsap.to('.shape-1', {
+      y: 300,
+      x: 100,
+      rotation: 45,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.cinematic-hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    gsap.to('.shape-2', {
+      y: -250,
+      x: -150,
+      scale: 1.2,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.cinematic-hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.5
+      }
+    });
+
+    gsap.to('.shape-3', {
+      y: 200,
+      x: -200,
+      rotation: -30,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.cinematic-hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 2
+      }
+    });
+  }
+  
+  // Call it on load
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(initParallaxBackground, 500);
+  });
