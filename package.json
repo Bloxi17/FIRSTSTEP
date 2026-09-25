@@ -1,7 +1,7 @@
-{
+﻿{
   "name": "first-step-school-website",
   "version": "1.0.0",
-  "description": "First Step Senior Secondary School, Chhindwara - production website with real backend, database, auth and file uploads.",
+  "description": "First Step Senior Secondary School, Chhindwara",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -20,6 +20,6 @@
     "multer": "^1.4.5-lts.1"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "20.x"
   }
 }
