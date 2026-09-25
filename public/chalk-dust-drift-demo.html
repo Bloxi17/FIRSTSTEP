@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chalk-Dust Drift Animation Preview | First Step Senior Secondary School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       Brand Tokens: First Step Senior Secondary School, Chhindwara
+       Base: Warm Cream (#fbf5ea) | Deep Red (#9c2b22) | Gold Accent (#c9962f)
+       ========================================================================== */
+    :root {
+      --brand-cream: #fbf5ea;
+      --brand-cream-surface: #f4ecdc;
+      --brand-red: #9c2b22;
+      --brand-red-deep: #7c2018;
+      --brand-gold: #c9962f;
+      --brand-gold-soft: #dfb256;
+      --brand-ink: #2b1f1d;
+      --brand-body: #4a3b38;
+      --brand-muted: #73615e;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --font-traditional: 'Cinzel', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--brand-cream);
+      color: var(--brand-ink);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       Ambient Chalk-Dust Drift Component (Self-Contained)
+       ========================================================================== */
+    .chalk-drift-backdrop {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background-color: var(--brand-cream);
+    }
+
+    /* Soft ambient pools of warm gold light & deep red depth */
+    .chalk-drift-vignette {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse 70% 50% at 85% 15%, rgba(201, 150, 47, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 65% 60% at 15% 85%, rgba(156, 43, 34, 0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Responsive SVG canvas for floating motes */
+    .chalk-drift-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Golden sunlit dust motes */
+    .mote {
+      fill: var(--brand-gold);
+      filter: drop-shadow(0 0 5px rgba(201, 150, 47, 0.7));
+      opacity: 0;
+      will-change: transform, opacity;
+      animation-name: drift-up;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    /* Staggered asynchronous loops with negative delay for instant natural spread */
+    .mote-1  { animation-duration: 22s; animation-delay: -2s;  }
+    .mote-2  { animation-duration: 28s; animation-delay: -9s;  }
+    .mote-3  { animation-duration: 19s; animation-delay: -14s; }
+    .mote-4  { animation-duration: 25s; animation-delay: -5s;  }
+    .mote-5  { animation-duration: 31s; animation-delay: -17s; }
+    .mote-6  { animation-duration: 24s; animation-delay: -11s; }
+    .mote-7  { animation-duration: 20s; animation-delay: -1s;  }
+    .mote-8  { animation-duration: 27s; animation-delay: -20s; }
+    .mote-9  { animation-duration: 23s; animation-delay: -7s;  }
+    .mote-10 { animation-duration: 29s; animation-delay: -15s; }
+    .mote-11 { animation-duration: 21s; animation-delay: -12s; }
+    .mote-12 { animation-duration: 26s; animation-delay: -4s;  }
+
+    /* GPU-only transforms: soft upward float with organic drift */
+    @keyframes drift-up {
+      0% {
+        transform: translate3d(0, 40px, 0);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.7;
+      }
+      50% {
+        transform: translate3d(20px, -380px, 0);
+        opacity: 0.95;
+      }
+      80% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translate3d(-15px, -800px, 0);
+        opacity: 0;
+      }
+    }
+
+    /* Accessibility preference */
+    @media (prefers-reduced-motion: reduce) {
+      .mote {
+        animation: none !important;
+        opacity: 0.08 !important;
+        transform: none !important;
+      }
+    }
+
+    /* ==========================================================================
+       Sample Hero Layout (Demonstrating Content Clarity & Contrast)
+       ========================================================================== */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .motto-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: rgba(156, 43, 34, 0.08);
+      border: 1px solid rgba(156, 43, 34, 0.2);
+      border-radius: 9999px;
+      font-family: var(--font-traditional);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--brand-red);
+      letter-spacing: 0.05em;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--brand-ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+    }
+
+    .hero-title span {
+      color: var(--brand-red);
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 1.8vw, 1.18rem);
+      color: var(--brand-body);
+      max-width: 660px;
+      margin: 0 auto 32px;
+      font-weight: 400;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 28px;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-red {
+      background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-red-deep) 100%);
+      color: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(156, 43, 34, 0.25);
+    }
+
+    .btn-red:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(156, 43, 34, 0.35);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1.5px solid var(--brand-gold);
+      color: var(--brand-ink);
+    }
+
+    .btn-outline:hover {
+      background: rgba(201, 150, 47, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .specs-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(201, 150, 47, 0.3);
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(74, 59, 56, 0.06);
+      font-size: 0.85rem;
+      color: var(--brand-muted);
+    }
+
+    .specs-card strong {
+      color: var(--brand-red);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section with Ambient Chalk-Dust Drift Background -->
+  <section class="hero-section">
+
+    <!-- The Chalk-Dust Drift Background (Self-Contained) -->
+    <div class="chalk-drift-backdrop" aria-hidden="true">
+      <div class="chalk-drift-vignette"></div>
+      <svg class="chalk-drift-canvas" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" fill="none">
+        <g class="mote-group">
+          <circle class="mote mote-1" cx="180" cy="780" r="5.5" />
+          <circle class="mote mote-2" cx="340" cy="740" r="7.0" />
+          <circle class="mote mote-3" cx="520" cy="790" r="4.5" />
+          <circle class="mote mote-4" cx="690" cy="720" r="6.0" />
+          <circle class="mote mote-5" cx="880" cy="760" r="5.0" />
+          <circle class="mote mote-6" cx="1040" cy="790" r="7.5" />
+          <circle class="mote mote-7" cx="260" cy="810" r="4.0" />
+          <circle class="mote mote-8" cx="440" cy="730" r="6.5" />
+          <circle class="mote mote-9" cx="780" cy="800" r="4.5" />
+          <circle class="mote mote-10" cx="960" cy="750" r="5.5" />
+          <circle class="mote mote-11" cx="600" cy="820" r="6.0" />
+          <circle class="mote mote-12" cx="1120" cy="770" r="5.0" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Foreground Content (100% Legible & Unobstructed) -->
+    <div class="hero-content">
+      <div class="motto-badge">
+        <span>❖</span>
+        <span>विद्या प्रथमो चरण:</span>
+        <span>❖</span>
+      </div>
+
+      <h1 class="hero-title">
+        First Step Senior Secondary <span>School</span>
+      </h1>
+
+      <p class="hero-desc">
+        Nurturing curiosity, character, and academic distinction on Khapa Bhat Road, Dharam Tekri, Chhindwara since 1992.
+      </p>
+
+      <div class="cta-row">
+        <a href="#admissions" class="btn btn-red">Admissions 2026–27 →</a>
+        <a href="#academics" class="btn btn-outline">Explore Curriculum</a>
+      </div>
+
+      <div class="specs-card">
+        <div><strong>Animation:</strong> Pure CSS + SVG</div>
+        <div>•</div>
+        <div><strong>Palette:</strong> #fbf5ea / #9c2b22 / #c9962f</div>
+        <div>•</div>
+        <div><strong>Performance:</strong> 60 FPS GPU-accelerated</div>
+      </div>
+    </div>
+
+  </section>
+
+</body>
+</html>

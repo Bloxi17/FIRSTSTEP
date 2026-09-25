@@ -1,0 +1,11 @@
+{
+  "name": "First Step Senior Secondary School",
+  "short_name": "First Step School",
+  "icons": [
+    { "src": "/img/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/img/icon-512.jpg", "sizes": "512x512", "type": "image/jpeg" }
+  ],
+  "theme_color": "#0c2340",
+  "background_color": "#0c2340",
+  "display": "browser"
+}

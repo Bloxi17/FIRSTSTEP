@@ -1,0 +1,5390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>First Step Senior Secondary School | Chhindwara, M.P. (Estd. 1992)</title>
+  <meta name="description" content="First Step Senior Secondary School, Chhindwara. CBSE Affiliated Nursery to Class 12. Robotics & AI Lab, Smart Classrooms, Experiential Learning since 1992.">
+  <meta property="og:title" content="First Step Senior Secondary School, Chhindwara">
+  <meta property="og:description" content="Nurturing Great Minds. Building Future Leaders since 1992. Admissions open for Nursery to Class 12.">
+  <meta property="og:image" content="img/building.jpg">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#071526">
+  <meta name="author" content="Ainesh Joel Hamilton">
+
+  <!-- Favicons -->
+  <link rel="icon" href="img/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Google Fonts: Syne & Outfit for Dribbble Display + Plus Jakarta Sans for UI + Cinzel for Sanskrit Motto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+  <!-- GSAP & Three.js Libraries for GhostCursor and PillNav animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+    <!-- Dynamic Path Resolver: Ensures styling works in file://, Live Server, and Express -->
+  <link rel="stylesheet" href="css/style.css" id="mainThemeSheet">
+  <script>
+    (function() {
+      var sheet = document.getElementById('mainThemeSheet');
+      sheet.onerror = function() {
+        if (!this.getAttribute('data-fallback-attempted')) {
+          this.setAttribute('data-fallback-attempted', 'true');
+          this.href = 'public/css/style.css';
+        }
+      };
+    })();
+  </script>
+  <!-- Inlined Master Stylesheet: Guarantees 100% styled rendering in any local file/server environment -->
+  <style id="masterInlinedStyles">
+/* ==========================================================================
+   First Step Senior Secondary School, Chhindwara
+   Creative Dribbble-Grade Frontend Design System
+   Features: GSAP PillNav, WebGL GhostCursor, Bento Grid, 3D Tilt & Micro-Interactions
+   Palette: Royal Navy (#0C2340), Golden Amber (#F4B41A), Crimson (#C41E3A)
+   ========================================================================== */
+
+:root {
+  /* Brand Palette Tokens */
+  --navy-darkest: #040D18;
+  --navy-dark: #071526;
+  --navy-primary: #0C2340;
+  --navy-surface: #122B4D;
+  --navy-card: rgba(12, 35, 64, 0.72);
+
+  --gold-accent: #F4B41A;
+  --gold-glow: #FFD25A;
+  --gold-hover: #D99B0B;
+  --gold-deep: #B58004;
+  --gold-soft: #FEF7E6;
+  --gold-border: rgba(244, 180, 26, 0.35);
+
+  --crimson-accent: #C41E3A;
+  --crimson-soft: #FDE8EB;
+
+  /* Surfaces & Ink */
+  --bg-page: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-alt: #F1F5F9;
+  --text-main: #0F172A;
+  --text-body: #334155;
+  --text-muted: #64748B;
+  --text-light: #CBD5E1;
+  --border-line: #E2E8F0;
+  --border-glow: rgba(244, 180, 26, 0.3);
+
+  /* PillNav CSS Variables (From PillNav Component Specification) */
+  --base: #0C2340;
+  --pill-bg: #FFFFFF;
+  --hover-text: #FFFFFF;
+  --pill-text: #0C2340;
+  --nav-h: 50px;
+  --logo-size: 42px;
+  --pill-pad-x: 18px;
+  --pill-gap: 6px;
+
+  /* Typography */
+  --font-base: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-display: 'Syne', sans-serif;
+  --font-traditional: 'Cinzel', serif;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 6px 12px -2px rgba(12, 35, 64, 0.08), 0 3px 6px -3px rgba(12, 35, 64, 0.05);
+  --shadow-xl: 0 20px 35px -8px rgba(12, 35, 64, 0.12), 0 10px 15px -6px rgba(12, 35, 64, 0.06);
+  --shadow-gold-glow: 0 0 25px rgba(244, 180, 26, 0.35);
+  --shadow-card-float: 0 24px 48px -12px rgba(7, 21, 38, 0.16);
+
+  /* Radius System */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Motion Curves */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ==========================================================================
+   Base Reset
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 20px;
+  background: var(--gold-accent);
+  color: var(--navy-dark);
+  font-weight: 700;
+  padding: 12px 20px;
+  z-index: 99999;
+  border-radius: var(--radius-sm);
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ==========================================================================
+   Top Announcement & Contact Ticker
+   ========================================================================== */
+.top-announcement-bar {
+  background: var(--navy-darkest);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 0;
+  font-size: 0.82rem;
+  color: #94A3B8;
+  position: relative;
+  z-index: 1002;
+}
+.top-ticker-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ticker-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--crimson-accent);
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.pulse-indicator {
+  width: 6px;
+  height: 6px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  animation: pulse-glow 1.5s infinite;
+}
+@keyframes pulse-glow {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.ticker-scroll-track {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-text {
+  display: inline-block;
+  font-weight: 500;
+  color: #E2E8F0;
+  animation: marquee 25s linear infinite;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-35%); }
+}
+.top-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(244, 180, 26, 0.15);
+  color: var(--gold-accent);
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(244, 180, 26, 0.3);
+  font-size: 0.76rem;
+}
+.top-action-pill:hover {
+  background: var(--gold-accent);
+  color: var(--navy-dark);
+}
+.top-action-link {
+  color: #94A3B8;
+  font-size: 0.78rem;
+  margin-left: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.top-action-link:hover {
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   PillNav Component (Sticky Glassmorphic Capsule Navigation)
+   ========================================================================== */
+.pill-nav-fixed-wrap {
+  position: fixed;
+  top: 16px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+  pointer-events: none;
+}
+.pill-nav-bar {
+  pointer-events: auto;
+  width: auto;
+  max-width: 1100px;
+  background: rgba(7, 21, 38, 0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1.5px solid rgba(244, 180, 26, 0.4);
+  border-radius: 9999px;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.65), 0 0 20px rgba(244, 180, 26, 0.15);
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.pill-nav-bar:hover {
+  border-color: rgba(244, 180, 26, 0.6);
+  box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.7), 0 0 28px rgba(244, 180, 26, 0.25);
+}
+
+/* Authentic Crest Logo Badge Frame */
+.pill-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  padding-left: 4px;
+}
+.pill-logo-frame {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1.5px solid var(--gold-accent);
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s var(--ease-spring);
+  flex-shrink: 0;
+}
+.pill-logo-link:hover .pill-logo-frame {
+  transform: rotate(360deg) scale(1.08);
+}
+.pill-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.pill-brand-text {
+  line-height: 1.15;
+  padding-right: 6px;
+}
+.pill-school-name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  display: block;
+}
+.pill-school-loc {
+  font-size: 0.68rem;
+  color: var(--gold-accent);
+  display: block;
+  font-weight: 600;
+}
+
+/* Heading Selection Pills */
+.pill-nav-links-wrap {
+  display: flex;
+  align-items: center;
+}
+.pill-nav-list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pill-nav-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #CBD5E1;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.22s var(--ease-spring);
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.pill-nav-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--gold-accent);
+  border-color: rgba(244, 180, 26, 0.35);
+  transform: translateY(-1px);
+}
+.pill-nav-item.active {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-hover) 100%);
+  color: #071526;
+  font-weight: 800;
+  border-color: var(--gold-accent);
+  box-shadow: 0 4px 14px rgba(244, 180, 26, 0.45);
+}
+
+/* CTA Button */
+.pill-cta-wrap {
+  display: flex;
+  align-items: center;
+}
+.pill-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-hover) 100%);
+  color: #071526;
+  font-weight: 800;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 14px rgba(244, 180, 26, 0.4);
+  text-decoration: none;
+  transition: all 0.25s var(--ease-spring);
+  white-space: nowrap;
+}
+.pill-action-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(244, 180, 26, 0.6);
+}
+
+/* Mobile Hamburger */
+.pill-hamburger-btn {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Mobile Drawer */
+.pill-mobile-drawer {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 16px;
+  right: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  background: rgba(7, 21, 38, 0.98);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1.5px solid var(--gold-accent);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.75);
+  pointer-events: auto;
+}
+.pill-mobile-drawer.open {
+  display: block;
+}
+.pill-mobile-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pill-mobile-links li {
+  margin-bottom: 6px;
+}
+.pill-mobile-link {
+  display: block;
+  padding: 11px 16px;
+  border-radius: var(--radius-md);
+  color: #E2E8F0;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.pill-mobile-link.active, .pill-mobile-link:hover {
+  background: var(--navy-surface);
+  color: var(--gold-accent);
+}
+.pill-mobile-admin {
+  color: #94A3B8;
+  font-size: 0.85rem;
+}
+.pill-mobile-footer {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+  .pill-nav-links-wrap, .pill-cta-wrap, .pill-brand-text {
+    display: none !important;
+  }
+  .pill-hamburger-btn {
+    display: flex;
+  }
+  .pill-nav-bar {
+    width: 100%;
+    justify-content: space-between;
+    padding: 6px 14px;
+  }
+}
+
+/* ==========================================================================
+   Page Transitions
+   ========================================================================== */
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 300ms var(--ease-spring), transform 300ms var(--ease-spring);
+}
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-container {
+  padding: 96px 0;
+  position: relative;
+}
+.bg-subtle {
+  background-color: #FFFFFF;
+  border-top: 1px solid var(--border-line);
+  border-bottom: 1px solid var(--border-line);
+}
+
+/* ==========================================================================
+   Cinematic Hero Section (With Ambient Glow & 3D Tilt)
+   ========================================================================== */
+.cinematic-hero-section {
+  position: relative;
+  min-height: 92vh;
+  min-height: 92svh;
+  display: flex;
+  align-items: center;
+  background-color: var(--navy-darkest);
+  overflow: hidden;
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+.aurora-glow-1 {
+  position: absolute;
+  top: -10%;
+  left: 15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(244, 180, 26, 0.18) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+.aurora-glow-2 {
+  position: absolute;
+  bottom: 0%;
+  right: 10%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(12, 35, 64, 0.6) 0%, rgba(196, 30, 58, 0.12) 50%, transparent 70%);
+  filter: blur(90px);
+  pointer-events: none;
+}
+.hero-bg-slider {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.hero-bg-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.4s ease, transform 8s ease-out;
+  transform: scale(1.05);
+}
+.hero-bg-slide.active {
+  opacity: 0.65;
+  transform: scale(1);
+}
+.hero-dark-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(4, 13, 24, 0.65) 0%, rgba(7, 21, 38, 0.85) 100%);
+}
+.hero-main-grid {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+}
+
+/* Hero Left Text Column */
+.hero-meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(244, 180, 26, 0.12);
+  border: 1px solid rgba(244, 180, 26, 0.35);
+  color: var(--gold-accent);
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 24px;
+}
+.badge-ring-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold-accent);
+  box-shadow: 0 0 10px var(--gold-accent);
+}
+.badge-sanskrit {
+  font-family: var(--font-traditional);
+}
+.hero-glamour-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5.5vw, 4.4rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.glow-gold-text {
+  background: linear-gradient(135deg, #F4B41A 0%, #FFE599 50%, #F4B41A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+.hero-description {
+  font-size: 1.18rem;
+  color: #CBD5E1;
+  line-height: 1.65;
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+.hero-btn-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.hero-trust-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 24px;
+}
+.trust-icons-cluster {
+  display: flex;
+  margin-right: -10px;
+}
+.avatar-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  border: 2px solid var(--navy-darkest);
+  margin-left: -8px;
+}
+.avatar-tag:first-child { margin-left: 0; }
+.bg-gold { background: var(--gold-deep); color: #000; }
+.bg-navy { background: #1E3A8A; }
+.bg-red { background: var(--crimson-accent); }
+.bg-blue { background: #0284C7; }
+
+.trust-text strong {
+  display: block;
+  color: #FFFFFF;
+  font-size: 0.92rem;
+}
+.trust-text span {
+  font-size: 0.78rem;
+  color: #94A3B8;
+}
+
+/* Hero Right: Spotlight 3D Card */
+.hero-visual-col {
+  perspective: 1200px;
+}
+.campus-spotlight-card {
+  background: rgba(12, 35, 64, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid var(--border-glow);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7), var(--shadow-gold-glow);
+  transition: transform 0.25s var(--ease-spring);
+  transform-style: preserve-3d;
+}
+.spotlight-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+.spotlight-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.campus-spotlight-card:hover .spotlight-img {
+  transform: scale(1.05);
+}
+.spotlight-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: rgba(7, 21, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.live-dot-green {
+  width: 7px;
+  height: 7px;
+  background: #10B981;
+  border-radius: 50%;
+}
+.spotlight-footer {
+  padding: 22px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(7, 21, 38, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.spotlight-sub {
+  font-size: 0.78rem;
+  color: var(--gold-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.spotlight-heading {
+  color: #FFFFFF;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.spotlight-stat-pill {
+  background: rgba(244, 180, 26, 0.15);
+  border: 1.5px solid var(--gold-accent);
+  color: var(--gold-accent);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 0.76rem;
+}
+.spotlight-stat-pill strong {
+  display: block;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Buttons System
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s var(--ease-spring);
+  user-select: none;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-hover) 100%);
+  color: var(--navy-darkest);
+  box-shadow: 0 8px 24px -4px rgba(244, 180, 26, 0.45);
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -4px rgba(244, 180, 26, 0.65);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.btn-glass:hover {
+  background: #FFFFFF;
+  color: var(--navy-primary);
+  border-color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-md);
+}
+.btn-primary:hover {
+  background: var(--navy-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.btn-outline-danger {
+  background: transparent;
+  color: var(--crimson-accent);
+  border-color: var(--crimson-accent);
+}
+.btn-outline-danger:hover {
+  background: var(--crimson-soft);
+}
+
+.btn-xl {
+  padding: 16px 34px;
+  font-size: 1.05rem;
+}
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 0.85rem;
+}
+.btn-block {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Floating 4-Cards Quick Access (Overlapping Hero)
+   ========================================================================== */
+.floating-quick-access-wrap {
+  position: relative;
+  z-index: 20;
+  margin-top: -45px;
+}
+.floating-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.floating-card-item {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-card-float);
+  transition: all 0.3s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+}
+.floating-card-item:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold-accent);
+  box-shadow: 0 25px 50px -12px rgba(12, 35, 64, 0.2);
+}
+.card-icon-halo {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.card-icon-halo svg {
+  width: 26px;
+  height: 26px;
+}
+.gold-halo { background: var(--gold-soft); color: var(--gold-deep); }
+.blue-halo { background: #E0F2FE; color: #0284C7; }
+.crimson-halo { background: var(--crimson-soft); color: var(--crimson-accent); }
+.green-halo { background: #ECFDF5; color: #059669; }
+
+.card-body-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+.card-body-info p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 16px;
+  flex: 1;
+}
+.card-action-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--navy-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+.floating-card-item:hover .card-action-link {
+  color: var(--gold-deep);
+}
+
+/* ==========================================================================
+   Milestone Counters Strip
+   ========================================================================== */
+.milestone-counter-strip {
+  padding: 70px 0 30px;
+}
+.counters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.counter-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+}
+.counter-ring-wrap {
+  position: relative;
+  width: 74px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-9deg);
+}
+.ring-bg {
+  fill: none;
+  stroke: var(--bg-surface-alt);
+  stroke-width: 5;
+}
+.ring-stroke {
+  fill: none;
+  stroke: var(--gold-accent);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 213;
+  stroke-dashoffset: 40;
+}
+.counter-val {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.45rem;
+  color: var(--navy-primary);
+  z-index: 2;
+}
+.counter-label strong {
+  display: block;
+  font-size: 1.05rem;
+  color: var(--navy-primary);
+}
+.counter-label span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Two-Column Activity Board (Notices & Hall of Fame)
+   ========================================================================== */
+.split-activity-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+}
+.glass-board-panel {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-md);
+}
+.board-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-line);
+}
+.kicker-tag {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-deep);
+  display: inline-block;
+  margin-bottom: 6px;
+}
+.board-main-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.board-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--crimson-accent);
+  background: var(--crimson-soft);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+.pulse-dot-red {
+  width: 7px;
+  height: 7px;
+  background: var(--crimson-accent);
+  border-radius: 50%;
+  animation: pulse-red 1.5s infinite;
+}
+@keyframes pulse-red {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.notices-scroll-box, .achievements-scroll-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+.live-notice-row {
+  display: flex;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  background: var(--bg-page);
+  border: 1px solid var(--border-line);
+  transition: all 0.25s var(--ease-spring);
+}
+.live-notice-row:hover {
+  background: #FFFFFF;
+  border-color: var(--navy-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateX(6px);
+}
+.notice-calendar-chip {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 58px;
+  height: fit-content;
+}
+.chip-day {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.chip-month {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  text-transform: uppercase;
+}
+.notice-text-col h4 {
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+.notice-text-col p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* Achievements Teaser Card */
+.live-ach-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  background: var(--bg-page);
+  border: 1px solid var(--border-line);
+  transition: all 0.25s var(--ease-spring);
+}
+.live-ach-row:hover {
+  background: #FFFFFF;
+  border-color: var(--gold-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.ach-media-thumb {
+  width: 68px;
+  height: 68px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--gold-soft);
+  border: 1.5px solid var(--gold-border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ach-media-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ach-media-thumb svg {
+  width: 30px;
+  height: 30px;
+  color: var(--gold-deep);
+}
+.ach-meta-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--crimson-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.view-all-pill {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--navy-primary);
+  background: var(--bg-surface-alt);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+}
+.view-all-pill:hover {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Interactive Stage Explorer (NEP 2020 Aligned)
+   ========================================================================== */
+.section-lead-center {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+.grand-section-title {
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.grand-section-sub {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+.stage-nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.stage-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--navy-primary);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+}
+.stage-tab-btn .tab-num {
+  font-size: 0.75rem;
+  background: var(--bg-surface-alt);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+.stage-tab-btn:hover {
+  border-color: var(--navy-primary);
+}
+.stage-tab-btn.active {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  border-color: var(--navy-primary);
+  box-shadow: var(--shadow-md);
+}
+.stage-tab-btn.active .tab-num {
+  background: var(--gold-accent);
+  color: var(--navy-dark);
+}
+
+.stage-display-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  padding: 44px;
+  box-shadow: var(--shadow-lg);
+  transition: opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   Dribbble Bento Grid (Facilities & Campus Life)
+   ========================================================================== */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(220px, auto);
+  gap: 24px;
+}
+.bento-tile {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.bento-tile:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-accent);
+  box-shadow: 0 20px 40px -10px rgba(12, 35, 64, 0.15);
+}
+.bento-tile-featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--navy-darkest) 0%, var(--navy-primary) 100%);
+  color: #FFFFFF;
+  border-color: rgba(244, 180, 26, 0.4);
+}
+.bento-tile-featured h3 {
+  color: #FFFFFF;
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+.bento-tile-featured p {
+  color: #CBD5E1;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 520px;
+}
+.bento-tag {
+  background: rgba(244, 180, 26, 0.2);
+  color: var(--gold-accent);
+  border: 1px solid var(--gold-accent);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.bento-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.bento-pills span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  color: #FFFFFF;
+}
+.bento-halo-art {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  font-size: 7rem;
+  opacity: 0.15;
+  pointer-events: none;
+}
+.bento-icon-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  background: var(--navy-muted);
+  color: var(--navy-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.bento-icon-circle svg {
+  width: 24px;
+  height: 24px;
+}
+.bento-tile h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+.bento-tile p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Grand Admissions Banner CTA
+   ========================================================================== */
+.grand-cta-banner {
+  background: linear-gradient(135deg, var(--navy-darkest) 0%, var(--navy-primary) 100%);
+  color: #FFFFFF;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid var(--gold-accent);
+}
+.grand-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  position: relative;
+  z-index: 2;
+}
+.cta-callout-text {
+  max-width: 660px;
+}
+.cta-kicker {
+  color: var(--gold-accent);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.cta-callout-text h2 {
+  color: #FFFFFF;
+  font-size: clamp(2rem, 3.5vw, 2.7rem);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+.cta-callout-text p {
+  color: #CBD5E1;
+  font-size: 1.15rem;
+}
+.cta-callout-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Subpage Headers
+   ========================================================================== */
+.subpage-hero-banner {
+  background: linear-gradient(135deg, var(--navy-darkest) 0%, var(--navy-primary) 100%);
+  color: #FFFFFF;
+  padding: 130px 0 54px;
+  text-align: center;
+  border-bottom: 3px solid var(--gold-accent);
+}
+.subpage-badge {
+  background: rgba(244, 180, 26, 0.15);
+  border: 1px solid var(--gold-accent);
+  color: var(--gold-accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.subpage-title {
+  color: #FFFFFF;
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.subpage-lead {
+  color: #CBD5E1;
+  font-size: 1.15rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   About Page Layout
+   ========================================================================== */
+.about-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+.story-media-box {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+.story-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+}
+.story-overlay-tag {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  padding: 16px 22px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--gold-accent);
+}
+.motto-box-display {
+  background: var(--gold-soft);
+  border-left: 4px solid var(--gold-deep);
+  padding: 22px 26px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-top: 24px;
+}
+.motto-quote {
+  font-family: var(--font-traditional);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--crimson-accent);
+}
+.motto-sub {
+  font-size: 0.95rem;
+  font-style: italic;
+  margin-top: 4px;
+}
+.dual-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.feature-card-glow {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  box-shadow: var(--shadow-sm);
+}
+
+.principal-spotlight-box {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  padding: 44px;
+  display: flex;
+  gap: 36px;
+  align-items: center;
+  box-shadow: var(--shadow-md);
+}
+.principal-letter-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: var(--navy-primary);
+  color: var(--gold-accent);
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--gold-soft);
+  flex-shrink: 0;
+}
+.principal-quote-col blockquote {
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   Academics Page Styles
+   ========================================================================== */
+.vertical-stages-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.stage-flow-card {
+  display: flex;
+  gap: 24px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+}
+.flow-marker {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--gold-deep);
+  background: var(--gold-soft);
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.flow-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.flow-tags span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--bg-surface-alt);
+  color: var(--navy-primary);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+.flow-streams-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+.stream-badge {
+  background: var(--bg-page);
+  border: 1px solid var(--border-line);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+}
+
+/* ==========================================================================
+   Admissions Page Styles & Stepper
+   ========================================================================== */
+.admissions-interactive-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 48px;
+}
+.admissions-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin: 28px 0;
+}
+.step-card {
+  display: flex;
+  gap: 18px;
+}
+.step-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--navy-primary);
+  color: var(--gold-accent);
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+.checklist-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+}
+.checklist-card h4 {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+.checklist-card ul li {
+  font-size: 0.92rem;
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 20px;
+}
+.checklist-card ul li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #10B981;
+}
+
+/* Glass Form Card */
+.glass-form-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  padding: 40px 36px;
+  box-shadow: var(--shadow-xl);
+}
+.form-header-bar {
+  margin-bottom: 24px;
+}
+.form-header-bar h3 {
+  font-size: 1.5rem;
+  margin-bottom: 6px;
+}
+.form-header-bar p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+.form-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.field-wrap {
+  margin-bottom: 18px;
+}
+.field-wrap label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy-primary);
+  margin-bottom: 6px;
+}
+.field-wrap input, .field-wrap select, .field-wrap textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-line);
+  background: #FFFFFF;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+.field-wrap input:focus, .field-wrap select:focus, .field-wrap textarea:focus {
+  outline: none;
+  border-color: var(--navy-primary);
+  box-shadow: 0 0 0 3px rgba(12, 35, 64, 0.1);
+}
+.success-alert-banner {
+  display: none;
+  background: #ECFDF5;
+  border: 1.5px solid #A7F3D0;
+  color: #065F46;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  align-items: center;
+  gap: 14px;
+}
+.success-alert-banner.show {
+  display: flex;
+}
+.success-alert-banner svg {
+  color: #059669;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Facilities Page Styles
+   ========================================================================== */
+.bento-facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.facility-glass-tile {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-spring);
+}
+.facility-glass-tile:hover {
+  transform: translateY(-6px);
+  border-color: var(--navy-primary);
+  box-shadow: var(--shadow-xl);
+}
+.tile-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--gold-soft);
+  color: var(--gold-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.tile-icon-box svg {
+  width: 26px;
+  height: 26px;
+}
+.facility-glass-tile h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+.facility-glass-tile p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Achievements & Honors Page
+   ========================================================================== */
+.achievements-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.honor-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+}
+.honor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--gold-accent);
+}
+.honor-photo-box {
+  width: 100%;
+  height: 220px;
+  background: var(--navy-primary);
+  position: relative;
+  overflow: hidden;
+}
+.honor-photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.honor-icon-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-accent);
+}
+.honor-icon-placeholder svg {
+  width: 60px;
+  height: 60px;
+}
+.honor-body {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.honor-student-chip {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--crimson-accent);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.honor-body h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: var(--navy-primary);
+}
+.honor-body p {
+  font-size: 0.92rem;
+  color: var(--text-body);
+}
+
+/* ==========================================================================
+   Gallery Page & Lightbox
+   ========================================================================== */
+.gallery-category-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.gallery-category-bar button {
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-line);
+  background: #FFFFFF;
+  color: var(--navy-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gallery-category-bar button:hover {
+  border-color: var(--navy-primary);
+}
+.gallery-category-bar button.active {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  border-color: var(--navy-primary);
+}
+
+.gallery-media-matrix {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.gallery-media-item {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--navy-dark);
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+}
+.gallery-media-item img, .gallery-media-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.gallery-media-item:hover img, .gallery-media-item:hover video {
+  transform: scale(1.08);
+}
+.media-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(7, 21, 38, 0.88) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  color: #FFFFFF;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.gallery-media-item:hover .media-hover-overlay {
+  opacity: 1;
+}
+.media-play-pill {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+/* Lightbox Modal */
+.media-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 13, 24, 0.96);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.media-lightbox-overlay.open {
+  display: flex;
+}
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  font-size: 2.2rem;
+  color: #FFFFFF;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.lightbox-viewport {
+  max-width: 900px;
+  max-height: 85vh;
+  width: 100%;
+  text-align: center;
+}
+.lightbox-viewport img, .lightbox-viewport video {
+  max-width: 100%;
+  max-height: 75vh;
+  margin: 0 auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+}
+.lightbox-caption-tag {
+  color: #FFFFFF;
+  font-size: 1rem;
+  margin-top: 14px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Contact Page Styles
+   ========================================================================== */
+.contact-duo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+.contact-card-row {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-line);
+}
+.c-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-md);
+  background: var(--navy-muted);
+  color: var(--navy-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.c-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.contact-card-row strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--navy-primary);
+}
+.contact-card-row span {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+.gold-link {
+  color: var(--navy-primary);
+  font-weight: 700;
+}
+.gold-link:hover {
+  color: var(--gold-deep);
+}
+.social-channels-strip {
+  margin-top: 28px;
+}
+.social-channels-strip span {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--navy-primary);
+  margin-bottom: 10px;
+}
+.social-links-flex {
+  display: flex;
+  gap: 12px;
+}
+.social-btn-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--navy-muted);
+  color: var(--navy-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.social-btn-circle:hover {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+.map-embed-wrapper {
+  height: 280px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1.5px solid var(--border-line);
+  margin-bottom: 30px;
+}
+.map-embed-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ==========================================================================
+   Admin Console Styles
+   ========================================================================== */
+.admin-auth-box {
+  max-width: 440px;
+  margin: 40px auto;
+}
+.glass-login-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+}
+.shield-badge-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--gold-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.glass-login-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+.glass-login-card p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin-bottom: 20px;
+}
+
+.dash-action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-line);
+}
+.dash-btn-group {
+  display: flex;
+  gap: 10px;
+}
+.dash-tabs-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.tab-chip {
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-line);
+  background: #FFFFFF;
+  color: var(--navy-primary);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-chip.active {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  border-color: var(--navy-primary);
+}
+.dash-pane {
+  display: none;
+}
+.dash-pane.active {
+  display: block;
+}
+.admin-editor-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+.admin-editor-card h4 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+.section-sub-heading {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+.admin-entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.admin-entry-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+}
+.admin-entry-item .thumb {
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--navy-muted);
+}
+.admin-entry-item .entry-meta {
+  flex: 1;
+  min-width: 0;
+}
+.admin-entry-item .entry-meta strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--navy-primary);
+}
+.admin-entry-item .entry-meta span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.btn-delete-chip {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.btn-delete-chip:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+}
+
+.status-msg {
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+  display: none;
+}
+.status-msg.show { display: block; }
+.status-msg.ok { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+.status-msg.err { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+
+/* ==========================================================================
+   Sticky Bottom-Right Widget
+   ========================================================================== */
+.floating-quick-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+}
+.sticky-help-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--gold-accent) 0%, var(--gold-hover) 100%);
+  color: var(--navy-darkest);
+  font-weight: 800;
+  font-size: 0.82rem;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 10px 25px -4px rgba(244, 180, 26, 0.6);
+  border: 1.5px solid #FFFFFF;
+  transition: all 0.25s var(--ease-spring);
+}
+.sticky-help-pill:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 30px -4px rgba(244, 180, 26, 0.8);
+}
+.phone-pulse-icon {
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   Grand Portal Footer
+   ========================================================================== */
+.grand-portal-footer {
+  background: var(--navy-darkest);
+  color: #CBD5E1;
+  font-size: 0.92rem;
+  border-top: 4px solid var(--gold-accent);
+}
+.footer-grid-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.25fr;
+  gap: 48px;
+  padding-top: 70px;
+  padding-bottom: 60px;
+}
+.footer-emblem-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.footer-crest-img {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gold-accent);
+  background: #FFFFFF;
+  object-fit: contain;
+}
+.footer-sanskrit-tag {
+  font-family: var(--font-traditional);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--gold-accent);
+}
+.footer-brand-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: #FFFFFF;
+  font-size: 1.15rem;
+}
+.footer-desc {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.footer-social-flex {
+  display: flex;
+  gap: 10px;
+}
+.footer-social-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.footer-social-circle:hover {
+  background: var(--gold-accent);
+  color: var(--navy-darkest);
+}
+
+.footer-links-col h4 {
+  color: #FFFFFF;
+  font-size: 1.05rem;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 8px;
+}
+.footer-links-col h4::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 32px;
+  height: 2px;
+  background: var(--gold-accent);
+}
+.footer-links-col ul li {
+  margin-bottom: 10px;
+}
+.footer-links-col ul a {
+  color: #94A3B8;
+  font-size: 0.88rem;
+  transition: color 0.2s;
+}
+.footer-links-col ul a:hover {
+  color: var(--gold-accent);
+  padding-left: 4px;
+}
+.footer-contact-block p {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.footer-contact-block strong {
+  color: #FFFFFF;
+}
+.footer-contact-block a {
+  color: var(--gold-accent);
+}
+
+.footer-bottom-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 22px 0;
+  font-size: 0.82rem;
+  color: #64748B;
+}
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.footer-legal-links a {
+  color: #94A3B8;
+}
+.footer-legal-links a:hover {
+  color: #FFFFFF;
+}
+.footer-legal-links .staff-link {
+  color: var(--gold-accent);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .floating-cards-grid, .counters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-grid, .bento-facilities-grid, .achievements-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bento-tile-featured {
+    grid-column: span 2;
+  }
+  .split-activity-board, .about-story-grid, .admissions-interactive-grid, .contact-duo-grid, .hero-main-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .footer-grid-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .pill-items-wrap, .pill-action-wrap {
+    display: none !important;
+  }
+  .pill-mobile-btn {
+    display: flex;
+  }
+  .pill-nav-container {
+    width: 100%;
+    justify-content: space-between;
+    padding: 4px 14px;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+  .grand-cta-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .cta-callout-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .floating-cards-grid, .counters-grid, .bento-grid, .bento-facilities-grid, .achievements-cards-grid, .gallery-media-matrix {
+    grid-template-columns: 1fr;
+  }
+  .bento-tile-featured {
+    grid-column: span 1;
+  }
+  .form-field-row, .flow-streams-box, .dual-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .principal-spotlight-box {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Opening Screen Animation (Preloader / Intro Splash)
+   ========================================================================== */
+.intro-splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--navy-darkest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.75s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.75s ease;
+}
+.intro-splash-screen.dismissed {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+.intro-splash-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(244, 180, 26, 0.18) 0%, rgba(12, 35, 64, 0.45) 45%, #040D18 85%);
+  pointer-events: none;
+}
+.intro-splash-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 780px;
+}
+.intro-emblem-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 24px;
+  animation: emblem-pop 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes emblem-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.intro-crest-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  border: 3px solid var(--gold-accent);
+  background: #FFFFFF;
+  box-shadow: 0 0 35px rgba(244, 180, 26, 0.6);
+}
+.intro-emblem-halo {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 180, 26, 0.4) 0%, transparent 70%);
+  animation: halo-pulse 2s infinite ease-in-out;
+}
+@keyframes halo-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.9; }
+}
+.intro-title-english {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4.4vw, 2.8rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+  animation: title-slide 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes title-slide {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.intro-hindi-themerow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 8px;
+  animation: title-slide 0.8s 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.intro-hindi-ornament {
+  color: var(--gold-accent);
+  font-size: 1.2rem;
+}
+.intro-hindi-theme {
+  font-family: var(--font-traditional);
+  font-size: clamp(1.6rem, 3.8vw, 2.5rem);
+  font-weight: 800;
+  color: var(--gold-accent);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 25px rgba(244, 180, 26, 0.7);
+}
+.intro-hindi-subtext {
+  font-size: 1.08rem;
+  color: #CBD5E1;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  animation: title-slide 0.8s 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.intro-progress-bar-wrap {
+  width: 260px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  margin: 32px auto 0;
+  overflow: hidden;
+}
+.intro-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-accent), #FFE599);
+  border-radius: var(--radius-full);
+  transition: width 1.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.intro-skip-btn {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #CBD5E1;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+.intro-skip-btn:hover {
+  background: var(--gold-accent);
+  color: var(--navy-darkest);
+  border-color: var(--gold-accent);
+}
+
+/* ==========================================================================
+   Page Transitions
+   ========================================================================== */
+.page {
+  display: none;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.page.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+.page.page-leaving {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+/* ==========================================================================
+   Scroll-Triggered Reveal Animations
+   ========================================================================== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-reveal-stagger-1 { transition-delay: 0.1s; }
+.scroll-reveal-stagger-2 { transition-delay: 0.2s; }
+.scroll-reveal-stagger-3 { transition-delay: 0.3s; }
+
+/* ==========================================================================
+   Upgraded Facilities Section (Image + Text Cards)
+   ========================================================================== */
+.facilities-rich-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+.facility-rich-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.35s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+}
+.facility-rich-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold-accent);
+  box-shadow: 0 25px 50px -10px rgba(12, 35, 64, 0.15), var(--shadow-gold-glow);
+}
+.facility-photo-box {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-dark);
+}
+.facility-photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.facility-rich-card:hover .facility-photo-box img {
+  transform: scale(1.06);
+}
+.facility-type-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: rgba(7, 21, 38, 0.88);
+  backdrop-filter: blur(12px);
+  color: var(--gold-accent);
+  border: 1.5px solid var(--gold-accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+}
+.facility-info-body {
+  padding: 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.facility-info-body h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--navy-primary);
+  margin-bottom: 10px;
+}
+.facility-info-body p {
+  font-size: 0.98rem;
+  color: var(--text-body);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.facility-feature-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border-line);
+  padding-top: 18px;
+}
+.facility-feature-tags span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--navy-primary);
+  background: var(--bg-surface-alt);
+  padding: 5px 12px;
+  border-radius: var(--radius-md);
+}
+
+@media (max-width: 900px) {
+  .facilities-rich-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Category 2: Immersive Visual Storytelling (Timeline & Campus Hotspot Map)
+   ========================================================================== */
+
+/* 1. Day in the Life Vertical Timeline */
+.day-timeline-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+.timeline-vertical-line {
+  position: absolute;
+  top: 40px;
+  bottom: 40px;
+  left: 90px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold-accent) 0%, rgba(12, 35, 64, 0.2) 100%);
+}
+.timeline-slot-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 36px;
+  position: relative;
+}
+.slot-time-badge {
+  width: 90px;
+  text-align: right;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--navy-primary);
+  padding-top: 14px;
+  flex-shrink: 0;
+}
+.slot-node-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gold-accent);
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 0 0 2px var(--gold-accent), 0 0 14px rgba(244, 180, 26, 0.6);
+  flex-shrink: 0;
+  margin-top: 16px;
+  z-index: 2;
+  transition: transform 0.3s var(--ease-spring);
+}
+.timeline-slot-item:hover .slot-node-dot {
+  transform: scale(1.4);
+  background: var(--crimson-accent);
+}
+.slot-card-content {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 28px 30px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-spring);
+}
+.timeline-slot-item:hover .slot-card-content {
+  transform: translateX(8px);
+  border-color: var(--gold-accent);
+  box-shadow: var(--shadow-lg);
+}
+.slot-category-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  background: var(--gold-soft);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.slot-header h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--navy-primary);
+  margin-bottom: 10px;
+}
+.slot-card-content p {
+  font-size: 0.95rem;
+  color: var(--text-body);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.slot-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.slot-chips span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--bg-surface-alt);
+  color: var(--navy-primary);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+@media (max-width: 720px) {
+  .timeline-vertical-line {
+    left: 20px;
+  }
+  .timeline-slot-item {
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 45px;
+  }
+  .slot-time-badge {
+    text-align: left;
+    width: auto;
+    padding-top: 0;
+  }
+  .slot-node-dot {
+    position: absolute;
+    left: 12px;
+    top: 0;
+  }
+}
+
+/* 2. Interactive Campus Hotspot Map */
+.campus-hotspot-interactive-box {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 36px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  box-shadow: var(--shadow-lg);
+  align-items: center;
+}
+.hotspot-map-display {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--navy-primary);
+}
+.hotspot-map-base-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hotspot-map-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 21, 38, 0.3) 0%, rgba(12, 35, 64, 0.6) 100%);
+  pointer-events: none;
+}
+
+/* Hotspot Pins */
+.map-hotspot-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(7, 21, 38, 0.9);
+  border: 2px solid var(--gold-accent);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s var(--ease-spring);
+}
+.map-hotspot-pin:hover, .map-hotspot-pin.active {
+  transform: translate(-50%, -50%) scale(1.2);
+  background: var(--gold-accent);
+  box-shadow: 0 0 25px var(--gold-accent);
+}
+.pin-core-dot {
+  font-size: 1.1rem;
+}
+.pin-sonar-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-accent);
+  animation: sonar-wave 2s infinite ease-out;
+  pointer-events: none;
+}
+@keyframes sonar-wave {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.pin-hover-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(7, 21, 38, 0.95);
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gold-accent);
+}
+.map-hotspot-pin:hover .pin-hover-tooltip {
+  opacity: 1;
+}
+
+/* Hotspot Detail Card */
+.hotspot-detail-card {
+  background: var(--bg-surface-alt);
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.spot-detail-photo {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  margin-bottom: 18px;
+  border: 1px solid var(--border-line);
+}
+.spot-detail-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--crimson-accent);
+  margin-bottom: 6px;
+}
+.hotspot-detail-card h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--navy-primary);
+  margin-bottom: 10px;
+}
+.hotspot-detail-card p {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.spot-spec-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.spot-spec-list span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: #FFFFFF;
+  color: var(--navy-primary);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-line);
+}
+
+@media (max-width: 1024px) {
+  .campus-hotspot-interactive-box {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Category 3: Academic Gamification & School Spirit
+   ========================================================================== */
+
+/* 1. Toppers Wall of Fame */
+.wall-filter-tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.topper-tab-btn {
+  padding: 9px 22px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-line);
+  background: #FFFFFF;
+  color: var(--navy-primary);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-spring);
+}
+.topper-tab-btn:hover {
+  border-color: var(--navy-primary);
+}
+.topper-tab-btn.active {
+  background: var(--navy-primary);
+  color: #FFFFFF;
+  border-color: var(--navy-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.toppers-wall-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.topper-honor-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-spring);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.topper-honor-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold-accent);
+  box-shadow: var(--shadow-xl);
+}
+.topper-badge-strip {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+.gold-strip { background: var(--gold-soft); color: var(--gold-deep); border: 1px solid var(--gold-border); }
+.navy-strip { background: #E0F2FE; color: #0284C7; }
+.crimson-strip { background: var(--crimson-soft); color: var(--crimson-accent); }
+.blue-strip { background: #EEF2FF; color: #4338CA; }
+.green-strip { background: #ECFDF5; color: #059669; }
+
+.topper-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.topper-avatar-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  border: 2px solid var(--gold-border);
+  flex-shrink: 0;
+}
+.topper-stream-tag {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: block;
+}
+.topper-card-header h3 {
+  font-size: 1.25rem;
+  color: var(--navy-primary);
+  margin: 2px 0 4px;
+}
+.topper-score-highlight {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--gold-deep);
+}
+.topper-honor-card p {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .toppers-wall-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2. Student Innovation Projects */
+.projects-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.project-showcase-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-spring);
+  display: flex;
+  flex-direction: column;
+}
+.project-showcase-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--navy-primary);
+  box-shadow: var(--shadow-xl);
+}
+.project-card-banner {
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: #FFFFFF;
+}
+.banner-rover { background: linear-gradient(135deg, #071526 0%, #16365C 100%); }
+.banner-irrigation { background: linear-gradient(135deg, #064E3B 0%, #047857 100%); }
+.banner-python { background: linear-gradient(135deg, #312E81 0%, #4338CA 100%); }
+
+.proj-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.proj-icon-large {
+  font-size: 4rem;
+}
+.project-card-body {
+  padding: 26px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.project-card-body h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  color: var(--navy-primary);
+}
+.project-card-body p {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin-bottom: 18px;
+  flex: 1;
+}
+.project-tech-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.project-tech-pills span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--bg-surface-alt);
+  color: var(--navy-primary);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+.project-creator-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-line);
+  padding-top: 14px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.project-creator-foot strong {
+  color: var(--navy-primary);
+}
+
+@media (max-width: 960px) {
+  .projects-showcase-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 3. Inter-House Championship Leaderboard */
+.house-leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.house-row-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-line);
+  border-radius: var(--radius-lg);
+  padding: 22px 28px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease-spring);
+}
+.house-row-card:hover {
+  transform: translateX(8px);
+  border-color: var(--gold-accent);
+  box-shadow: var(--shadow-md);
+}
+.house-row-card.house-leader {
+  border-color: var(--gold-accent);
+  background: linear-gradient(90deg, #FFFFFF 70%, var(--gold-soft) 100%);
+  box-shadow: 0 8px 24px -4px rgba(244, 180, 26, 0.25);
+}
+.house-rank-num {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--navy-primary);
+  width: 40px;
+  text-align: center;
+}
+.house-crest-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+.gold-house { background: var(--gold-soft); border: 2px solid var(--gold-accent); }
+.red-house { background: var(--crimson-soft); border: 2px solid var(--crimson-accent); }
+.blue-house { background: #E0F2FE; border: 2px solid #0284C7; }
+.green-house { background: #ECFDF5; border: 2px solid #059669; }
+
+.house-info-col {
+  flex: 1;
+  min-width: 0;
+}
+.house-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.house-name-row h4 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.house-standing-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: var(--navy-muted);
+  color: var(--navy-primary);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+}
+.house-leader .house-standing-tag {
+  background: var(--gold-accent);
+  color: var(--navy-darkest);
+}
+.house-motto-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.house-progress-track {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-surface-alt);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.house-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fill-gold { background: linear-gradient(90deg, var(--gold-accent), var(--gold-hover)); }
+.fill-red { background: linear-gradient(90deg, #F87171, var(--crimson-accent)); }
+.fill-blue { background: linear-gradient(90deg, #60A5FA, #1D4ED8); }
+.fill-green { background: linear-gradient(90deg, #34D399, #059669); }
+
+.house-points-box {
+  text-align: right;
+  min-width: 90px;
+}
+.points-val {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--navy-primary);
+  line-height: 1;
+}
+.house-points-box span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media (max-width: 680px) {
+  .house-row-card {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .house-info-col {
+    width: 100%;
+    order: 3;
+  }
+}
+
+.footer-developer-credit {
+  font-size: 0.82rem;
+  color: #94A3B8;
+  padding: 4px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(244, 180, 26, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer-developer-credit strong {
+  color: var(--gold-accent);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   Comprehensive Mobile Perfection Styles (Screen widths <= 600px)
+   ========================================================================== */
+@media (max-width: 600px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .section-container {
+    padding: 56px 0;
+  }
+
+  /* 1. Header & PillNav */
+  .pill-nav-wrapper {
+    top: 10px;
+    padding: 0 10px;
+  }
+  .pill-nav-container {
+    width: 100%;
+    height: 48px;
+    padding: 4px 10px;
+  }
+  .pill-logo-box {
+    width: 36px;
+    height: 36px;
+  }
+  .pill-mobile-dropdown {
+    left: 10px;
+    right: 10px;
+    top: calc(100% + 8px);
+    padding: 16px;
+  }
+
+  /* 2. Cinematic Hero Section */
+  .cinematic-hero-section {
+    padding-top: 90px;
+    padding-bottom: 50px;
+    min-height: auto;
+  }
+  .hero-meta-badge {
+    font-size: 0.72rem;
+    padding: 4px 12px;
+    margin-bottom: 16px;
+  }
+  .hero-glamour-title {
+    font-size: clamp(1.85rem, 7.8vw, 2.4rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero-description {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .hero-btn-row {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  .hero-btn-row .btn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+  .hero-trust-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 18px;
+  }
+  .campus-spotlight-card {
+    border-radius: var(--radius-lg);
+  }
+  .spotlight-image-wrap {
+    height: 220px;
+  }
+  .spotlight-footer {
+    padding: 16px 18px;
+  }
+  .spotlight-heading {
+    font-size: 1.05rem;
+  }
+
+  /* 3. Floating Quick Access Cards */
+  .floating-quick-access-wrap {
+    margin-top: -20px;
+  }
+  .floating-card-item {
+    padding: 22px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  /* 4. Counters Strip */
+  .milestone-counter-strip {
+    padding: 40px 0 20px;
+  }
+  .counter-box {
+    padding: 16px 18px;
+    gap: 16px;
+  }
+  .counter-ring-wrap {
+    width: 58px;
+    height: 58px;
+  }
+  .counter-val {
+    font-size: 1.25rem;
+  }
+
+  /* 5. Activity Board */
+  .glass-board-panel {
+    padding: 24px 18px;
+    border-radius: var(--radius-lg);
+  }
+  .board-main-title {
+    font-size: 1.35rem;
+  }
+  .live-notice-row {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .notice-calendar-chip {
+    min-width: 50px;
+    padding: 6px 8px;
+  }
+  .chip-day {
+    font-size: 1.05rem;
+  }
+  .live-ach-row {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+  .ach-media-thumb {
+    width: 54px;
+    height: 54px;
+  }
+
+  /* 6. Stage Explorer */
+  .stage-tab-btn {
+    padding: 9px 16px;
+    font-size: 0.82rem;
+    width: 100%;
+    justify-content: center;
+  }
+  .stage-display-card {
+    padding: 24px 18px;
+    border-radius: var(--radius-lg);
+  }
+
+  /* 7. Facilities Rich Grid */
+  .facility-rich-card {
+    border-radius: var(--radius-lg);
+  }
+  .facility-photo-box {
+    height: 190px;
+  }
+  .facility-info-body {
+    padding: 22px 18px;
+  }
+  .facility-info-body h3 {
+    font-size: 1.25rem;
+  }
+
+  /* 8. Hotspot Map on Mobile */
+  .campus-hotspot-interactive-box {
+    padding: 20px 14px;
+    border-radius: var(--radius-lg);
+  }
+  .hotspot-map-display {
+    height: 250px;
+    border-radius: var(--radius-md);
+  }
+  .map-hotspot-pin {
+    width: 38px;
+    height: 38px;
+  }
+  .pin-core-dot {
+    font-size: 0.95rem;
+  }
+  .hotspot-detail-card {
+    padding: 20px 16px;
+    min-height: auto;
+  }
+  .spot-detail-photo {
+    height: 160px;
+  }
+
+  /* 9. Forms & Contact */
+  .glass-form-card {
+    padding: 28px 18px;
+    border-radius: var(--radius-lg);
+  }
+  .map-embed-wrapper {
+    height: 220px;
+  }
+
+  /* 10. Sticky Widget on Mobile */
+  .floating-quick-widget {
+    bottom: 16px;
+    right: 16px;
+  }
+  .sticky-help-pill {
+    padding: 8px 14px;
+    font-size: 0.75rem;
+  }
+  .help-text {
+    display: inline-block;
+  }
+
+  /* 11. Intro Splash on Mobile */
+  .intro-title-english {
+    font-size: 1.45rem;
+    margin-bottom: 10px;
+  }
+  .intro-hindi-theme {
+    font-size: 1.35rem;
+  }
+  .intro-hindi-subtext {
+    font-size: 0.92rem;
+  }
+  .intro-emblem-wrap {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 18px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Opening Intro Splash Screen Animation -->
+  <div id="introSplash" class="intro-splash-screen">
+    <div class="intro-splash-backdrop"></div>
+    <div class="intro-splash-content">
+      <div class="intro-emblem-wrap">
+        <div class="intro-emblem-halo"></div>
+        <img src="img/logo.png" alt="First Step School Crest" class="intro-crest-logo" onerror="this.src='/img/logo.jpg'; this.onerror=null;">
+      </div>
+      <h2 class="intro-title-english">WELCOME TO FIRST STEP SCHOOL</h2>
+      <div class="intro-hindi-themerow">
+        <span class="intro-hindi-ornament">❖</span>
+        <span class="intro-hindi-theme">विद्या प्रथमो चरण:</span>
+        <span class="intro-hindi-ornament">❖</span>
+      </div>
+      <p class="intro-hindi-subtext">ज्ञान ही सफलता एवं चरित्र का प्रथम सोपान है</p>
+      <div class="intro-progress-bar-wrap">
+        <div class="intro-progress-bar" id="introProgressBar"></div>
+      </div>
+    </div>
+    <button class="intro-skip-btn" id="introSkipBtn">Skip Intro →</button>
+  </div>
+
+
+
+  <!-- Top Announcement Bar (DPS / Modern School Live Ticker) -->
+  <aside class="top-announcement-bar">
+    <div class="wrap top-ticker-inner">
+      <div class="ticker-badge">
+        <span class="pulse-indicator"></span>
+        <span>ADMISSIONS 2026–27</span>
+      </div>
+      <div class="ticker-scroll-track">
+        <div class="ticker-text" id="topTickerNotice">
+          Enquiries Open for Nursery through Class XII (CBSE Affiliated) • Robotics & AI Lab Active • Campus Tour Available Mon–Fri 9:00 AM – 12:30 PM (Call: 07162-244732)
+        </div>
+      </div>
+      <div class="ticker-quick-actions hide-mobile">
+        <a href="tel:07162244732" class="top-action-pill">📞 07162-244732</a>
+        <a href="#admin" data-nav="admin" class="top-action-link">Staff Login</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Floating PillNav (Glassmorphic Dribbble Capsule) -->
+  <header class="pill-nav-fixed-wrap" id="pillNavFixedWrap">
+    <nav class="pill-nav-bar" id="pillNavBar" aria-label="Primary Navigation">
+      
+      <!-- Authentic Logo Badge Frame (Left) -->
+      <a href="#home" class="pill-logo-link" data-nav="home" id="pillLogoLink" aria-label="First Step Senior Secondary School Home">
+        <div class="pill-logo-frame">
+          <img src="img/logo.png" alt="First Step School Crest" class="pill-logo-img" id="pillLogoImg" onerror="if(!this.dataset.t1){this.dataset.t1=1;this.src='public/img/logo.png';}else if(!this.dataset.t2){this.dataset.t2=1;this.src='img/logo.jpg';}else if(!this.dataset.t3){this.dataset.t3=1;this.src='public/img/logo.jpg';}">
+        </div>
+        <div class="pill-brand-text hide-tablet">
+          <strong class="pill-school-name">First Step</strong>
+          <span class="pill-school-loc">Chhindwara</span>
+        </div>
+      </a>
+
+      <!-- Heading Selection Pills (Center) -->
+      <div class="pill-nav-links-wrap" id="pillLinksWrap">
+        <ul class="pill-nav-list" role="menubar">
+          <li role="none"><a href="#home" class="pill-nav-item active" data-nav="home" role="menuitem">Home</a></li>
+          <li role="none"><a href="#about" class="pill-nav-item" data-nav="about" role="menuitem">About</a></li>
+          <li role="none"><a href="#academics" class="pill-nav-item" data-nav="academics" role="menuitem">Academics</a></li>
+          <li role="none"><a href="#facilities" class="pill-nav-item" data-nav="facilities" role="menuitem">Campus</a></li>
+          <li role="none"><a href="#achievements" class="pill-nav-item" data-nav="achievements" role="menuitem">Honors</a></li>
+          <li role="none"><a href="#gallery" class="pill-nav-item" data-nav="gallery" role="menuitem">Gallery</a></li>
+          <li role="none"><a href="#contact" class="pill-nav-item" data-nav="contact" role="menuitem">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Right Header Actions -->
+      <div class="pill-cta-wrap hide-mobile">
+        <a href="#admissions" data-nav="admissions" class="pill-action-btn">
+          <span>Apply Now</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="pill-hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+        <svg class="icon-open" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+    </nav>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="pill-mobile-drawer" id="mobileDropdown">
+      <ul class="pill-mobile-links">
+        <li><a href="#home" data-nav="home" class="pill-mobile-link active">Home</a></li>
+        <li><a href="#about" data-nav="about" class="pill-mobile-link">About Us</a></li>
+        <li><a href="#academics" data-nav="academics" class="pill-mobile-link">Academics</a></li>
+        <li><a href="#facilities" data-nav="facilities" class="pill-mobile-link">Campus & Facilities</a></li>
+        <li><a href="#achievements" data-nav="achievements" class="pill-mobile-link">Hall of Fame</a></li>
+        <li><a href="#gallery" data-nav="gallery" class="pill-mobile-link">Gallery</a></li>
+        <li><a href="#contact" data-nav="contact" class="pill-mobile-link">Contact Us</a></li>
+        <li><a href="#admin" data-nav="admin" class="pill-mobile-link pill-mobile-admin">Staff Portal</a></li>
+      </ul>
+      <div class="pill-mobile-footer">
+        <a href="#admissions" data-nav="admissions" class="btn btn-gold btn-block">Enquire for Admission 2026–27 →</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================================================================= -->
+    <!-- VIEW: HOME                                                        -->
+    <!-- ================================================================= -->
+    <div class="page active" id="page-home">
+
+      <!-- High-Energy Cinematic Hero Section with Animated Mesh & Dynamic Cards -->
+      <section class="cinematic-hero-section">
+        
+        <!-- Background Ambient Aurora Glows -->
+        <div class="aurora-glow-1"></div>
+        <div class="aurora-glow-2"></div>
+        
+        <!-- Hero Slides Background for dynamic images from Admin -->
+        <div class="hero-bg-slider" id="heroSlides">
+          <div class="hero-bg-slide active" style="background-image: url('img/building.jpg'), url('public/img/building.jpg');" data-i="0"></div>
+        </div>
+        <div class="hero-dark-scrim"></div>
+
+        <div class="wrap hero-main-grid">
+          
+          <!-- Hero Left: Typography & Slogan -->
+          <div class="hero-text-col">
+            
+            <div class="hero-meta-badge">
+              <span class="badge-ring-pulse"></span>
+              <span class="badge-sanskrit">विद्या प्रथमो चरण:</span>
+              <span class="badge-sep">•</span>
+              <span>Chhindwara, M.P. • Estd. 1992</span>
+            </div>
+
+            <h1 class="hero-glamour-title">
+              Nurturing Great Minds.<br>
+              <span class="glow-gold-text">Building Future Leaders.</span>
+            </h1>
+
+            <p class="hero-description">
+              A 34-year educational legacy blending rigorous CBSE academics, hands-on Robotics & AI laboratories, smart classrooms, and character-building from Nursery through Class 12.
+            </p>
+
+            <div class="hero-btn-row">
+              <a href="#admissions" data-nav="admissions" class="btn btn-gold btn-xl magnetic-btn">
+                <span>Start Admission Enquiry</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#facilities" data-nav="facilities" class="btn btn-glass btn-xl magnetic-btn">
+                <span>Explore Campus & Labs</span>
+              </a>
+            </div>
+
+            <!-- Trust Indicator Avatars -->
+            <div class="hero-trust-bar">
+              <div class="trust-icons-cluster">
+                <span class="avatar-tag bg-gold">CBSE</span>
+                <span class="avatar-tag bg-navy">STEM</span>
+                <span class="avatar-tag bg-red">AI</span>
+                <span class="avatar-tag bg-blue">1992</span>
+              </div>
+              <div class="trust-text">
+                <strong>CBSE Affiliated Senior Secondary School</strong>
+                <span>Recognized Center of Academic & Olympiad Excellence</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Right: Real School Building Spotlight Card (Interactive 3D Tilt) -->
+          <div class="hero-visual-col">
+            <div class="campus-spotlight-card tilt-card" id="campusSpotlightCard">
+              <div class="spotlight-image-wrap">
+                <img src="img/building.jpg" alt="First Step Senior Secondary School Building, Khapa Bhat Road, Dharam Tekri, Chhindwara" class="spotlight-img">
+                <div class="spotlight-badge">
+                  <span class="live-dot-green"></span>
+                  <span>Campus Snapshot</span>
+                </div>
+              </div>
+              <div class="spotlight-footer">
+                <div>
+                  <div class="spotlight-sub">Khapa Bhat Road, Dharam Tekri</div>
+                  <h4 class="spotlight-heading">First Step Campus Building</h4>
+                </div>
+                <div class="spotlight-stat-pill">
+                  <strong>34+</strong> Years
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Hero Slider Dots -->
+        <div class="hero-dots-controls" id="heroDots"></div>
+      </section>
+
+      <!-- Floating 4-Cards Quick Access Strip (Modeled after DPS Chhindwara) -->
+      <section class="floating-quick-access-wrap">
+        <div class="wrap">
+          <div class="floating-cards-grid">
+            
+            <a href="#academics" data-nav="academics" class="floating-card-item tilt-card scroll-reveal">
+              <div class="card-icon-halo gold-halo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+              </div>
+              <div class="card-body-info">
+                <h3>Academic Wings</h3>
+                <p>Nursery to Class XII with Science (PCM/PCB), Commerce & AI streams.</p>
+                <span class="card-action-link">Explore Curriculum →</span>
+              </div>
+            </a>
+
+            <a href="#facilities" data-nav="facilities" class="floating-card-item tilt-card scroll-reveal">
+              <div class="card-icon-halo blue-halo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H4v7l9 9 5-5-9-9z"/><circle cx="6.5" cy="6.5" r="1"/></svg>
+              </div>
+              <div class="card-body-info">
+                <h3>Robotics & Coding</h3>
+                <p>Practical computing, robotics hardware, and experimental science labs.</p>
+                <span class="card-action-link">Tour The Labs →</span>
+              </div>
+            </a>
+
+            <a href="#achievements" data-nav="achievements" class="floating-card-item tilt-card scroll-reveal">
+              <div class="card-icon-halo crimson-halo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/></svg>
+              </div>
+              <div class="card-body-info">
+                <h3>Hall of Fame</h3>
+                <p>Celebrating Olympiad triumphs, board toppers, and creative writing.</p>
+                <span class="card-action-link">View Laurels →</span>
+              </div>
+            </a>
+
+            <a href="#admissions" data-nav="admissions" class="floating-card-item tilt-card scroll-reveal">
+              <div class="card-icon-halo green-halo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <div class="card-body-info">
+                <h3>Admissions 2026</h3>
+                <p>Simple 4-step enrolment process with direct online enquiry.</p>
+                <span class="card-action-link">Enquire Online →</span>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Animated Milestone Numbers Counters -->
+      <section class="milestone-counter-strip">
+        <div class="wrap">
+          <div class="counters-grid">
+            
+            <div class="counter-box scroll-reveal">
+              <div class="counter-ring-wrap">
+                <svg class="ring-svg" viewBox="0 0 80 80">
+                  <circle class="ring-bg" cx="40" cy="40" r="34" />
+                  <circle class="ring-stroke" cx="40" cy="40" r="34" />
+                </svg>
+                <span class="counter-val" data-target="1992">0</span>
+              </div>
+              <div class="counter-label">
+                <strong>Year Established</strong>
+                <span>34+ Years of Educational Trust</span>
+              </div>
+            </div>
+
+            <div class="counter-box scroll-reveal">
+              <div class="counter-ring-wrap">
+                <svg class="ring-svg" viewBox="0 0 80 80">
+                  <circle class="ring-bg" cx="40" cy="40" r="34" />
+                  <circle class="ring-stroke" cx="40" cy="40" r="34" />
+                </svg>
+                <span class="counter-val" data-target="100" data-suffix="%">0</span>
+              </div>
+              <div class="counter-label">
+                <strong>Board Pass Rate</strong>
+                <span>Consistent CBSE Excellence</span>
+              </div>
+            </div>
+
+            <div class="counter-box scroll-reveal">
+              <div class="counter-ring-wrap">
+                <svg class="ring-svg" viewBox="0 0 80 80">
+                  <circle class="ring-bg" cx="40" cy="40" r="34" />
+                  <circle class="ring-stroke" cx="40" cy="40" r="34" />
+                </svg>
+                <span class="counter-val" data-target="25" data-prefix="1:">0</span>
+              </div>
+              <div class="counter-label">
+                <strong>Teacher-Student Ratio</strong>
+                <span>Individualized Attention & Care</span>
+              </div>
+            </div>
+
+            <div class="counter-box scroll-reveal">
+              <div class="counter-ring-wrap">
+                <svg class="ring-svg" viewBox="0 0 80 80">
+                  <circle class="ring-bg" cx="40" cy="40" r="34" />
+                  <circle class="ring-stroke" cx="40" cy="40" r="34" />
+                </svg>
+                <span class="counter-val" data-target="14" data-suffix="+">0</span>
+              </div>
+              <div class="counter-label">
+                <strong>Grades Taught</strong>
+                <span>Nursery through Senior Secondary</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Split Board: Dynamic Notice Board & Student Spotlight -->
+      <section class="section-container">
+        <div class="wrap">
+          <div class="split-activity-board">
+            
+            <!-- Left Board: Circulars & Notices -->
+            <div class="glass-board-panel scroll-reveal">
+              <div class="board-top-header">
+                <div>
+                  <span class="kicker-tag">Official Feed</span>
+                  <h2 class="board-main-title">Notice Board & Circulars</h2>
+                </div>
+                <div class="board-status-badge">
+                  <span class="pulse-dot-red"></span> Live Updates
+                </div>
+              </div>
+
+              <!-- Notice List Container populated via API -->
+              <div class="notices-scroll-box" id="noticeList">
+                <div class="loading-shimmer-card"></div>
+                <div class="loading-shimmer-card"></div>
+              </div>
+            </div>
+
+            <!-- Right Board: Student Hall of Fame Teaser -->
+            <div class="glass-board-panel scroll-reveal">
+              <div class="board-top-header">
+                <div>
+                  <span class="kicker-tag">Student Spotlight</span>
+                  <h2 class="board-main-title">Hall of Fame</h2>
+                </div>
+                <a href="#achievements" data-nav="achievements" class="view-all-pill">View All Laurels →</a>
+              </div>
+
+              <!-- Achievements preview populated via API -->
+              <div class="achievements-scroll-box" id="homeAchievements">
+                <div class="loading-shimmer-card"></div>
+                <div class="loading-shimmer-card"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive NEP 2020 Stage Explorer -->
+      <section class="section-container bg-subtle">
+        <div class="wrap">
+          <div class="section-lead-center">
+            <span class="kicker-tag">Curriculum Continuum</span>
+            <h2 class="grand-section-title">The Academic Journey at First Step</h2>
+            <p class="grand-section-sub">A progressive, student-centric CBSE curriculum aligned with national pedagogical standards.</p>
+          </div>
+
+          <!-- Stage Switcher Tabs -->
+          <div class="stage-nav-tabs" id="stageTabs" role="tablist">
+            <button class="stage-tab-btn active" data-stage="foundational" role="tab" aria-selected="true">
+              <span class="tab-num">01</span>
+              <span>Foundational (Nursery–UKG)</span>
+            </button>
+            <button class="stage-tab-btn" data-stage="preparatory" role="tab" aria-selected="false">
+              <span class="tab-num">02</span>
+              <span>Preparatory (Classes 1–5)</span>
+            </button>
+            <button class="stage-tab-btn" data-stage="middle" role="tab" aria-selected="false">
+              <span class="tab-num">03</span>
+              <span>Middle (Classes 6–8)</span>
+            </button>
+            <button class="stage-tab-btn" data-stage="senior" role="tab" aria-selected="false">
+              <span class="tab-num">04</span>
+              <span>Secondary & Senior (9–12)</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Stage Panels -->
+          <div class="stage-display-card" id="stageDisplayCard">
+            <!-- Populated via JavaScript on click -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Dribbble-Grade Bento Grid: Campus Life & Infrastructure -->
+      <section class="section-container">
+        <div class="wrap">
+          <div class="section-lead-center">
+            <span class="kicker-tag">Campus Life & Spaces</span>
+            <h2 class="grand-section-title">World-Class Facilities for Curious Minds</h2>
+            <p class="grand-section-sub">Designed to inspire innovation, athletics, literary pursuits, and artistic expression.</p>
+          </div>
+
+          <!-- Bento Grid Layout -->
+          <div class="bento-grid">
+            
+            <!-- Bento Hero Item: Robotics & AI -->
+            <div class="bento-tile scroll-reveal bento-tile-featured">
+              <div class="bento-content">
+                <span class="bento-tag">Flagship Lab</span>
+                <h3>Robotics, STEM & Coding Innovation Hub</h3>
+                <p>Equipped with microcontrollers, sensor kits, and practical Python & AI programming stations. Students transition from visual coding in primary years to real-world hardware integration.</p>
+                <div class="bento-pills">
+                  <span>Python & AI</span>
+                  <span>Robotics Hardware</span>
+                  <span>Sensors & IoT</span>
+                  <span>Logic Building</span>
+                </div>
+              </div>
+              <div class="bento-halo-art">🤖</div>
+            </div>
+
+            <!-- Bento Item: Smart Classrooms -->
+            <div class="bento-tile scroll-reveal">
+              <div class="bento-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+              <h3>Smart Classrooms</h3>
+              <p>High-resolution interactive digital boards transforming abstract theories into vivid audiovisual learning.</p>
+            </div>
+
+            <!-- Bento Item: Sports & Ground -->
+            <div class="bento-tile scroll-reveal">
+              <div class="bento-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M4 21v-1a8 8 0 0116 0v1"/></svg></div>
+              <h3>Athletics & Sports Complex</h3>
+              <p>Expansive open grounds for athletics, football, cricket, yoga, and physical education under experienced coaches.</p>
+            </div>
+
+            <!-- Bento Item: Composite Science Labs -->
+            <div class="bento-tile scroll-reveal">
+              <div class="bento-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3v18M15 3v18M3 9h6M15 9h6M3 15h6M15 15h6"/></svg></div>
+              <h3>Science Laboratories</h3>
+              <p>Practical stations for Physics, Chemistry, and Biology that adhere to CBSE experimental standards.</p>
+            </div>
+
+            <!-- Bento Item: Library -->
+            <div class="bento-tile scroll-reveal">
+              <div class="bento-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+              <h3>Quiet Literary Library</h3>
+              <p>A serene reading hall with thousands of fiction, non-fiction, encyclopedias, and academic journals.</p>
+            </div>
+
+            <!-- Bento Item: Safety & Transport -->
+            <div class="bento-tile scroll-reveal">
+              <div class="bento-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-7h14l2 7"/><rect x="3" y="13" width="18" height="6" rx="1"/><circle cx="7" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></svg></div>
+              <h3>City Transport & CCTV Safety</h3>
+              <p>Vetted bus routes across Chhindwara, complete with 24/7 CCTV surveillance and an on-site infirmary.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Admissions Banner Callout (Grand Shimmer) -->
+      <section class="grand-cta-banner">
+        <div class="wrap grand-cta-inner">
+          <div class="cta-callout-text">
+            <span class="cta-kicker">Admission Window 2026–27</span>
+            <h2>Take the Defining First Step for Your Child’s Future</h2>
+            <p>From Nursery to Class 12, discover an education where students are known by name, inspired to lead, and prepared for lifetime success.</p>
+          </div>
+          <div class="cta-callout-actions">
+            <a href="#admissions" data-nav="admissions" class="btn btn-gold btn-xl">Apply for Admission</a>
+            <a href="tel:07162244732" class="btn btn-glass btn-xl">Call 07162-244732</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: ABOUT                                                       -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-about">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">About First Step</span>
+          <h1 class="subpage-title">Rooted in Values, Inspiring Tomorrow</h1>
+          <p class="subpage-lead">A tradition of excellence spanning over three decades on Khapa Bhat Road, Dharam Tekri, Chhindwara.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap">
+          <div class="about-story-grid">
+            <div class="story-media-box">
+              <img src="img/building.jpg" alt="First Step School campus" class="story-img">
+              <div class="story-overlay-tag">
+                <strong>Est. 1992</strong>
+                <span>Chhindwara, M.P.</span>
+              </div>
+            </div>
+            <div class="story-text-box">
+              <span class="kicker-tag">Our Heritage</span>
+              <h2 class="content-title">From a Humble Beginning to a Senior Secondary Beacon</h2>
+              <p>First Step Senior Secondary School opened its doors in 1992 with an enduring vision: to deliver affordable, high-caliber, values-driven education that honors each child's innate potential.</p>
+              <p>Over the past 34 years, our campus has expanded into a full Nursery through Class XII CBSE institution. We keep our student-teacher ratios disciplined so that learners are mentored with patience, care, and individual attention.</p>
+              
+              <div class="motto-box-display">
+                <div class="motto-quote">"विद्या प्रथमो चरण:"</div>
+                <div class="motto-sub">"Knowledge is the first and most fundamental step toward self-discovery, character, and lifelong leadership."</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vision & Mission -->
+      <section class="section-container bg-subtle">
+        <div class="wrap dual-cards-grid">
+          <div class="feature-card-glow">
+            <div class="card-icon-halo gold-halo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <h3>Our Vision</h3>
+            <p>To cultivate an inclusive and inspiring learning ecosystem where each child discovers their unique talents, strives for academic excellence, and matures into an ethical, responsible citizen of India and the world.</p>
+          </div>
+          <div class="feature-card-glow">
+            <div class="card-icon-halo blue-halo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/></svg></div>
+            <h3>Our Mission</h3>
+            <p>To blend academic excellence with creative problem-solving, modern technological literacy, and moral integrity; ensuring every learner receives personal attention and resources to excel in board examinations and life.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Principal's Message -->
+      <section class="section-container">
+        <div class="wrap">
+          <div class="principal-spotlight-box">
+            <div class="principal-avatar-col">
+              <div class="principal-letter-avatar">P</div>
+            </div>
+            <div class="principal-quote-col">
+              <span class="kicker-tag">Leadership Perspective</span>
+              <h3>Message from the Principal</h3>
+              <blockquote>
+                "Every child who enters the portals of First Step brings distinctive curiosity, potential, and creative vitality. Since 1992, our solemn privilege has been to provide the patient mentorship, disciplined environment, and cutting-edge resources that empower those qualities to flourish."
+              </blockquote>
+              <div class="principal-credentials">
+                <strong>Principal</strong>
+                <span>First Step Senior Secondary School, Chhindwara</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+          <!-- Interactive Micro-Timeline: A Day in the Life at First Step -->
+      <section class="section-container bg-subtle">
+        <div class="wrap">
+          <div class="section-lead-center scroll-reveal">
+            <span class="kicker-tag">Campus Rhythm</span>
+            <h2 class="grand-section-title">A Day in the Life at First Step</h2>
+            <p class="grand-section-sub">Experience the daily blend of academic focus, creative inquiry, athletic training, and moral character that shapes each student.</p>
+          </div>
+
+          <div class="day-timeline-wrapper">
+            <div class="timeline-vertical-line"></div>
+
+            <div class="timeline-slot-item scroll-reveal">
+              <div class="slot-time-badge">08:30 AM</div>
+              <div class="slot-node-dot"></div>
+              <div class="slot-card-content">
+                <div class="slot-header">
+                  <span class="slot-category-tag">Community & Reflection</span>
+                  <h3>Morning Assembly & Sanskrit Recitation</h3>
+                </div>
+                <p>Gathering on the assembly grounds for universal prayer, patriotic anthems, student-led thought of the day, news briefing, and mindfulness exercises that set an inspiring tone for learning.</p>
+                <div class="slot-chips"><span>Assembly Ground</span><span>Student Speeches</span><span>National Pride</span></div>
+              </div>
+            </div>
+
+            <div class="timeline-slot-item scroll-reveal scroll-reveal-stagger-1">
+              <div class="slot-time-badge">09:15 AM</div>
+              <div class="slot-node-dot"></div>
+              <div class="slot-card-content">
+                <div class="slot-header">
+                  <span class="slot-category-tag">Core Academic Rigor</span>
+                  <h3>Interactive 4K Smart Board Lectures</h3>
+                </div>
+                <p>Deep-dive conceptual learning in Mathematics, Physics, Chemistry, Economics, and English utilizing interactive multi-touch displays that turn textbook theories into 3D visualizations.</p>
+                <div class="slot-chips"><span>Digital Panels</span><span>Conceptual Depth</span><span>Doubts Clarified</span></div>
+              </div>
+            </div>
+
+            <div class="timeline-slot-item scroll-reveal scroll-reveal-stagger-2">
+              <div class="slot-time-badge">11:15 AM</div>
+              <div class="slot-node-dot"></div>
+              <div class="slot-card-content">
+                <div class="slot-header">
+                  <span class="slot-category-tag">Innovation & Practice</span>
+                  <h3>Robotics, STEM & Science Lab Practicals</h3>
+                </div>
+                <p>Hands-on experimentation: students write Python code, assemble Arduino robotics circuits, and perform chemistry titrations and biology microscopic observations in dedicated lab bays.</p>
+                <div class="slot-chips"><span>Robotics Lab</span><span>Physics & Chem Stations</span><span>Python Coding</span></div>
+              </div>
+            </div>
+
+            <div class="timeline-slot-item scroll-reveal scroll-reveal-stagger-1">
+              <div class="slot-time-badge">01:00 PM</div>
+              <div class="slot-node-dot"></div>
+              <div class="slot-card-content">
+                <div class="slot-header">
+                  <span class="slot-category-tag">Physical Vitality</span>
+                  <h3>Sports Conditioning & Athletic Arena</h3>
+                </div>
+                <p>Physical fitness under trained instructors on our open turf: cricket coaching, football tactics, volleyball rallies, yoga postures, and track sprints to build resilience and teamwork.</p>
+                <div class="slot-chips"><span>Football Turf</span><span>Cricket Nets</span><span>Yoga & Fitness</span></div>
+              </div>
+            </div>
+
+            <div class="timeline-slot-item scroll-reveal scroll-reveal-stagger-2">
+              <div class="slot-time-badge">02:00 PM</div>
+              <div class="slot-node-dot"></div>
+              <div class="slot-card-content">
+                <div class="slot-header">
+                  <span class="slot-category-tag">Creative Expression</span>
+                  <h3>Literary, Art & Cultural Enrichment Clubs</h3>
+                </div>
+                <p>Concluding the academic day with creative writing, inter-house elocution and debate, classical and vocal music rehearsals, and art studio exhibitions before safe bus dispersal.</p>
+                <div class="slot-chips"><span>Debate Club</span><span>Art Studio</span><span>Library Reading</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: ACADEMICS                                                   -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-academics">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Academics</span>
+          <h1 class="subpage-title">Curriculum by Educational Stage</h1>
+          <p class="subpage-lead">A balanced pedagogical journey blending CBSE board rigor with creative inquiry and hands-on tech.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap vertical-stages-flow">
+          
+          <div class="stage-flow-card">
+            <div class="flow-marker">01</div>
+            <div class="flow-content">
+              <h3>Foundational Stage (Nursery, LKG & UKG)</h3>
+              <p>Sensory-rich play, phonics, fine motor development, storytelling, and conversational fluency in a secure, loving pre-primary environment.</p>
+              <div class="flow-tags"><span>Sensory Play</span><span>Early Phonics</span><span>Number Games</span><span>Storytelling</span></div>
+            </div>
+          </div>
+
+          <div class="stage-flow-card">
+            <div class="flow-marker">02</div>
+            <div class="flow-content">
+              <h3>Preparatory Stage (Classes 1 to 5)</h3>
+              <p>Foundations in English, Hindi, Mathematics, and Environmental Science through experiential projects, spelling bees, and creative clubs.</p>
+              <div class="flow-tags"><span>Reading Mastery</span><span>Mental Math</span><span>General Science</span><span>Arts & Craft</span></div>
+            </div>
+          </div>
+
+          <div class="stage-flow-card">
+            <div class="flow-marker">03</div>
+            <div class="flow-content">
+              <h3>Middle School (Classes 6 to 8)</h3>
+              <p>Structured science experiments, algebraic thinking, social sciences, computer science, and introductory robotics modules with smart classroom boards.</p>
+              <div class="flow-tags"><span>Science Labs</span><span>Python & Robotics</span><span>Social Sciences</span><span>Debate</span></div>
+            </div>
+          </div>
+
+          <div class="stage-flow-card">
+            <div class="flow-marker">04</div>
+            <div class="flow-content">
+              <h3>Secondary & Senior Secondary (Classes 9 to 12)</h3>
+              <p>Board exam excellence with rigorous stream specializations in Science (PCM / PCB), Commerce, and skill electives in Artificial Intelligence.</p>
+              <div class="flow-streams-box">
+                <div class="stream-badge"><strong>Science (PCM):</strong> Physics, Chemistry, Math, Artificial Intelligence</div>
+                <div class="stream-badge"><strong>Science (PCB):</strong> Physics, Chemistry, Biology, Physical Ed.</div>
+                <div class="stream-badge"><strong>Commerce:</strong> Accountancy, Business Studies, Economics</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: ADMISSIONS                                                  -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-admissions">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Admissions 2026–2027</span>
+          <h1 class="subpage-title">Enroll at First Step School</h1>
+          <p class="subpage-lead">A seamless, transparent admission process for prospective parents and students.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap admissions-interactive-grid">
+          
+          <!-- Stepper Roadmap Column -->
+          <div class="admissions-info-col">
+            <span class="kicker-tag">Step-by-Step Roadmap</span>
+            <h2 class="content-title">How to Apply</h2>
+            
+            <div class="admissions-stepper">
+              <div class="step-card">
+                <div class="step-circle">1</div>
+                <div>
+                  <h4>Submit Online Enquiry</h4>
+                  <p>Complete the form alongside or visit the school office on Khapa Bhat Road to register your interest.</p>
+                </div>
+              </div>
+
+              <div class="step-card">
+                <div class="step-circle">2</div>
+                <div>
+                  <h4>Campus Visit & Interaction</h4>
+                  <p>Meet our faculty counselors and take a guided tour of our smart classrooms, robotics lab, and grounds.</p>
+                </div>
+              </div>
+
+              <div class="step-card">
+                <div class="step-circle">3</div>
+                <div>
+                  <h4>Document Verification</h4>
+                  <p>Submit required records (Birth certificate, Transfer Certificate, Aadhaar card copies, and passport photos).</p>
+                </div>
+              </div>
+
+              <div class="step-card">
+                <div class="step-circle">4</div>
+                <div>
+                  <h4>Seat Confirmation</h4>
+                  <p>Complete formal enrolment and fee formalities to confirm your child's admission.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Documents Checklist Box -->
+            <div class="checklist-card">
+              <h4>Required Documents Checklist</h4>
+              <ul>
+                <li>Original Birth Certificate (Pre-Primary & Class 1)</li>
+                <li>Transfer Certificate (TC) from previous school (Class 2+)</li>
+                <li>Aadhaar Card copies of Student and Parents</li>
+                <li>Previous Class Academic Marksheet / Report Card</li>
+                <li>4 Recent Passport Size Photographs of Student</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Interactive Form Column -->
+          <div class="admissions-form-col">
+            <div class="glass-form-card">
+              <div class="form-header-bar">
+                <h3>Online Admission Enquiry</h3>
+                <p>Fill out the fields below and our admissions office will call you promptly.</p>
+              </div>
+
+              <!-- Animated Success Banner -->
+              <div class="success-alert-banner" id="admissionSuccess">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <div>
+                  <strong>Enquiry Received!</strong>
+                  <span>Thank you. Our school administration will reach out to you shortly.</span>
+                </div>
+              </div>
+
+              <form id="admissionForm" class="styled-glow-form">
+                  <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+                    <input id="ad_hp" type="text" name="bot_check_field" tabindex="-1" autocomplete="off">
+                  </div>
+                <div class="form-field-row">
+                  <div class="field-wrap">
+                    <label for="ad_student">Student's Full Name *</label>
+                    <input id="ad_student" type="text" placeholder="e.g. Aarav Sharma" required autocomplete="name">
+                  </div>
+                  <div class="field-wrap">
+                    <label for="ad_class">Class Applying For *</label>
+                    <select id="ad_class" required>
+                      <option value="">Select Grade</option>
+                      <option value="Nursery">Nursery</option>
+                      <option value="LKG">LKG</option>
+                      <option value="UKG">UKG</option>
+                      <option value="1">Class 1</option>
+                      <option value="2">Class 2</option>
+                      <option value="3">Class 3</option>
+                      <option value="4">Class 4</option>
+                      <option value="5">Class 5</option>
+                      <option value="6">Class 6</option>
+                      <option value="7">Class 7</option>
+                      <option value="8">Class 8</option>
+                      <option value="9">Class 9</option>
+                      <option value="10">Class 10</option>
+                      <option value="11">Class 11 (Science / Commerce)</option>
+                      <option value="12">Class 12</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-field-row">
+                  <div class="field-wrap">
+                    <label for="ad_parent">Parent / Guardian Name *</label>
+                    <input id="ad_parent" type="text" placeholder="e.g. Rajesh Sharma" required autocomplete="name">
+                  </div>
+                  <div class="field-wrap">
+                    <label for="ad_phone">Contact Phone Number *</label>
+                    <input id="ad_phone" type="tel" placeholder="10-digit mobile" required inputmode="tel" autocomplete="tel">
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label for="ad_email">Email Address (Optional)</label>
+                  <input id="ad_email" type="email" placeholder="name@example.com" autocomplete="email">
+                </div>
+
+                <div class="field-wrap">
+                  <label for="ad_msg">Specific Queries / Notes</label>
+                  <textarea id="ad_msg" rows="3" placeholder="Tell us about previous schooling, transport requirements, or questions..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-gold btn-block" id="adSubmitBtn">
+                  <span>Submit Admission Enquiry</span>
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: CAMPUS & FACILITIES                                         -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-facilities">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Campus Infrastructure</span>
+          <h1 class="subpage-title">Modern Facilities for Inspiring Growth</h1>
+          <p class="subpage-lead">Explore our purpose-built learning spaces equipped with digital tools, laboratories, athletic arenas, and creative studios.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap">
+          <div class="facilities-rich-grid">
+            
+            <!-- Facility 1: Smart Classrooms -->
+            <div class="facility-rich-card scroll-reveal">
+              <div class="facility-photo-box">
+                <img src="img/facility-smartclass.jpg" alt="Smart Interactive Classrooms" loading="lazy">
+                <span class="facility-type-badge">Digital Learning</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Smart Interactive Classrooms</h3>
+                <p>Every section features high-definition interactive digital panels with integrated audiovisual CBSE curriculum modules, making complex concepts intuitive, vivid, and memorable.</p>
+                <div class="facility-feature-tags">
+                  <span>4K Interactive Panels</span>
+                  <span>Audio-Visual Content</span>
+                  <span>Ergonomic Seating</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facility 2: Robotics & AI -->
+            <div class="facility-rich-card scroll-reveal scroll-reveal-stagger-1">
+              <div class="facility-photo-box">
+                <img src="img/facility-robotics.jpg" alt="Robotics & STEM Lab" loading="lazy">
+                <span class="facility-type-badge">STEM & Innovation</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Robotics, STEM & Coding Lab</h3>
+                <p>Equipped with microcontrollers, sensor kits, and practical Python & AI programming stations. Students transition from block-based logic in primary years to real-world hardware integration.</p>
+                <div class="facility-feature-tags">
+                  <span>Arduino & Sensors</span>
+                  <span>Python & AI</span>
+                  <span>Logic Building</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facility 3: Composite Science Labs -->
+            <div class="facility-rich-card scroll-reveal scroll-reveal-stagger-2">
+              <div class="facility-photo-box">
+                <img src="img/facility-science.jpg" alt="Composite Science Laboratories" loading="lazy">
+                <span class="facility-type-badge">Experimental Labs</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Composite Science Laboratories</h3>
+                <p>Fully equipped practical stations for Physics, Chemistry, and Biology adhering strictly to CBSE laboratory experimental standards and safety norms.</p>
+                <div class="facility-feature-tags">
+                  <span>Modern Glassware</span>
+                  <span>Chemical Safety</span>
+                  <span>Microscopic Optics</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facility 4: Library -->
+            <div class="facility-rich-card scroll-reveal scroll-reveal-stagger-3">
+              <div class="facility-photo-box">
+                <img src="img/facility-library.jpg" alt="Literary Library & Resource Center" loading="lazy">
+                <span class="facility-type-badge">Research & Reading</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Literary Library & Reading Hall</h3>
+                <p>A tranquil reading sanctum holding thousands of classic literary titles, encyclopedias, competitive exam prep books, and national daily periodicals.</p>
+                <div class="facility-feature-tags">
+                  <span>5,000+ Books</span>
+                  <span>Quiet Reading Hall</span>
+                  <span>Exam References</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facility 5: Sports Ground -->
+            <div class="facility-rich-card scroll-reveal">
+              <div class="facility-photo-box">
+                <img src="img/facility-sports.jpg" alt="Sports Complex & Athletics Ground" loading="lazy">
+                <span class="facility-type-badge">Physical Education</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Sports Complex & Athletics Ground</h3>
+                <p>Spacious open field providing facilities for cricket, football, volleyball, badminton, athletics, and morning yoga under the supervision of trained physical education instructors.</p>
+                <div class="facility-feature-tags">
+                  <span>Athletics Arena</span>
+                  <span>Cricket Nets</span>
+                  <span>Yoga & Fitness</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facility 6: Art & Culture Studio -->
+            <div class="facility-rich-card scroll-reveal scroll-reveal-stagger-1">
+              <div class="facility-photo-box">
+                <img src="img/facility-arts.jpg" alt="Art & Culture Studio" loading="lazy">
+                <span class="facility-type-badge">Creative Arts</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Art, Craft & Cultural Studio</h3>
+                <p>A creative space dedicated to painting, pottery, sculpture, instrumental music, drama, and cultural festival preparations to foster imagination and aesthetic appreciation.</p>
+                <div class="facility-feature-tags">
+                  <span>Fine Arts</span>
+                  <span>Musical Instruments</span>
+                  <span>Performing Stage</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facility 7: Transport Fleet -->
+            <div class="facility-rich-card scroll-reveal scroll-reveal-stagger-2">
+              <div class="facility-photo-box">
+                <img src="img/facility-transport.jpg" alt="Safe City-Wide Transport Fleet" loading="lazy">
+                <span class="facility-type-badge">Supervised Transit</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Safe City-Wide Transport Fleet</h3>
+                <p>Well-maintained buses operated by vetted drivers and female attendants covering all major Chhindwara urban and suburban routes with safety speed governors.</p>
+                <div class="facility-feature-tags">
+                  <span>GPS Tracking</span>
+                  <span>Vetted Drivers</span>
+                  <span>First-Aid Equipped</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Facility 8: Campus Safety & Medical -->
+            <div class="facility-rich-card scroll-reveal scroll-reveal-stagger-3">
+              <div class="facility-photo-box">
+                <img src="img/facility-safety.jpg" alt="Campus Safety & Infirmary" loading="lazy">
+                <span class="facility-type-badge">Security & Healthcare</span>
+              </div>
+              <div class="facility-info-body">
+                <h3>Campus Safety & Medical Infirmary</h3>
+                <p>Round-the-clock CCTV surveillance, perimeter security personnel, strict visitor registration protocols, and an on-campus first-aid infirmary for immediate care.</p>
+                <div class="facility-feature-tags">
+                  <span>24/7 CCTV</span>
+                  <span>First-Aid Infirmary</span>
+                  <span>Fire Safety Compliant</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+          <!-- Interactive Campus Hotspot Map Section -->
+      <section class="section-container bg-subtle">
+        <div class="wrap">
+          <div class="section-lead-center scroll-reveal">
+            <span class="kicker-tag">Interactive Campus Tour</span>
+            <h2 class="grand-section-title">Explore Campus Hotspots</h2>
+            <p class="grand-section-sub">Click on any glowing hotspot pin on our Khapa Bhat Road campus to inspect our specialized learning wings.</p>
+          </div>
+
+          <div class="campus-hotspot-interactive-box scroll-reveal">
+            <div class="hotspot-map-display">
+              <img src="img/building.jpg" alt="First Step Senior Secondary School campus building" class="hotspot-map-base-img">
+              <div class="hotspot-map-scrim"></div>
+
+              <button class="map-hotspot-pin active" style="top: 26%; left: 54%;" data-spot="robotics" aria-label="View Robotics & AI Lab">
+                <span class="pin-sonar-ring"></span>
+                <span class="pin-core-dot">🤖</span>
+                <span class="pin-hover-tooltip">Robotics & AI Lab</span>
+              </button>
+
+              <button class="map-hotspot-pin" style="top: 48%; left: 34%;" data-spot="classrooms" aria-label="View Smart Classrooms">
+                <span class="pin-sonar-ring"></span>
+                <span class="pin-core-dot">💻</span>
+                <span class="pin-hover-tooltip">Smart Classrooms</span>
+              </button>
+
+              <button class="map-hotspot-pin" style="top: 52%; left: 16%;" data-spot="science" aria-label="View Science Laboratories">
+                <span class="pin-sonar-ring"></span>
+                <span class="pin-core-dot">🔬</span>
+                <span class="pin-hover-tooltip">Science Labs</span>
+              </button>
+
+              <button class="map-hotspot-pin" style="top: 78%; left: 50%;" data-spot="sports" aria-label="View Sports Ground">
+                <span class="pin-sonar-ring"></span>
+                <span class="pin-core-dot">⚽</span>
+                <span class="pin-hover-tooltip">Sports Ground</span>
+              </button>
+
+              <button class="map-hotspot-pin" style="top: 46%; left: 80%;" data-spot="library" aria-label="View Literary Library">
+                <span class="pin-sonar-ring"></span>
+                <span class="pin-core-dot">📚</span>
+                <span class="pin-hover-tooltip">Library & Reading Hall</span>
+              </button>
+            </div>
+
+            <div class="hotspot-detail-card" id="hotspotDetailCard"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: ACHIEVEMENTS / HALL OF FAME                                 -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-achievements">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Honors & Laurels</span>
+          <h1 class="subpage-title">Hall of Fame & Achievements</h1>
+          <p class="subpage-lead">Celebrating the academic dedication, competitive Olympiads, and leadership triumphs of our students.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap">
+          <div class="achievements-cards-grid" id="achGrid">
+            <!-- Dynamically populated from SQLite via API -->
+          </div>
+        </div>
+      </section>
+    
+      <!-- Section 1: CBSE Board Toppers & Olympiad Wall of Fame -->
+      <section class="section-container" style="padding-top: 50px; padding-bottom: 50px;">
+        <div class="wrap">
+          <div class="section-lead-center scroll-reveal">
+            <span class="kicker-tag">Academic Honors</span>
+            <h2 class="grand-section-title">CBSE Board Toppers & Olympiad Laurels</h2>
+            <p class="grand-section-sub">Celebrating stellar academic records, 100% board results, and national competitive exam milestones.</p>
+          </div>
+
+          <div class="wall-filter-tabs scroll-reveal" id="topperFilterTabs">
+            <button class="topper-tab-btn active" data-filter="all">All Honorees</button>
+            <button class="topper-tab-btn" data-filter="class12">Class 12 Boards</button>
+            <button class="topper-tab-btn" data-filter="class10">Class 10 Boards</button>
+            <button class="topper-tab-btn" data-filter="olympiad">Olympiads</button>
+          </div>
+
+          <div class="toppers-wall-grid" id="toppersWallGrid">
+            
+            <div class="topper-honor-card scroll-reveal" data-category="olympiad">
+              <div class="topper-badge-strip gold-strip">1st Prize Winner</div>
+              <div class="topper-card-header">
+                <div class="topper-avatar-box">🏆</div>
+                <div>
+                  <span class="topper-stream-tag">International Commerce Olympiad</span>
+                  <h3>Ainesh Joel Hamilton</h3>
+                  <div class="topper-score-highlight">1st Rank • Class 11</div>
+                </div>
+              </div>
+              <p>Achieved 1st Prize in the International Commerce Olympiad (ICO), demonstrating outstanding conceptual mastery in Economics, Business Analysis, and Logical Reasoning.</p>
+            </div>
+
+            <div class="topper-honor-card scroll-reveal scroll-reveal-stagger-1" data-category="class12">
+              <div class="topper-badge-strip navy-strip">CBSE Science Topper</div>
+              <div class="topper-card-header">
+                <div class="topper-avatar-box">🌟</div>
+                <div>
+                  <span class="topper-stream-tag">Class 12 • Science (PCM/AI)</span>
+                  <h3>Priya Sharma</h3>
+                  <div class="topper-score-highlight">97.4% Aggregate</div>
+                </div>
+              </div>
+              <p>School topper in CBSE Class 12 Science stream with 99/100 in Mathematics and 98/100 in Physics, now pursuing higher engineering studies.</p>
+            </div>
+
+            <div class="topper-honor-card scroll-reveal scroll-reveal-stagger-2" data-category="class12">
+              <div class="topper-badge-strip gold-strip">CBSE Commerce Topper</div>
+              <div class="topper-card-header">
+                <div class="topper-avatar-box">📈</div>
+                <div>
+                  <span class="topper-stream-tag">Class 12 • Commerce Stream</span>
+                  <h3>Aditya Verma</h3>
+                  <div class="topper-score-highlight">96.8% Aggregate</div>
+                </div>
+              </div>
+              <p>Achieved distinction marks with 100/100 in Accountancy and 98/100 in Economics, setting a school record in the senior commercial stream.</p>
+            </div>
+
+            <div class="topper-honor-card scroll-reveal" data-category="class10">
+              <div class="topper-badge-strip crimson-strip">CBSE Class 10 Topper</div>
+              <div class="topper-card-header">
+                <div class="topper-avatar-box">🎓</div>
+                <div>
+                  <span class="topper-stream-tag">CBSE Class 10 Board</span>
+                  <h3>Ananya Deshmukh</h3>
+                  <div class="topper-score-highlight">98.2% Aggregate</div>
+                </div>
+              </div>
+              <p>Scored perfect 100 in Mathematics and Science, awarded the First Step Academic Gold Medal for overall scholastic excellence.</p>
+            </div>
+
+            <div class="topper-honor-card scroll-reveal scroll-reveal-stagger-1" data-category="olympiad">
+              <div class="topper-badge-strip blue-strip">District Gold Medal</div>
+              <div class="topper-card-header">
+                <div class="topper-avatar-box">🧮</div>
+                <div>
+                  <span class="topper-stream-tag">District Math Olympiad</span>
+                  <h3>Aarav Sharma</h3>
+                  <div class="topper-score-highlight">1st Place • Class 10</div>
+                </div>
+              </div>
+              <p>Secured 1st position across Chhindwara district in the competitive Mathematics Olympiad, demonstrating advanced analytical problem-solving.</p>
+            </div>
+
+            <div class="topper-honor-card scroll-reveal scroll-reveal-stagger-2" data-category="olympiad">
+              <div class="topper-badge-strip green-strip">National Literary Laureate</div>
+              <div class="topper-card-header">
+                <div class="topper-avatar-box">✍️</div>
+                <div>
+                  <span class="topper-stream-tag">Creative Writing Forum</span>
+                  <h3>Meera Patel</h3>
+                  <div class="topper-score-highlight">Published Author • Class 9</div>
+                </div>
+              </div>
+              <p>Her award-winning short story "The Secret Garden" was selected for publication in the state literary anthologies, praised for creative depth and maturity.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Student Innovation & Robotics Showcase -->
+      <section class="section-container bg-subtle">
+        <div class="wrap">
+          <div class="section-lead-center scroll-reveal">
+            <span class="kicker-tag">Student Innovation Hub</span>
+            <h2 class="grand-section-title">Robotics & Science Projects</h2>
+            <p class="grand-section-sub">Real-world hardware and software prototypes engineered by First Step students in our Innovation Lab.</p>
+          </div>
+
+          <div class="projects-showcase-grid">
+            
+            <div class="project-showcase-card scroll-reveal">
+              <div class="project-card-banner banner-rover">
+                <span class="proj-badge">Hardware & Robotics</span>
+                <div class="proj-icon-large">🤖</div>
+              </div>
+              <div class="project-card-body">
+                <h3>Autonomous Obstacle-Avoiding Rover</h3>
+                <p>Designed using Arduino Uno, ultrasonic distance sensors, and dual H-bridge motor drivers. Successfully maps floor obstacles and navigates complex mazes autonomously.</p>
+                <div class="project-tech-pills">
+                  <span>Arduino C++</span>
+                  <span>Ultrasonic Sonar</span>
+                  <span>Robotics Hardware</span>
+                </div>
+                <div class="project-creator-foot">
+                  <span>Built by: <strong>Class 11 STEM Team</strong></span>
+                  <span class="foot-year">2026</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-showcase-card scroll-reveal scroll-reveal-stagger-1">
+              <div class="project-card-banner banner-irrigation">
+                <span class="proj-badge">IoT & Sustainability</span>
+                <div class="proj-icon-large">🌱</div>
+              </div>
+              <div class="project-card-body">
+                <h3>Smart Soil Moisture IoT Irrigation</h3>
+                <p>Built in collaboration with the school Eco Club. Features capacitive soil hygrometers and automated relay pumps to optimize water conservation across campus plant nurseries.</p>
+                <div class="project-tech-pills">
+                  <span>Microcontroller</span>
+                  <span>IoT Sensors</span>
+                  <span>Eco Automation</span>
+                </div>
+                <div class="project-creator-foot">
+                  <span>Built by: <strong>Eco & Science Club</strong></span>
+                  <span class="foot-year">2026</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="project-showcase-card scroll-reveal scroll-reveal-stagger-2">
+              <div class="project-card-banner banner-python">
+                <span class="proj-badge">Software & Web</span>
+                <div class="proj-icon-large">💻</div>
+              </div>
+              <div class="project-card-body">
+                <h3>Python CBSE Learning & Quiz Engine</h3>
+                <p>An interactive educational portal featuring automated mock tests, instant scoring, and concept explanations for secondary Mathematics and Artificial Intelligence.</p>
+                <div class="project-tech-pills">
+                  <span>Python</span>
+                  <span>HTML/CSS</span>
+                  <span>SQLite</span>
+                </div>
+                <div class="project-creator-foot">
+                  <span>Built by: <strong>Student AI Developers</strong></span>
+                  <span class="foot-year">2026</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Inter-House Championship & Live Leaderboard -->
+      <section class="section-container">
+        <div class="wrap">
+          <div class="section-lead-center scroll-reveal">
+            <span class="kicker-tag">School Spirit & Camaraderie</span>
+            <h2 class="grand-section-title">Inter-House Championship 2026–27</h2>
+            <p class="grand-section-sub">Fostering healthy athletic grit, team loyalty, and cultural leadership across our four houses.</p>
+          </div>
+
+          <div class="house-leaderboard-container scroll-reveal">
+            
+            <div class="house-row-card house-leader">
+              <div class="house-rank-num">1</div>
+              <div class="house-crest-avatar gold-house">📖</div>
+              <div class="house-info-col">
+                <div class="house-name-row">
+                  <h4>Tagore House</h4>
+                  <span class="house-standing-tag">Current Leader</span>
+                </div>
+                <div class="house-motto-text">"Where the mind is without fear & the head is held high"</div>
+                <div class="house-progress-track">
+                  <div class="house-progress-fill fill-gold" style="width: 88%;"></div>
+                </div>
+              </div>
+              <div class="house-points-box">
+                <strong class="points-val">1,450</strong>
+                <span>Points</span>
+              </div>
+            </div>
+
+            <div class="house-row-card">
+              <div class="house-rank-num">2</div>
+              <div class="house-crest-avatar red-house">🔬</div>
+              <div class="house-info-col">
+                <div class="house-name-row">
+                  <h4>Raman House</h4>
+                  <span class="house-standing-tag">2nd Place</span>
+                </div>
+                <div class="house-motto-text">"Illuminating truth through scientific discovery & intellect"</div>
+                <div class="house-progress-track">
+                  <div class="house-progress-fill fill-red" style="width: 85%;"></div>
+                </div>
+              </div>
+              <div class="house-points-box">
+                <strong class="points-val">1,420</strong>
+                <span>Points</span>
+              </div>
+            </div>
+
+            <div class="house-row-card">
+              <div class="house-rank-num">3</div>
+              <div class="house-crest-avatar blue-house">☸️</div>
+              <div class="house-info-col">
+                <div class="house-name-row">
+                  <h4>Ashoka House</h4>
+                  <span class="house-standing-tag">3rd Place</span>
+                </div>
+                <div class="house-motto-text">"Righteous leadership, peace & indomitable courage"</div>
+                <div class="house-progress-track">
+                  <div class="house-progress-fill fill-blue" style="width: 82%;"></div>
+                </div>
+              </div>
+              <div class="house-points-box">
+                <strong class="points-val">1,385</strong>
+                <span>Points</span>
+              </div>
+            </div>
+
+            <div class="house-row-card">
+              <div class="house-rank-num">4</div>
+              <div class="house-crest-avatar green-house">⚔️</div>
+              <div class="house-info-col">
+                <div class="house-name-row">
+                  <h4>Shivaji House</h4>
+                  <span class="house-standing-tag">4th Place</span>
+                </div>
+                <div class="house-motto-text">"Fearless valor, strategy & patriotic honor"</div>
+                <div class="house-progress-track">
+                  <div class="house-progress-fill fill-green" style="width: 78%;"></div>
+                </div>
+              </div>
+              <div class="house-points-box">
+                <strong class="points-val">1,310</strong>
+                <span>Points</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: GALLERY                                                     -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-gallery">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Visual Chronicles</span>
+          <h1 class="subpage-title">Life at First Step School</h1>
+          <p class="subpage-lead">A window into our vibrant campus, cultural festivals, sports meets, and classroom milestones.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap">
+          
+          <!-- Category Filter Tabs -->
+          <div class="gallery-category-bar" id="galFilters">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Media Grid -->
+          <div class="gallery-media-matrix" id="galGrid">
+            <!-- Dynamically populated -->
+          </div>
+
+          <div class="empty-media-note" id="galEmpty" style="display:none;">
+            No media found in this category.
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: CONTACT                                                     -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-contact">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Reach Out</span>
+          <h1 class="subpage-title">Contact & Campus Location</h1>
+          <p class="subpage-lead">We welcome parents, alumni, and prospective families to connect with us in Chhindwara.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap contact-duo-grid">
+          
+          <!-- Contact Details -->
+          <div class="contact-details-box">
+            <span class="kicker-tag">Visit Our Campus</span>
+            <h2 class="content-title">Get in Touch</h2>
+            <p>Our administrative office is ready to assist you with admissions, fees, transfer certificates, or curriculum queries.</p>
+
+            <div class="contact-card-row">
+              <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div>
+                <strong>Campus Address</strong>
+                <span>Khapa Bhat Road, Dharam Tekri, Chhindwara, Madhya Pradesh 480001</span>
+              </div>
+            </div>
+
+            <div class="contact-card-row">
+              <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6A19.8 19.8 0 012.2 4.2 2 2 0 014.2 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 3a2 2 0 01-.4 2.1L8.1 10a16 16 0 006 6l1.2-1.4a2 2 0 012.1-.4c1 .4 2 .6 3 .7a2 2 0 011.7 2z"/></svg></div>
+              <div>
+                <strong>Phone Enquiries</strong>
+                <span><a href="tel:07162244732" class="gold-link">07162-244732</a></span>
+              </div>
+            </div>
+
+            <div class="contact-card-row">
+              <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+              <div>
+                <strong>Email Address</strong>
+                <span><a href="mailto:info@firststepsch.com" class="gold-link">info@firststepsch.com</a></span>
+              </div>
+            </div>
+
+            <div class="contact-card-row">
+              <div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <div>
+                <strong>Office Visiting Hours</strong>
+                <span>Monday to Friday: 9:00 AM – 12:30 PM (IST)</span>
+              </div>
+            </div>
+
+            <!-- Social Media Buttons -->
+            <div class="social-channels-strip">
+              <span>Follow our official social pages:</span>
+              <div class="social-links-flex">
+                <a href="https://www.facebook.com/p/First-Step-Senior-Secondary-School-100057278116687/" target="_blank" rel="noopener" class="social-btn-circle" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/first.step_chhindwara/" target="_blank" rel="noopener" class="social-btn-circle" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2c2.7 0 3 .01 4.1.06 1 .05 1.8.22 2.4.47.7.26 1.2.6 1.8 1.15.5.5.9 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.07.06 1.42.06 4.12s-.01 3.05-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 01-1.15 1.76c-.5.5-1.1.9-1.76 1.15-.64.25-1.37.42-2.43.47-1.07.05-1.42.06-4.12.06s-3.05-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 01-1.76-1.15 4.9 4.9 0 01-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.05 2 14.7 2 12s.01-3.05.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 015.44 2.53c.64-.25 1.37-.42 2.43-.47C8.95 2.01 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.2-8.4a1.17 1.17 0 100-2.34 1.17 1.17 0 000 2.34z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Embedded Map & Contact Form -->
+          <div class="contact-action-col">
+            <div class="map-embed-wrapper">
+              <iframe src="https://www.google.com/maps?q=First%20Step%20School%2C%20Khapa%20Bhat%20Road%2C%20Dharam%20Tekri%2C%20Chhindwara%2C%20Madhya%20Pradesh%20480001&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="First Step School Map Location"></iframe>
+            </div>
+
+            <div class="glass-form-card">
+              <h3>Send an Enquiry Message</h3>
+              <div class="success-alert-banner" id="contactSuccess">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <div>
+                  <strong>Message Sent!</strong>
+                  <span>Thank you for reaching out. We will get back to you shortly.</span>
+                </div>
+              </div>
+
+              <form id="contactForm" class="styled-glow-form">
+                  <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+                    <input id="c_hp" type="text" name="bot_check_field" tabindex="-1" autocomplete="off">
+                  </div>
+                <div class="form-field-row">
+                  <div class="field-wrap">
+                    <label for="c_name">Full Name *</label>
+                    <input id="c_name" type="text" placeholder="Your name" required autocomplete="name">
+                  </div>
+                  <div class="field-wrap">
+                    <label for="c_phone">Phone Number *</label>
+                    <input id="c_phone" type="tel" placeholder="Mobile number" required inputmode="tel" autocomplete="tel">
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label for="c_email">Email Address (Optional)</label>
+                  <input id="c_email" type="email" placeholder="name@example.com" autocomplete="email">
+                </div>
+
+                <div class="field-wrap">
+                  <label for="c_msg">Your Message *</label>
+                  <textarea id="c_msg" rows="4" placeholder="How can the school office assist you?" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-gold btn-block">Send Message</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: LEGAL & TERMS                                               -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-privacy">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Policy</span>
+          <h1 class="subpage-title">Privacy Policy</h1>
+          <p class="subpage-lead">Effective September 2026 • First Step Senior Secondary School, Chhindwara</p>
+        </div>
+      </div>
+      <section class="section-container">
+        <div class="wrap legal-document-box">
+          <h2>1. Overview</h2>
+          <p>First Step Senior Secondary School, Chhindwara respects your privacy. We collect personal details strictly through voluntarily submitted forms for admission inquiries and contact messages. We do not distribute or sell user contact data to any marketing entities.</p>
+          <h2>2. Data Usage</h2>
+          <p>Information submitted is stored in our secure database for staff reference to assist parents with enrollment and answer school inquiries.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="page" id="page-terms">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Terms</span>
+          <h1 class="subpage-title">Terms & Conditions</h1>
+          <p class="subpage-lead">First Step Senior Secondary School, Chhindwara</p>
+        </div>
+      </div>
+      <section class="section-container">
+        <div class="wrap legal-document-box">
+          <h2>1. Terms of Website Use</h2>
+          <p>This website is provided to share school circulars, academic details, and admissions information. By browsing or submitting forms, you agree to fair and authentic use.</p>
+          <h2>2. Admissions Clause</h2>
+          <p>Online enquiry submissions do not automatically guarantee seat confirmation. Formal enrollment requires physical verification of certificates and fee clearance.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- VIEW: ADMIN DASHBOARD                                             -->
+    <!-- ================================================================= -->
+    <div class="page" id="page-admin">
+      <div class="subpage-hero-banner">
+        <div class="wrap">
+          <span class="subpage-badge">Staff Console</span>
+          <h1 class="subpage-title">Administrative Dashboard</h1>
+          <p class="subpage-lead">Secure content management for announcements, hero slides, gallery media, and admission leads.</p>
+        </div>
+      </div>
+
+      <section class="section-container">
+        <div class="wrap">
+          
+          <!-- Login View -->
+          <div id="adminLoginView" class="admin-auth-box">
+            <div class="glass-login-card">
+              <div class="shield-badge-icon">
+                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3>Administrative Login</h3>
+              <p>Enter your authorized office credentials to manage website data.</p>
+              
+              <div class="status-msg err" id="loginError">Incorrect username or password.</div>
+
+              <form id="loginForm" class="styled-glow-form">
+                <div class="field-wrap">
+                  <label for="lg_user">Admin Username</label>
+                  <input id="lg_user" type="text" placeholder="Enter username" autocomplete="username" required>
+                </div>
+                <div class="field-wrap">
+                  <label for="lg_pass">Password</label>
+                  <input id="lg_pass" type="password" placeholder="Enter password" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn btn-gold btn-block">Log In to Console</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Logged In Admin Dashboard -->
+          <div id="adminAppView" class="admin-full-dashboard" style="display:none;">
+            <div class="dash-action-bar">
+              <div>
+                <span class="kicker-tag">Live System</span>
+                <h2>School Content Manager</h2>
+              </div>
+              <div class="dash-btn-group">
+                <a href="#home" data-nav="home" class="btn btn-glass btn-sm">Preview Site</a>
+                <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Log Out</button>
+              </div>
+            </div>
+
+            <!-- Admin Navigation Tabs -->
+            <div class="dash-tabs-row" id="adminTabs">
+              <button data-tab="notices" class="tab-chip active">Notices & Circulars</button>
+              <button data-tab="banner" class="tab-chip">Hero Banners</button>
+              <button data-tab="gallery" class="tab-chip">Gallery Media</button>
+              <button data-tab="achievements" class="tab-chip">Hall of Fame</button>
+              <button data-tab="admissions" class="tab-chip">Admissions Leads</button>
+              <button data-tab="messages" class="tab-chip">Contact Messages</button>
+            </div>
+
+            <!-- Panel: Notices -->
+            <div class="dash-pane active" data-panel="notices">
+              <div class="admin-editor-card">
+                <h4>Publish New Circular / Notice</h4>
+                <div class="status-msg" id="noticeStatus"></div>
+                <div class="field-wrap">
+                  <label for="noticeTitle">Notice Title</label>
+                  <input id="noticeTitle" placeholder="e.g. Annual Sports & Cultural Meet 2026">
+                </div>
+                <div class="field-wrap">
+                  <label for="noticeText">Details / Full Message</label>
+                  <textarea id="noticeText" rows="3" placeholder="Provide event details, class targets, or instructions..."></textarea>
+                </div>
+                <button class="btn btn-gold" id="noticeAddBtn">Publish Notice to Live Board</button>
+              </div>
+              <h4 class="section-sub-heading">Active Circulars</h4>
+              <div class="admin-entries-list" id="noticeAdminList"></div>
+            </div>
+
+            <!-- Panel: Banners -->
+            <div class="dash-pane" data-panel="banner">
+              <div class="admin-editor-card">
+                <h4>Upload Hero Slide Image</h4>
+                <div class="status-msg" id="bannerStatus"></div>
+                <div class="field-wrap">
+                  <label for="bannerFile">Select Image File</label>
+                  <input type="file" id="bannerFile" accept="image/*">
+                </div>
+                <div class="field-wrap">
+                  <label for="bannerCaption">Slide Caption (Optional)</label>
+                  <input id="bannerCaption" placeholder="e.g. Science Exhibition & Robotics Showcase">
+                </div>
+                <button class="btn btn-gold" id="bannerUploadBtn">Upload Banner Slide</button>
+              </div>
+              <h4 class="section-sub-heading">Current Hero Banners</h4>
+              <div class="admin-entries-list" id="bannerList"></div>
+            </div>
+
+            <!-- Panel: Gallery -->
+            <div class="dash-pane" data-panel="gallery">
+              <div class="admin-editor-card">
+                <h4>Add Campus Media (Image or Video)</h4>
+                <div class="status-msg" id="galStatus"></div>
+                <div class="form-field-row">
+                  <div class="field-wrap">
+                    <label for="galCategorySelect">Category</label>
+                    <select id="galCategorySelect">
+                      <option value="Campus">Campus Infrastructure</option>
+                      <option value="Events">School Events & Celebrations</option>
+                      <option value="Sports">Sports & Athletics</option>
+                      <option value="Activities">Classroom & STEM Labs</option>
+                      <option value="Achievements">Achievements & Honors</option>
+                    </select>
+                  </div>
+                  <div class="field-wrap">
+                    <label for="galCaption">Caption</label>
+                    <input id="galCaption" placeholder="Brief description of media...">
+                  </div>
+                </div>
+                <div class="field-wrap">
+                  <label for="galFile">Choose File (JPG, PNG, WebP or MP4 video)</label>
+                  <input type="file" id="galFile" accept="image/*,video/*">
+                </div>
+                <button class="btn btn-gold" id="galUploadBtn">Upload to Gallery</button>
+              </div>
+              <h4 class="section-sub-heading">Gallery Media</h4>
+              <div class="admin-entries-list" id="galAdminList"></div>
+            </div>
+
+            <!-- Panel: Achievements -->
+            <div class="dash-pane" data-panel="achievements">
+              <div class="admin-editor-card">
+                <h4>Record Student Achievement</h4>
+                <div class="status-msg" id="achStatus"></div>
+                <div class="form-field-row">
+                  <div class="field-wrap">
+                    <label for="achTitle">Achievement Title</label>
+                    <input id="achTitle" placeholder="e.g. State Science Olympiad, 1st Prize">
+                  </div>
+                  <div class="field-wrap">
+                    <label for="achMeta">Student Name / Class</label>
+                    <input id="achMeta" placeholder="e.g. Ainesh (Class 11)">
+                  </div>
+                </div>
+                <div class="field-wrap">
+                  <label for="achDesc">Summary</label>
+                  <textarea id="achDesc" rows="2" placeholder="Description of recognition..."></textarea>
+                </div>
+                <div class="field-wrap">
+                  <label for="achFile">Attach Photograph (Optional)</label>
+                  <input type="file" id="achFile" accept="image/*">
+                </div>
+                <button class="btn btn-gold" id="achUploadBtn">Save to Hall of Fame</button>
+              </div>
+              <h4 class="section-sub-heading">Published Achievements</h4>
+              <div class="admin-entries-list" id="achAdminList"></div>
+            </div>
+
+            <!-- Panel: Admissions -->
+            <div class="dash-pane" data-panel="admissions">
+              <h4 class="section-sub-heading">Received Admission Enquiries</h4>
+              <div class="admin-entries-list" id="admissionAdminList"></div>
+            </div>
+
+            <!-- Panel: Messages -->
+            <div class="dash-pane" data-panel="messages">
+              <h4 class="section-sub-heading">Inbound Contact Messages</h4>
+              <div class="admin-entries-list" id="messageAdminList"></div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Interactive Lightbox Modal -->
+  <div class="media-lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close Lightbox">&times;</button>
+    <div class="lightbox-viewport" id="lightboxInner"></div>
+  </div>
+
+  <!-- Floating Sticky Action Button (Bottom Right) -->
+  <aside class="floating-quick-widget">
+    <a href="tel:07162244732" class="sticky-help-pill" title="Call School Office">
+      <span class="phone-pulse-icon">📞</span>
+      <span class="help-text">Admissions Help: 07162-244732</span>
+    </a>
+  </aside>
+
+  <!-- Grand Institutional Footer -->
+  <footer class="grand-portal-footer">
+    <div class="wrap footer-grid-layout">
+      
+      <!-- Col 1: Crest & About -->
+      <div class="footer-summary-col">
+        <div class="footer-emblem-row">
+          <img src="img/logo.png" alt="First Step School Crest" class="footer-crest-img" onerror="this.src='/img/logo.jpg'; this.onerror=null;">
+          <div>
+            <div class="footer-sanskrit-tag">विद्या प्रथमो चरण:</div>
+            <div class="footer-brand-title">First Step Sr. Sec. School</div>
+          </div>
+        </div>
+        <p class="footer-desc">
+          Empowering the youth of Chhindwara since 1992 through academic excellence, character building, robotics innovation, and holistic child development.
+        </p>
+        <div class="footer-social-flex">
+          <a href="https://www.facebook.com/p/First-Step-Senior-Secondary-School-100057278116687/" target="_blank" rel="noopener" class="footer-social-circle" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/first.step_chhindwara/" target="_blank" rel="noopener" class="footer-social-circle" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2c2.7 0 3 .01 4.1.06 1 .05 1.8.22 2.4.47.7.26 1.2.6 1.8 1.15.5.5.9 1.1 1.15 1.76.25.64.42 1.37.47 2.43.05 1.07.06 1.42.06 4.12s-.01 3.05-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 01-1.15 1.76c-.5.5-1.1.9-1.76 1.15-.64.25-1.37.42-2.43.47-1.07.05-1.42.06-4.12.06s-3.05-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 01-1.76-1.15 4.9 4.9 0 01-1.15-1.76c-.25-.64-.42-1.37-.47-2.43C2.01 15.05 2 14.7 2 12s.01-3.05.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76A4.9 4.9 0 015.44 2.53c.64-.25 1.37-.42 2.43-.47C8.95 2.01 9.3 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.2-8.4a1.17 1.17 0 100-2.34 1.17 1.17 0 000 2.34z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 2: Navigation Links -->
+      <div class="footer-links-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#home" data-nav="home">Home</a></li>
+          <li><a href="#about" data-nav="about">About School</a></li>
+          <li><a href="#academics" data-nav="academics">Curriculum</a></li>
+          <li><a href="#facilities" data-nav="facilities">Campus & Labs</a></li>
+          <li><a href="#achievements" data-nav="achievements">Hall of Fame</a></li>
+          <li><a href="#gallery" data-nav="gallery">Gallery</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Academic Wings -->
+      <div class="footer-links-col">
+        <h4>Academic Wings</h4>
+        <ul>
+          <li><a href="#academics" data-nav="academics">Pre-Primary (Nursery–UKG)</a></li>
+          <li><a href="#academics" data-nav="academics">Primary School (Grades 1–5)</a></li>
+          <li><a href="#academics" data-nav="academics">Middle School (Grades 6–8)</a></li>
+          <li><a href="#academics" data-nav="academics">Secondary (Grades 9–10)</a></li>
+          <li><a href="#academics" data-nav="academics">Sr. Secondary (PCM, PCB, Comm)</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Campus Office -->
+      <div class="footer-links-col">
+        <h4>Campus Office</h4>
+        <div class="footer-contact-block">
+          <p><strong>Address:</strong> Khapa Bhat Road, Dharam Tekri, Chhindwara, M.P. 480001</p>
+          <p><strong>Phone:</strong> <a href="tel:07162244732">07162-244732</a></p>
+          <p><strong>Email:</strong> <a href="mailto:info@firststepsch.com">info@firststepsch.com</a></p>
+          <p><strong>Office Hours:</strong> Mon–Fri, 9:00 AM – 12:30 PM</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Legal Bar -->
+    <div class="footer-bottom-bar">
+      <div class="wrap footer-bottom-inner">
+        <div>&copy; <span id="currentYear"></span> First Step Senior Secondary School, Chhindwara. All rights reserved.</div>
+        <div class="footer-developer-credit">
+          Designed & Developed by <strong>Ainesh Joel Hamilton</strong>
+        </div>
+        <div class="footer-legal-links">
+          <a href="#privacy" data-nav="privacy">Privacy Policy</a>
+          <span>•</span>
+          <a href="#terms" data-nav="terms">Terms of Service</a>
+          <span>•</span>
+          <a href="#admin" data-nav="admin" class="staff-link">Staff Login</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js" onerror="if(!this.dataset.retried){this.dataset.retried=1; var s=document.createElement('script'); s.src='public/js/app.js'; document.body.appendChild(s);}" defer></script>
+</body>
+</html>
