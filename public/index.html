@@ -5426,6 +5426,11 @@ button, input, select, textarea {
   </footer>
 
   <script src="js/app.js" onerror="if(!this.dataset.retried){this.dataset.retried=1; var s=document.createElement('script'); s.src='public/js/app.js'; document.body.appendChild(s);}" defer></script>
+  <!-- Fixed Bottom-Left Staff Login Button -->
+  <a href="#admin" data-nav="admin" class="fixed-staff-login magnetic-btn" aria-label="Staff Login">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+    <span>Staff Login</span>
+  </a>
 </body>
 </html>
 
@@ -5554,3 +5559,45 @@ button, input, select, textarea {
 }</style>
 
 
+
+<style>
+/* ==========================================================================
+   Fixed Staff Login Button (Bottom Left)
+   ========================================================================== */
+.fixed-staff-login {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(7, 21, 38, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #a3b1c6;
+  padding: 10px 18px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.fixed-staff-login:hover {
+  background: var(--brand-red, #9c2b22);
+  border-color: var(--brand-red, #9c2b22);
+  color: #ffffff;
+}
+@media (max-width: 600px) {
+  .fixed-staff-login span {
+    display: none;
+  }
+  .fixed-staff-login {
+    padding: 12px;
+    bottom: 20px;
+    left: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
+}</style>
