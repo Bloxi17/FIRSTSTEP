@@ -3568,3 +3568,17 @@ button, input, select, textarea {
   left: 60%;
 }
 
+
+/* Bulletproof Mobile Drawer Overrides */
+.pill-mobile-drawer.open {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+  top: 70px !important;
+}
+.pill-hamburger-btn {
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+}

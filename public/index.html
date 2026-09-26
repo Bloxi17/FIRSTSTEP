@@ -3640,12 +3640,32 @@ button, input, select, textarea {
       </div>
 
       <!-- Mobile Hamburger Toggle -->
-      <button class="pill-hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false">
+      <button class="pill-hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false" onclick="window.forceToggleMenu(event)">
         <svg class="icon-open" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
         <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
 
-    </nav>
+        </nav>
+    <script>
+      window.forceToggleMenu = function(e) {
+        if(e) e.preventDefault();
+        var drawer = document.getElementById('mobileDropdown');
+        var btn = document.getElementById('mobileMenuBtn');
+        if(!drawer || !btn) return;
+        var isOpen = drawer.classList.contains('open');
+        if(isOpen) {
+          drawer.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.querySelector('.icon-open').style.display = 'block';
+          btn.querySelector('.icon-close').style.display = 'none';
+        } else {
+          drawer.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.querySelector('.icon-open').style.display = 'none';
+          btn.querySelector('.icon-close').style.display = 'block';
+        }
+      };
+    </script>
 
     <!-- Mobile Navigation Drawer -->
     <div class="pill-mobile-drawer" id="mobileDropdown">
@@ -5418,3 +5438,18 @@ button, input, select, textarea {
 }
 </style>
 
+
+<style>
+/* Bulletproof Mobile Drawer Overrides */
+.pill-mobile-drawer.open {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+  top: 70px !important;
+}
+.pill-hamburger-btn {
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+}</style>
