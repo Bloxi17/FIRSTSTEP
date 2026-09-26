@@ -1128,7 +1128,9 @@
 
   // Boot sequence
   document.addEventListener('DOMContentLoaded', function () {
-        initIntroSplash();
+    if (window._appInitialized) return;
+    window._appInitialized = true;
+    initIntroSplash();
     initPillNav();
     initCardTilts();
     initScrollReveals();
@@ -1146,6 +1148,8 @@
 
   // If DOM is already ready
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    if (!window._appInitialized) {
+      window._appInitialized = true;
         initIntroSplash();
     initPillNav();
     initCardTilts();
@@ -1155,9 +1159,7 @@
     initCounters();
     initStageExplorer();
     loadAllData(false).then(routeFromHash).catch(routeFromHash);
-  }
-
-})();
+  } } })();
 
   /* ==========================================================================
      New Scroll-Triggered Parallax Animation (GSAP)
@@ -1209,3 +1211,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initParallaxBackground, 500);
   });
+
+
+
+
