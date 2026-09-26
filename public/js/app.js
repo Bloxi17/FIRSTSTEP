@@ -944,3 +944,71 @@
 
 
 
+
+  /* ==========================================================================
+     Advanced Animations (Magnetic Buttons, Text Reveals, Counters)
+     ========================================================================== */
+  function initMagneticButtons() {
+    var magnets = document.querySelectorAll('.btn-gold, .btn-primary, .btn-outline, .pill-action-btn, .btn');
+    magnets.forEach(function (btn) {
+      btn.addEventListener('mousemove', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var x = e.clientX - rect.left - rect.width / 2;
+        var y = e.clientY - rect.top - rect.height / 2;
+        if(typeof gsap !== 'undefined') {
+          gsap.to(btn, {
+            duration: 0.3,
+            x: x * 0.4,
+            y: y * 0.4,
+            ease: 'power2.out'
+          });
+        }
+      });
+      btn.addEventListener('mouseleave', function () {
+        if(typeof gsap !== 'undefined') {
+          gsap.to(btn, {
+            duration: 0.5,
+            x: 0,
+            y: 0,
+            ease: 'elastic.out(1, 0.3)'
+          });
+        }
+      });
+    });
+  }
+
+  function initStaggeredTextReveals() {
+    if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    var headings = document.querySelectorAll('.hero-glamour-title, .section-header h2, .board-main-title');
+    headings.forEach(function (heading) {
+      if(heading.querySelector('.glow-gold-text')) return; // skip if complex html inside
+      var text = heading.innerText;
+      var words = text.split(' ');
+      heading.innerHTML = '';
+      words.forEach(function (w) {
+        var span = document.createElement('span');
+        span.innerText = w + ' ';
+        span.style.display = 'inline-block';
+        heading.appendChild(span);
+      });
+      gsap.from(heading.querySelectorAll('span'), {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: heading,
+          start: 'top 85%'
+        }
+      });
+    });
+  }
+
+  // Attach new animations
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      initMagneticButtons();
+      initStaggeredTextReveals();
+    }, 800);
+  });

@@ -3582,3 +3582,67 @@ button, input, select, textarea {
   pointer-events: auto !important;
   z-index: 99999 !important;
 }
+
+/* ==========================================================================
+   Curtain Reveal & Cinematic Hover FX
+   ========================================================================== */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999999;
+  background: linear-gradient(135deg, var(--brand-red, #9c2b22) 0%, #681710 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-accent, #c9962f);
+  font-family: var(--font-traditional, 'Cinzel'), serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+  pointer-events: none;
+}
+.page-curtain.slide-up {
+  transform: translateY(-100%);
+}
+.curtain-logo {
+  animation: emblem-pop 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Image Parallax Hovers */
+.spotlight-img, .bento-card img, .gallery-media-matrix img, .achievement-card img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.spotlight-image-wrap:hover .spotlight-img,
+.bento-card:hover img,
+.gallery-card:hover img,
+.achievement-card:hover img {
+  transform: scale(1.08) !important;
+}
+
+/* Infinite Scrolling Marquee */
+.infinite-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: var(--brand-red, #9c2b22);
+  color: #fff;
+  padding: 12px 0;
+  display: flex;
+  white-space: nowrap;
+}
+.infinite-marquee {
+  display: flex;
+  gap: 3rem;
+  animation: scroll-marquee 20s linear infinite;
+}
+.marquee-item {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+.marquee-item span { color: var(--gold-accent, #c9962f); }
+@keyframes scroll-marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
