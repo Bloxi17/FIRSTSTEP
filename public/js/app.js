@@ -1127,9 +1127,184 @@
   }
 
 
-  // Boot sequence
-  document.addEventListener('DOMContentLoaded', function () {
-        initIntroSplash();
+  /* ==========================================================================
+     3D Fluid Mesh Wave Animation (Subtle Gold, Navy & Crimson on White Background)
+     ========================================================================== */
+  function initFluidMeshWave() {
+    var canvas = document.getElementById('fluidMeshCanvas');
+    if (!canvas) return;
+
+    var ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      renderStaticWave();
+      return;
+    }
+
+    var width = 0;
+    var height = 0;
+    var dpr = 1;
+    var isMobile = false;
+    var animId = null;
+    var isRunning = true;
+    var gradGold = null;
+    var gradNavy = null;
+    var gradCrimson = null;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      isMobile = width < 768;
+
+      // Pre-compile smooth gradients on resize (zero allocation in loop for max mobile FPS)
+      gradGold = ctx.createLinearGradient(0, height * 0.1, width, height * 0.9);
+      gradGold.addColorStop(0, 'rgba(218, 165, 32, 0.08)');
+      gradGold.addColorStop(0.5, 'rgba(244, 180, 26, 0.05)');
+      gradGold.addColorStop(1, 'rgba(218, 165, 32, 0.01)');
+
+      gradNavy = ctx.createLinearGradient(0, height * 0.2, width, height * 0.85);
+      gradNavy.addColorStop(0, 'rgba(12, 35, 64, 0.06)');
+      gradNavy.addColorStop(0.5, 'rgba(16, 42, 77, 0.04)');
+      gradNavy.addColorStop(1, 'rgba(12, 35, 64, 0.01)');
+
+      gradCrimson = ctx.createLinearGradient(0, height * 0.3, width, height);
+      gradCrimson.addColorStop(0, 'rgba(196, 30, 58, 0.05)');
+      gradCrimson.addColorStop(0.6, 'rgba(156, 43, 34, 0.03)');
+      gradCrimson.addColorStop(1, 'rgba(196, 30, 58, 0.005)');
+    }
+
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 100);
+    }, { passive: true });
+
+    resize();
+
+    var time = 0;
+    var lastTimestamp = 0;
+
+    function drawWaveRibbon(baseY, amp, freq, speed, phase, breathAmp, style) {
+      var step = isMobile ? 32 : 18;
+      ctx.fillStyle = style;
+      ctx.beginPath();
+      ctx.moveTo(0, height);
+
+      var startY = baseY + Math.sin(time * speed + phase) * (amp + breathAmp);
+      ctx.lineTo(0, startY);
+
+      var prevX = 0;
+      var prevY = startY;
+
+      for (var x = step; x <= width + step; x += step) {
+        var currentY = baseY +
+          Math.sin(x * freq + time * speed + phase) * amp +
+          Math.cos(x * (freq * 0.6) - time * (speed * 0.7) + phase) * (amp * 0.5) +
+          Math.sin(time * 0.4) * breathAmp;
+
+        var midX = (prevX + x) / 2;
+        var midY = (prevY + currentY) / 2;
+        ctx.quadraticCurveTo(prevX, prevY, midX, midY);
+
+        prevX = x;
+        prevY = currentY;
+      }
+
+      ctx.lineTo(width, height);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function loop(timestamp) {
+      if (!isRunning) return;
+
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      var delta = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+
+      if (delta > 0.1) delta = 0.1;
+      time += delta * 1.2;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Living, breathing expansion factor
+      var breath = Math.sin(time * 0.6) * 12;
+
+      // Wave 1: Royal Navy (Deep base wave, slow and majestic)
+      drawWaveRibbon(
+        height * 0.45,
+        isMobile ? 35 : 55,
+        0.0022,
+        0.5,
+        0.0,
+        breath * 0.8,
+        gradNavy
+      );
+
+      // Wave 2: Warm Golden Amber (Mid-layer wave, gentle fluid flow)
+      drawWaveRibbon(
+        height * 0.58,
+        isMobile ? 30 : 48,
+        0.0031,
+        0.7,
+        2.1,
+        breath,
+        gradGold
+      );
+
+      // Wave 3: Crimson Accent (Front wave, lively ripple crest)
+      drawWaveRibbon(
+        height * 0.70,
+        isMobile ? 25 : 40,
+        0.0042,
+        0.9,
+        4.2,
+        breath * 0.6,
+        gradCrimson
+      );
+
+      animId = requestAnimationFrame(loop);
+    }
+
+    // Battery-saving visibility handling for mobile
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        isRunning = false;
+        if (animId) cancelAnimationFrame(animId);
+      } else {
+        if (!isRunning) {
+          isRunning = true;
+          lastTimestamp = 0;
+          animId = requestAnimationFrame(loop);
+        }
+      }
+    });
+
+    function renderStaticWave() {
+      resize();
+      ctx.clearRect(0, 0, width, height);
+      drawWaveRibbon(height * 0.5, 45, 0.0025, 0, 0, 0, gradNavy);
+      drawWaveRibbon(height * 0.6, 40, 0.0035, 0, 2, 0, gradGold);
+      drawWaveRibbon(height * 0.7, 30, 0.0045, 0, 4, 0, gradCrimson);
+    }
+
+    animId = requestAnimationFrame(loop);
+  }
+
+  // Boot sequence with double-init protection
+  var booted = false;
+  function bootApp() {
+    if (booted) return;
+    booted = true;
+    initIntroSplash();
     initPillNav();
     initCardTilts();
     initScrollReveals();
@@ -1137,25 +1312,18 @@
     initTopperFilters();
     initCounters();
     initStageExplorer();
+    initFluidMeshWave();
 
     loadAllData(false).then(function () {
       routeFromHash();
     }).catch(function () {
       routeFromHash();
     });
-  });
+  }
 
-  // If DOM is already ready
+  document.addEventListener('DOMContentLoaded', bootApp);
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        initIntroSplash();
-    initPillNav();
-    initCardTilts();
-    initScrollReveals();
-    initCampusHotspots();
-    initTopperFilters();
-    initCounters();
-    initStageExplorer();
-    loadAllData(false).then(routeFromHash).catch(routeFromHash);
+    bootApp();
   }
 
 })();

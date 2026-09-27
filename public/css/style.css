@@ -3526,3 +3526,30 @@ button, input, select, textarea {
     margin-bottom: 18px;
   }
 }
+
+/* ==========================================================================
+   Ambient 3D Fluid Mesh Wave Canvas
+   ========================================================================== */
+.fluid-mesh-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.95;
+}
+#main {
+  position: relative;
+  z-index: 1;
+}
+.cinematic-hero-section {
+  position: relative;
+  z-index: 1;
+}
+.bg-subtle {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

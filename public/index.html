@@ -3573,6 +3573,32 @@ button, input, select, textarea {
   }
 }
 
+/* ==========================================================================
+   Ambient 3D Fluid Mesh Wave Canvas
+   ========================================================================== */
+.fluid-mesh-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.95;
+}
+#main {
+  position: relative;
+  z-index: 1;
+}
+.cinematic-hero-section {
+  position: relative;
+  z-index: 1;
+}
+.bg-subtle {
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
   </style>
 </head>
 <body>
@@ -3640,6 +3666,9 @@ button, input, select, textarea {
 
 
 
+
+  <!-- Ambient 3D Fluid Mesh Wave Canvas (Subtle Gold, Navy & Crimson Ripples on White Background) -->
+  <canvas id="fluidMeshCanvas" class="fluid-mesh-canvas" aria-hidden="true"></canvas>
 
   <!-- Floating PillNav (Glassmorphic Dribbble Capsule) -->
   <header class="pill-nav-fixed-wrap" id="pillNavFixedWrap">
@@ -5405,7 +5434,7 @@ button, input, select, textarea {
     </div>
   </footer>
 
-  <script src="js/app.js?v=3.0" onerror="if(!this.dataset.retried){this.dataset.retried=1; var s=document.createElement('script'); s.src='public/js/app.js?v=3.0'; document.body.appendChild(s);}" defer></script>
+  <script src="js/app.js?v=3.1" onerror="if(!this.dataset.retried){this.dataset.retried=1; var s=document.createElement('script'); s.src='public/js/app.js?v=3.1'; document.body.appendChild(s);}" defer></script>
 </body>
 </html>
 
