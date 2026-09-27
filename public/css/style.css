@@ -3687,3 +3687,86 @@ button, input, select, textarea {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   }
 }
+
+/* ==========================================================================
+   2. 3D Holographic Tilt Cards (Apple TV Style)
+   ========================================================================== */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 800px;
+  position: relative;
+  overflow: hidden;
+}
+.tilt-card .card-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.25) 0%, transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: soft-light;
+}
+.tilt-card:hover .card-glare {
+  opacity: 1;
+}
+.tilt-card .card-body-info,
+.tilt-card .card-icon-halo,
+.tilt-card .bento-content {
+  transform: translateZ(30px);
+  transition: transform 0.3s ease;
+}
+
+/* ==========================================================================
+   3. 3D Curved Cylinder Gallery Carousel
+   ========================================================================== */
+.carousel-3d-wrap {
+  perspective: 1200px;
+  overflow: visible;
+  position: relative;
+  width: 100%;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-3d-track {
+  transform-style: preserve-3d;
+  position: relative;
+  width: 280px;
+  height: 280px;
+  transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.carousel-3d-item {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  backface-visibility: hidden;
+}
+.carousel-3d-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+@media (max-width: 600px) {
+  .carousel-3d-wrap { height: 220px; }
+  .carousel-3d-track, .carousel-3d-item { width: 200px; height: 200px; }
+}
+
+/* ==========================================================================
+   4. 3D Fluid Mesh Gradient Wave (Hero Background)
+   ========================================================================== */
+.fluid-mesh-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}

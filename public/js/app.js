@@ -1012,3 +1012,125 @@
       initStaggeredTextReveals();
     }, 800);
   });
+
+  /* ==========================================================================
+     3D Holographic Tilt Cards (Apple TV Style)
+     ========================================================================== */
+  function init3DTiltCards() {
+    var cards = document.querySelectorAll('.tilt-card');
+    cards.forEach(function(card) {
+      // Add glare overlay
+      var glare = document.createElement('div');
+      glare.className = 'card-glare';
+      card.appendChild(glare);
+
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var rotateX = (y - centerY) / centerY * -12;
+        var rotateY = (x - centerX) / centerX * 12;
+
+        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.03,1.03,1.03)';
+        card.style.transition = 'transform 0.1s ease';
+
+        // Move glare
+        glare.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, rgba(255,255,255,0.3) 0%, transparent 60%)';
+      });
+
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+        card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+        glare.style.background = '';
+      });
+    });
+  }
+
+  /* ==========================================================================
+     3D Fluid Mesh Gradient Wave Background
+     ========================================================================== */
+  function initFluidMeshWave() {
+    var hero = document.querySelector('.cinematic-hero-section');
+    if (!hero) return;
+
+    var canvas = document.createElement('canvas');
+    canvas.className = 'fluid-mesh-canvas';
+    hero.insertBefore(canvas, hero.firstChild);
+
+    var ctx = canvas.getContext('2d');
+    var w, h;
+
+    function resize() {
+      w = canvas.width = hero.offsetWidth;
+      h = canvas.height = hero.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var t = 0;
+    function draw() {
+      t += 0.008;
+      ctx.clearRect(0, 0, w, h);
+
+      // Wave 1 - Gold
+      ctx.beginPath();
+      ctx.moveTo(0, h * 0.6);
+      for (var x = 0; x <= w; x += 8) {
+        var y = h * 0.6 + Math.sin(x * 0.003 + t) * 40 + Math.sin(x * 0.007 + t * 1.5) * 20;
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      var grad1 = ctx.createLinearGradient(0, h * 0.5, 0, h);
+      grad1.addColorStop(0, 'rgba(201, 150, 47, 0.15)');
+      grad1.addColorStop(1, 'rgba(201, 150, 47, 0.02)');
+      ctx.fillStyle = grad1;
+      ctx.fill();
+
+      // Wave 2 - Deep Navy
+      ctx.beginPath();
+      ctx.moveTo(0, h * 0.7);
+      for (var x2 = 0; x2 <= w; x2 += 8) {
+        var y2 = h * 0.7 + Math.sin(x2 * 0.004 + t * 0.7) * 35 + Math.cos(x2 * 0.006 + t * 1.2) * 18;
+        ctx.lineTo(x2, y2);
+      }
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      var grad2 = ctx.createLinearGradient(0, h * 0.6, 0, h);
+      grad2.addColorStop(0, 'rgba(7, 21, 38, 0.12)');
+      grad2.addColorStop(1, 'rgba(7, 21, 38, 0.03)');
+      ctx.fillStyle = grad2;
+      ctx.fill();
+
+      // Wave 3 - Crimson subtle
+      ctx.beginPath();
+      ctx.moveTo(0, h * 0.8);
+      for (var x3 = 0; x3 <= w; x3 += 8) {
+        var y3 = h * 0.8 + Math.sin(x3 * 0.005 + t * 1.3) * 25 + Math.sin(x3 * 0.009 + t * 0.5) * 12;
+        ctx.lineTo(x3, y3);
+      }
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      var grad3 = ctx.createLinearGradient(0, h * 0.75, 0, h);
+      grad3.addColorStop(0, 'rgba(156, 43, 34, 0.08)');
+      grad3.addColorStop(1, 'rgba(156, 43, 34, 0.01)');
+      ctx.fillStyle = grad3;
+      ctx.fill();
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // Boot 3D Animations
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      init3DTiltCards();
+      initFluidMeshWave();
+    }, 1000);
+  });
