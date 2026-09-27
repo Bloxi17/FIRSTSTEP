@@ -1,5 +1,5 @@
 /**
- * First Step Senior Secondary School G«ˆ Production Frontend Application
+ * First Step Senior Secondary School ‚Äî Production Frontend Application
  * Integrated Components:
   * 2. PillNav: GSAP-Powered Floating Navigation with Rising Circle Effect & Logo Spin
  * 3. Interactive 3D Tilt Physics on Cards
@@ -191,7 +191,7 @@
      ========================================================================== */
   var stageData = {
     foundational: {
-      tag: 'Ages 3G«Ù8',
+      tag: 'Ages 3‚Äì8',
       title: 'Foundational Stage: Pre-Primary (Nursery, LKG, UKG)',
       desc: 'Play-way, joyful, activity-based discovery focusing on sensory motor skills, early phonics, vocabulary games, storytelling, and developing fine coordination in a secure, loving pre-primary wing.',
       features: [
@@ -200,7 +200,7 @@
         'Early Numbers, Shapes & Spatial Logic',
         'Safe, Nurturing & Attentive Classroom Care'
       ],
-      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:00 PM'
+      hours: 'Mon‚ÄìFri: 9:00 AM ‚Äì 12:00 PM'
     },
     preparatory: {
       tag: 'Classes 1 to 5',
@@ -212,7 +212,7 @@
         'Hands-on Environmental & Science Projects',
         'Introduction to Basic Computer Systems & Music'
       ],
-      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:30 PM'
+      hours: 'Mon‚ÄìFri: 9:00 AM ‚Äì 12:30 PM'
     },
     middle: {
       tag: 'Classes 6 to 8',
@@ -224,7 +224,7 @@
         'Parliamentary Debates & Elocution',
         'Inter-House Athletics & Structured Sports'
       ],
-      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:30 PM'
+      hours: 'Mon‚ÄìFri: 9:00 AM ‚Äì 12:30 PM'
     },
     senior: {
       tag: 'Classes 9 to 12',
@@ -236,7 +236,7 @@
         'Artificial Intelligence & Computer Science Electives',
         'Career Mentorship & College Entrance Readiness'
       ],
-      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:30 PM'
+      hours: 'Mon‚ÄìFri: 9:00 AM ‚Äì 12:30 PM'
     }
   };
 
@@ -257,7 +257,7 @@
         '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:14px;border-top:1px solid var(--border-line);padding-top:20px;">',
         data.features.map(function (f) {
           return '<div style="display:flex;align-items:center;gap:10px;font-weight:700;font-size:0.92rem;color:var(--navy-primary);">' +
-            '<span style="color:var(--gold-deep);font-size:1.1rem;">G£ˆ</span>' +
+            '<span style="color:var(--gold-deep);font-size:1.1rem;">‚úî</span>' +
             '<span>' + esc(f) + '</span>' +
             '</div>';
         }).join(''),
@@ -464,7 +464,7 @@
 
     if (tickerEl && list && list.length > 0) {
       var topNotice = list[0];
-      tickerEl.textContent = '=ÉÙÛ ' + topNotice.title + ' G«Û ' + (topNotice.text || 'Admissions open for Nursery to Class 12') + ' G«Û Office: 07162-244732';
+      tickerEl.textContent = 'üì¢ ' + topNotice.title + ' ‚Ä¢ ' + (topNotice.text || 'Admissions open for Nursery to Class 12') + ' ‚Ä¢ Office: 07162-244732';
     }
 
     if (!listWrap) return;
@@ -583,7 +583,7 @@
     gridWrap.innerHTML = items.map(function (g) {
       var isVideo = g.type === 'video';
       var media = isVideo
-        ? '<video src="' + esc(g.src) + '" muted playsinline></video><span class="media-play-pill">G˚¶</span>'
+        ? '<video src="' + esc(g.src) + '" muted playsinline></video><span class="media-play-pill">‚ñ∂</span>'
         : '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || '') + '" loading="lazy">';
 
       return '<div class="gallery-media-item" data-id="' + g.id + '">' +
@@ -871,7 +871,7 @@
     }
     wrap.innerHTML = state.gallery.map(function (g) {
       var thumb = g.type === 'video'
-        ? '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-accent);background:#0C2340;">G˚¶</div>'
+        ? '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-accent);background:#0C2340;">‚ñ∂</div>'
         : '<img class="thumb" src="' + esc(g.src) + '">';
 
       return '<div class="admin-entry-item">' +
@@ -917,7 +917,7 @@
     wrap.innerHTML = state.achievements.map(function (a) {
       var thumb = a.img
         ? '<img class="thumb" src="' + esc(a.img) + '">'
-        : '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-deep);background:var(--gold-soft);">=É≈Â</div>';
+        : '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-deep);background:var(--gold-soft);">üèÜ</div>';
 
       return '<div class="admin-entry-item">' +
         thumb +
@@ -966,7 +966,7 @@
         adWrap.innerHTML = admissions.map(function (item) {
           return '<div class="admin-entry-item">' +
             '<div class="entry-meta"><strong>' + esc(item.student) + ' (Class: ' + esc(item.class_applied || 'N/A') + ')</strong>' +
-            '<span>Parent: ' + esc(item.parent) + ' G«Û Phone: ' + esc(item.phone) + (item.email ? ' G«Û ' + esc(item.email) : '') + '</span>' +
+            '<span>Parent: ' + esc(item.parent) + ' ‚Ä¢ Phone: ' + esc(item.phone) + (item.email ? ' ‚Ä¢ ' + esc(item.email) : '') + '</span>' +
             '<p style="font-size:0.85rem;color:var(--text-body);margin-top:4px;">' + esc(item.message || 'No note') + '</p>' +
             '<span style="font-size:0.75rem;color:var(--text-muted);">' + esc(item.created_at) + '</span></div>' +
           '</div>';
@@ -982,7 +982,7 @@
         msgWrap.innerHTML = messages.map(function (m) {
           return '<div class="admin-entry-item">' +
             '<div class="entry-meta"><strong>' + esc(m.name) + ' (' + esc(m.phone) + ')</strong>' +
-            '<span>' + (m.email ? 'Email: ' + esc(m.email) + ' G«Û ' : '') + esc(m.message) + '</span>' +
+            '<span>' + (m.email ? 'Email: ' + esc(m.email) + ' ‚Ä¢ ' : '') + esc(m.message) + '</span>' +
             '<span style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:4px;">' + esc(m.created_at) + '</span></div>' +
           '</div>';
         }).join('');
@@ -1128,9 +1128,7 @@
 
   // Boot sequence
   document.addEventListener('DOMContentLoaded', function () {
-    if (window._appInitialized) return;
-    window._appInitialized = true;
-    initIntroSplash();
+        initIntroSplash();
     initPillNav();
     initCardTilts();
     initScrollReveals();
@@ -1148,8 +1146,6 @@
 
   // If DOM is already ready
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    if (!window._appInitialized) {
-      window._appInitialized = true;
         initIntroSplash();
     initPillNav();
     initCardTilts();
@@ -1159,228 +1155,6 @@
     initCounters();
     initStageExplorer();
     loadAllData(false).then(routeFromHash).catch(routeFromHash);
-  } } })();
-
-  /* ==========================================================================
-     New Scroll-Triggered Parallax Animation (GSAP)
-     ========================================================================== */
-  function initParallaxBackground() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    
-    gsap.to('.shape-1', {
-      y: 300,
-      x: 100,
-      rotation: 45,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.cinematic-hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      }
-    });
-
-    gsap.to('.shape-2', {
-      y: -250,
-      x: -150,
-      scale: 1.2,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.cinematic-hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1.5
-      }
-    });
-
-    gsap.to('.shape-3', {
-      y: 200,
-      x: -200,
-      rotation: -30,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.cinematic-hero-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 2
-      }
-    });
-  }
-  
-  // Call it on load
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(initParallaxBackground, 500);
-  });
-
-
-
-
-
-  /* ==========================================================================
-     Magnetic Buttons Physics
-     ========================================================================== */
-  function initMagneticButtons() {
-    var magnets = document.querySelectorAll('.btn-gold, .btn-primary, .btn-outline, .pill-action-btn, .btn');
-    magnets.forEach(function (btn) {
-      btn.addEventListener('mousemove', function (e) {
-        var rect = btn.getBoundingClientRect();
-        var x = e.clientX - rect.left - rect.width / 2;
-        var y = e.clientY - rect.top - rect.height / 2;
-        if (typeof gsap !== 'undefined') {
-          gsap.to(btn, {
-            duration: 0.3,
-            x: x * 0.4,
-            y: y * 0.4,
-            ease: 'power2.out'
-          });
-        }
-      });
-      btn.addEventListener('mouseleave', function () {
-        if (typeof gsap !== 'undefined') {
-          gsap.to(btn, {
-            duration: 0.5,
-            x: 0,
-            y: 0,
-            ease: 'elastic.out(1, 0.3)'
-          });
-        }
-      });
-    });
   }
 
-  /* ==========================================================================
-     Staggered Text Reveals
-     ========================================================================== */
-  function initStaggeredTextReveals() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    var headings = document.querySelectorAll('.hero-glamour-title, .section-header h2, .board-main-title');
-    headings.forEach(function (heading) {
-      if (heading.querySelector('.glow-gold-text')) return;
-      var text = heading.innerText;
-      var words = text.split(' ');
-      heading.innerHTML = '';
-      words.forEach(function (w) {
-        var span = document.createElement('span');
-        span.innerText = w + ' ';
-        span.style.display = 'inline-block';
-        heading.appendChild(span);
-      });
-      gsap.from(heading.querySelectorAll('span'), {
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: heading,
-          start: 'top 85%'
-        }
-      });
-    });
-  }
-
-  /* ==========================================================================
-     3D Holographic Tilt Cards (Apple TV Style)
-     ========================================================================== */
-  function init3DTiltCards() {
-    var cards = document.querySelectorAll('.tilt-card');
-    cards.forEach(function (card) {
-      if (card.querySelector('.card-glare')) return;
-      var glare = document.createElement('div');
-      glare.className = 'card-glare';
-      card.appendChild(glare);
-
-      card.addEventListener('mousemove', function (e) {
-        var rect = card.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var y = e.clientY - rect.top;
-        var centerX = rect.width / 2;
-        var centerY = rect.height / 2;
-        var rotateX = (y - centerY) / centerY * -10;
-        var rotateY = (x - centerX) / centerX * 10;
-
-        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02,1.02,1.02)';
-        card.style.transition = 'transform 0.1s ease';
-        glare.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, rgba(255,255,255,0.25) 0%, transparent 60%)';
-      });
-
-      card.addEventListener('mouseleave', function () {
-        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
-        card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
-        glare.style.background = '';
-      });
-    });
-  }
-
-  /* ==========================================================================
-     3D Fluid Mesh Gradient Wave Background
-     ========================================================================== */
-  function initFluidMeshWave() {
-    var hero = document.querySelector('.cinematic-hero-section');
-    if (!hero || hero.querySelector('.fluid-mesh-canvas')) return;
-
-    var canvas = document.createElement('canvas');
-    canvas.className = 'fluid-mesh-canvas';
-    hero.insertBefore(canvas, hero.firstChild);
-
-    var ctx = canvas.getContext('2d');
-    var w, h;
-
-    function resize() {
-      w = canvas.width = hero.offsetWidth;
-      h = canvas.height = hero.offsetHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    var t = 0;
-    function draw() {
-      t += 0.008;
-      ctx.clearRect(0, 0, w, h);
-
-      // Wave 1 - Gold
-      ctx.beginPath();
-      ctx.moveTo(0, h * 0.6);
-      for (var x = 0; x <= w; x += 8) {
-        var y = h * 0.6 + Math.sin(x * 0.003 + t) * 40 + Math.sin(x * 0.007 + t * 1.5) * 20;
-        ctx.lineTo(x, y);
-      }
-      ctx.lineTo(w, h);
-      ctx.lineTo(0, h);
-      ctx.closePath();
-      var grad1 = ctx.createLinearGradient(0, h * 0.5, 0, h);
-      grad1.addColorStop(0, 'rgba(201, 150, 47, 0.15)');
-      grad1.addColorStop(1, 'rgba(201, 150, 47, 0.02)');
-      ctx.fillStyle = grad1;
-      ctx.fill();
-
-      // Wave 2 - Deep Navy
-      ctx.beginPath();
-      ctx.moveTo(0, h * 0.7);
-      for (var x2 = 0; x2 <= w; x2 += 8) {
-        var y2 = h * 0.7 + Math.sin(x2 * 0.004 + t * 0.7) * 35 + Math.cos(x2 * 0.006 + t * 1.2) * 18;
-        ctx.lineTo(x2, y2);
-      }
-      ctx.lineTo(w, h);
-      ctx.lineTo(0, h);
-      ctx.closePath();
-      var grad2 = ctx.createLinearGradient(0, h * 0.6, 0, h);
-      grad2.addColorStop(0, 'rgba(7, 21, 38, 0.12)');
-      grad2.addColorStop(1, 'rgba(7, 21, 38, 0.03)');
-      ctx.fillStyle = grad2;
-      ctx.fill();
-
-      requestAnimationFrame(draw);
-    }
-    draw();
-  }
-
-  // Hook new animations into window load safely
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      initMagneticButtons();
-      initStaggeredTextReveals();
-      init3DTiltCards();
-      initFluidMeshWave();
-    }, 600);
-  });
+})();

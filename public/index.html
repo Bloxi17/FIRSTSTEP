@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>First Step Senior Secondary School | Chhindwara, M.P. (Estd. 1992)</title>
-  <meta name="description" content="First Step Senior Secondary School, Chhindwara. CBSE Affiliated Nursery to Class 12. Modern Computer Lab, Smart Classrooms, Experiential Learning since 1992.">
+  <meta name="description" content="First Step Senior Secondary School, Chhindwara. CBSE Affiliated Nursery to Class 12. Robotics & AI Lab, Smart Classrooms, Experiential Learning since 1992.">
   <meta property="og:title" content="First Step Senior Secondary School, Chhindwara">
   <meta property="og:description" content="Nurturing Great Minds. Building Future Leaders since 1992. Admissions open for Nursery to Class 12.">
   <meta property="og:image" content="img/building.jpg">
@@ -447,7 +447,7 @@ button, input, select, textarea {
 .pill-mobile-drawer {
   display: none;
   position: absolute;
-  top: 60px; z-index: 9999;
+  top: calc(100% + 10px);
   left: 16px;
   right: 16px;
   max-width: 480px;
@@ -3576,7 +3576,6 @@ button, input, select, textarea {
   </style>
 </head>
 <body>
-
   <a href="#main" class="skip-link">Skip to main content</a>
 
   <!-- Opening Intro Splash Screen Animation -->
@@ -3598,25 +3597,8 @@ button, input, select, textarea {
         <div class="intro-progress-bar" id="introProgressBar"></div>
       </div>
     </div>
-    <button class="intro-skip-btn" id="introSkipBtn">Skip Intro &#x2794;</button>
+    <button class="intro-skip-btn" id="introSkipBtn">Skip Intro →</button>
   </div>
-  <script>
-    // Bulletproof splash dismissal - always works regardless of app.js
-    (function() {
-      function dismissSplash() {
-        var s = document.getElementById('introSplash');
-        if (s) { s.classList.add('dismissed'); setTimeout(function(){ s.style.display='none'; }, 800); }
-      }
-      // Skip button
-      var skipBtn = document.getElementById('introSkipBtn');
-      if (skipBtn) skipBtn.addEventListener('click', dismissSplash);
-      // Auto dismiss after 3 seconds
-      setTimeout(dismissSplash, 3000);
-      // Progress bar
-      var pb = document.getElementById('introProgressBar');
-      if (pb) { pb.style.transition = 'width 2.5s ease'; setTimeout(function(){ pb.style.width = '100%'; }, 100); }
-    })();
-  </script>
 
 
 
@@ -3658,32 +3640,12 @@ button, input, select, textarea {
       </div>
 
       <!-- Mobile Hamburger Toggle -->
-      <button class="pill-hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false" onclick="window.forceToggleMenu(event)">
+      <button class="pill-hamburger-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false">
         <svg class="icon-open" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
         <svg class="icon-close" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" style="display:none;"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
 
-        </nav>
-    <script>
-      window.forceToggleMenu = function(e) {
-        if(e) e.preventDefault();
-        var drawer = document.getElementById('mobileDropdown');
-        var btn = document.getElementById('mobileMenuBtn');
-        if(!drawer || !btn) return;
-        var isOpen = drawer.classList.contains('open');
-        if(isOpen) {
-          drawer.classList.remove('open');
-          btn.setAttribute('aria-expanded', 'false');
-          btn.querySelector('.icon-open').style.display = 'block';
-          btn.querySelector('.icon-close').style.display = 'none';
-        } else {
-          drawer.classList.add('open');
-          btn.setAttribute('aria-expanded', 'true');
-          btn.querySelector('.icon-open').style.display = 'none';
-          btn.querySelector('.icon-close').style.display = 'block';
-        }
-      };
-    </script>
+    </nav>
 
     <!-- Mobile Navigation Drawer -->
     <div class="pill-mobile-drawer" id="mobileDropdown">
@@ -3713,12 +3675,9 @@ button, input, select, textarea {
       <!-- High-Energy Cinematic Hero Section with Animated Mesh & Dynamic Cards -->
       <section class="cinematic-hero-section">
         
-        <!-- New Scroll-Triggered Parallax Background -->
-        <div class="parallax-bg-wrap" id="parallaxBg" aria-hidden="true">
-          <div class="parallax-shape shape-1"></div>
-          <div class="parallax-shape shape-2"></div>
-          <div class="parallax-shape shape-3"></div>
-        </div>
+        <!-- Background Ambient Aurora Glows -->
+        <div class="aurora-glow-1"></div>
+        <div class="aurora-glow-2"></div>
         
         <!-- Hero Slides Background for dynamic images from Admin -->
         <div class="hero-bg-slider" id="heroSlides">
@@ -3744,7 +3703,7 @@ button, input, select, textarea {
             </h1>
 
             <p class="hero-description">
-              A 34-year educational legacy blending rigorous CBSE academics, a fully-equipped modern Computer Laboratory, smart classrooms, and character-building from Nursery through Class 12.
+              A 34-year educational legacy blending rigorous CBSE academics, hands-on Robotics & AI laboratories, smart classrooms, and character-building from Nursery through Class 12.
             </p>
 
             <div class="hero-btn-row">
@@ -3761,7 +3720,7 @@ button, input, select, textarea {
             <div class="hero-trust-bar">
               <div class="trust-icons-cluster">
                 <span class="avatar-tag bg-gold">CBSE</span>
-                <span class="avatar-tag bg-navy">CBSE</span>
+                <span class="avatar-tag bg-navy">STEM</span>
                 <span class="avatar-tag bg-red">AI</span>
                 <span class="avatar-tag bg-blue">1992</span>
               </div>
@@ -3799,9 +3758,9 @@ button, input, select, textarea {
 
         <!-- Hero Slider Dots -->
         <div class="hero-dots-controls" id="heroDots"></div>
-            </section>
+      </section>
 
-      <!-- Floating 4-Cards Quick Access Strip (Modeled after DPS Chhindwara) --> (Modeled after DPS Chhindwara) -->
+      <!-- Floating 4-Cards Quick Access Strip (Modeled after DPS Chhindwara) -->
       <section class="floating-quick-access-wrap">
         <div class="wrap">
           <div class="floating-cards-grid">
@@ -3822,8 +3781,8 @@ button, input, select, textarea {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H4v7l9 9 5-5-9-9z"/><circle cx="6.5" cy="6.5" r="1"/></svg>
               </div>
               <div class="card-body-info">
-                <h3>Computer Lab</h3>
-                <p>Spacious air-conditioned computer laboratory with modern systems and digital learning tools.</p>
+                <h3>Robotics & Coding</h3>
+                <p>Practical computing, robotics hardware, and experimental science labs.</p>
                 <span class="card-action-link">Tour The Labs →</span>
               </div>
             </a>
@@ -4013,17 +3972,17 @@ button, input, select, textarea {
           <!-- Bento Grid Layout -->
           <div class="bento-grid">
             
-            <!-- Bento Hero Item: Computer Lab -->
+            <!-- Bento Hero Item: Robotics & AI -->
             <div class="bento-tile scroll-reveal bento-tile-featured">
               <div class="bento-content">
                 <span class="bento-tag">Flagship Lab</span>
-                <h3>Modern Computer Laboratory & Digital Learning Center</h3>
-                <p>A spacious, air-conditioned computer laboratory equipped with modern systems, high-speed internet, and the latest educational software. Students develop essential digital literacy and IT skills from primary years through Senior Secondary.</p>
+                <h3>Robotics, STEM & Coding Innovation Hub</h3>
+                <p>Equipped with microcontrollers, sensor kits, and practical Python & AI programming stations. Students transition from visual coding in primary years to real-world hardware integration.</p>
                 <div class="bento-pills">
-                  <span>Digital Literacy</span>
-                  <span>Modern Computers</span>
-                  <span>Internet & Networking</span>
-                  <span>IT Curriculum</span>
+                  <span>Python & AI</span>
+                  <span>Robotics Hardware</span>
+                  <span>Sensors & IoT</span>
+                  <span>Logic Building</span>
                 </div>
               </div>
               <div class="bento-halo-art">🤖</div>
@@ -4205,8 +4164,8 @@ button, input, select, textarea {
                   <span class="slot-category-tag">Innovation & Practice</span>
                   <h3>Robotics, STEM & Science Lab Practicals</h3>
                 </div>
-                <p>Hands-on experimentation: students use modern computers for digital learning, perform chemistry titrations and biology microscopic observations in dedicated lab bays.</p>
-                <div class="slot-chips"><span>Computer Lab</span><span>Physics & Chem Stations</span><span>IT Education</span></div>
+                <p>Hands-on experimentation: students write Python code, assemble Arduino robotics circuits, and perform chemistry titrations and biology microscopic observations in dedicated lab bays.</p>
+                <div class="slot-chips"><span>Robotics Lab</span><span>Physics & Chem Stations</span><span>Python Coding</span></div>
               </div>
             </div>
 
@@ -4489,12 +4448,12 @@ button, input, select, textarea {
                 <span class="facility-type-badge">STEM & Innovation</span>
               </div>
               <div class="facility-info-body">
-                <h3>Modern Computer Laboratory</h3>
-                <p>A spacious, air-conditioned computer lab with modern systems, high-speed internet, and latest educational software for hands-on digital learning.</p>
+                <h3>Robotics, STEM & Coding Lab</h3>
+                <p>Equipped with microcontrollers, sensor kits, and practical Python & AI programming stations. Students transition from block-based logic in primary years to real-world hardware integration.</p>
                 <div class="facility-feature-tags">
-                  <span>Modern Systems</span>
-                  <span>Digital Literacy</span>
-                  <span>IT Curriculum</span>
+                  <span>Arduino & Sensors</span>
+                  <span>Python & AI</span>
+                  <span>Logic Building</span>
                 </div>
               </div>
             </div>
@@ -4797,7 +4756,7 @@ button, input, select, textarea {
                 <div class="project-tech-pills">
                   <span>Arduino C++</span>
                   <span>Ultrasonic Sonar</span>
-                  <span>Modern Computers</span>
+                  <span>Robotics Hardware</span>
                 </div>
                 <div class="project-creator-foot">
                   <span>Built by: <strong>Class 11 STEM Team</strong></span>
@@ -5409,268 +5368,6 @@ button, input, select, textarea {
   </footer>
 
   <script src="js/app.js" onerror="if(!this.dataset.retried){this.dataset.retried=1; var s=document.createElement('script'); s.src='public/js/app.js'; document.body.appendChild(s);}" defer></script>
-  <!-- Fixed Bottom-Left Staff Login Button -->
-  <a href="#admin" data-nav="admin" class="fixed-staff-login magnetic-btn" aria-label="Staff Login">
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-    <span>Staff Login</span>
-  </a>
 </body>
 </html>
-
-<style>
-
-/* ==========================================================================
-   New Scroll-Triggered Parallax Background
-   ========================================================================== */
-.parallax-bg-wrap {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0;
-  pointer-events: none;
-}
-.parallax-shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.6;
-  will-change: transform;
-}
-.parallax-shape.shape-1 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--gold-accent) 0%, transparent 70%);
-  top: -10%;
-  left: -5%;
-}
-.parallax-shape.shape-2 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--crimson-accent) 0%, transparent 70%);
-  bottom: -20%;
-  right: -10%;
-}
-.parallax-shape.shape-3 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, #0ea5e9 0%, transparent 70%);
-  top: 40%;
-  left: 60%;
-}
-</style>
-
-
-<style>
-/* Bulletproof Mobile Drawer Overrides */
-.pill-mobile-drawer.open {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  z-index: 99999 !important;
-  top: 70px !important;
-}
-.pill-hamburger-btn {
-  pointer-events: auto !important;
-  z-index: 99999 !important;
-}</style>
-<style>
-/* ==========================================================================
-   Curtain Reveal & Cinematic Hover FX
-   ========================================================================== */
-.page-curtain {
-  position: fixed;
-  inset: 0;
-  z-index: 9999999;
-  background: linear-gradient(135deg, var(--brand-red, #9c2b22) 0%, #681710 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gold-accent, #c9962f);
-  font-family: var(--font-traditional, 'Cinzel'), serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 800;
-  transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
-  pointer-events: none;
-}
-.page-curtain.slide-up {
-  transform: translateY(-100%);
-}
-.curtain-logo {
-  animation: emblem-pop 1s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* Image Parallax Hovers */
-.spotlight-img, .bento-card img, .gallery-media-matrix img, .achievement-card img {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.spotlight-image-wrap:hover .spotlight-img,
-.bento-card:hover img,
-.gallery-card:hover img,
-.achievement-card:hover img {
-  transform: scale(1.08) !important;
-}
-
-/* Infinite Scrolling Marquee */
-.infinite-marquee-wrap {
-  width: 100%;
-  overflow: hidden;
-  background: var(--brand-red, #9c2b22);
-  color: #fff;
-  padding: 12px 0;
-  display: flex;
-  white-space: nowrap;
-}
-.infinite-marquee {
-  display: flex;
-  gap: 3rem;
-  animation: scroll-marquee 20s linear infinite;
-}
-.marquee-item {
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-}
-.marquee-item span { color: var(--gold-accent, #c9962f); }
-@keyframes scroll-marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}</style>
-
-
-
-<style>
-/* ==========================================================================
-   Fixed Staff Login Button (Bottom Left)
-   ========================================================================== */
-.fixed-staff-login {
-  position: fixed;
-  bottom: 24px;
-  left: 24px;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(7, 21, 38, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #a3b1c6;
-  padding: 10px 18px;
-  border-radius: 9999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-.fixed-staff-login:hover {
-  background: var(--brand-red, #9c2b22);
-  border-color: var(--brand-red, #9c2b22);
-  color: #ffffff;
-}
-@media (max-width: 600px) {
-  .fixed-staff-login span {
-    display: none;
-  }
-  .fixed-staff-login {
-    padding: 12px;
-    bottom: 20px;
-    left: 20px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-  }
-}</style>
-
-
-
-
-
-
-<style>
-/* ==========================================================================
-   2. 3D Holographic Tilt Cards (Apple TV Style)
-   ========================================================================== */
-.tilt-card {
-  transform-style: preserve-3d;
-  perspective: 800px;
-  position: relative;
-  overflow: hidden;
-}
-.tilt-card .card-glare {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.25) 0%, transparent 60%);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 5;
-  transition: opacity 0.3s ease;
-  mix-blend-mode: soft-light;
-}
-.tilt-card:hover .card-glare {
-  opacity: 1;
-}
-.tilt-card .card-body-info,
-.tilt-card .card-icon-halo,
-.tilt-card .bento-content {
-  transform: translateZ(30px);
-  transition: transform 0.3s ease;
-}
-
-/* ==========================================================================
-   3. 3D Curved Cylinder Gallery Carousel
-   ========================================================================== */
-.carousel-3d-wrap {
-  perspective: 1200px;
-  overflow: visible;
-  position: relative;
-  width: 100%;
-  height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.carousel-3d-track {
-  transform-style: preserve-3d;
-  position: relative;
-  width: 280px;
-  height: 280px;
-  transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.carousel-3d-item {
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  backface-visibility: hidden;
-}
-.carousel-3d-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-@media (max-width: 600px) {
-  .carousel-3d-wrap { height: 220px; }
-  .carousel-3d-track, .carousel-3d-item { width: 200px; height: 200px; }
-}
-
-/* ==========================================================================
-   4. 3D Fluid Mesh Gradient Wave (Hero Background)
-   ========================================================================== */
-.fluid-mesh-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.4;
-}</style>
 
