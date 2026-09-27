@@ -1,5 +1,5 @@
 /**
- * First Step Senior Secondary School ‚Äî Production Frontend Application
+ * First Step Senior Secondary School G«ˆ Production Frontend Application
  * Integrated Components:
   * 2. PillNav: GSAP-Powered Floating Navigation with Rising Circle Effect & Logo Spin
  * 3. Interactive 3D Tilt Physics on Cards
@@ -67,26 +67,6 @@
   /* ==========================================================================
      1. Header & Navigation Controller (Zero-Glitch Smooth Routing)
      ========================================================================== */
-  function initIntroSplash() {
-    var splash = document.getElementById('introSplash');
-    if (!splash) return;
-    var progressBar = document.getElementById('introProgressBar');
-    
-    // Animate progress bar
-    if (progressBar) {
-      progressBar.style.transition = 'width 2s ease';
-      progressBar.style.width = '100%';
-    }
-    
-    // Dismiss splash after 2.5 seconds
-    setTimeout(function() {
-      splash.classList.add('dismissed');
-      // Remove from DOM after animation
-      setTimeout(function() {
-        splash.style.display = 'none';
-      }, 800);
-    }, 2500);
-  }
   function initPillNav() {
     var mobileBtn = document.getElementById('mobileMenuBtn');
     var mobileDropdown = document.getElementById('mobileDropdown');
@@ -118,6 +98,278 @@
           }
         }
       });
+    });
+
+    // Mobile Navigation Drawer Toggle
+    if (mobileBtn && mobileDropdown) {
+      mobileBtn.addEventListener('click', function () {
+        var isOpen = mobileDropdown.classList.toggle('open');
+        this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        var iconOpen = this.querySelector('.icon-open');
+        var iconClose = this.querySelector('.icon-close');
+        if (iconOpen && iconClose) {
+          iconOpen.style.display = isOpen ? 'none' : 'block';
+          iconClose.style.display = isOpen ? 'block' : 'none';
+        }
+      });
+    }
+  }
+
+  /* ==========================================================================
+     3. Interactive 3D Tilt Physics for Cards
+     ========================================================================== */
+  function initCardTilts() {
+    if (prefersReducedMotion()) return;
+    var cards = document.querySelectorAll('.tilt-card');
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var rotateX = ((y - centerY) / centerY) * -7;
+        var rotateY = ((x - centerX) / centerX) * 7;
+
+        card.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-6px)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+  }
+
+  /* ==========================================================================
+     4. Animated Milestone Counters (IntersectionObserver)
+     ========================================================================== */
+  function initCounters() {
+    var counterEls = document.querySelectorAll('.counter-val');
+    if (!counterEls.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      counterEls.forEach(function (el) {
+        var prefix = el.dataset.prefix || '';
+        var suffix = el.dataset.suffix || '';
+        el.textContent = prefix + el.dataset.target + suffix;
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var targetVal = parseInt(el.dataset.target, 10);
+          var prefix = el.dataset.prefix || '';
+          var suffix = el.dataset.suffix || '';
+          var duration = 1800;
+          var start = performance.now();
+
+          function step(now) {
+            var progress = Math.min(1, (now - start) / duration);
+            var ease = 1 - Math.pow(1 - progress, 3);
+            var current = Math.floor(ease * targetVal);
+            el.textContent = prefix + current + suffix;
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              el.textContent = prefix + targetVal + suffix;
+            }
+          }
+          requestAnimationFrame(step);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    counterEls.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* ==========================================================================
+     5. Interactive NEP 2020 Stage Explorer
+     ========================================================================== */
+  var stageData = {
+    foundational: {
+      tag: 'Ages 3G«Ù8',
+      title: 'Foundational Stage: Pre-Primary (Nursery, LKG, UKG)',
+      desc: 'Play-way, joyful, activity-based discovery focusing on sensory motor skills, early phonics, vocabulary games, storytelling, and developing fine coordination in a secure, loving pre-primary wing.',
+      features: [
+        'Sensory & Creative Motor Play',
+        'Phonics, Rhymes & Bilingual Vocabulary',
+        'Early Numbers, Shapes & Spatial Logic',
+        'Safe, Nurturing & Attentive Classroom Care'
+      ],
+      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:00 PM'
+    },
+    preparatory: {
+      tag: 'Classes 1 to 5',
+      title: 'Preparatory Stage: Building Core Foundations',
+      desc: 'Strengthening literacy, numeracy, environmental awareness, and introducing children to general science, computers, and expressive arts without excessive rote examination stress.',
+      features: [
+        'Reading Comprehension & Creative Writing',
+        'Mathematical Operations & Logical Reasoning',
+        'Hands-on Environmental & Science Projects',
+        'Introduction to Basic Computer Systems & Music'
+      ],
+      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:30 PM'
+    },
+    middle: {
+      tag: 'Classes 6 to 8',
+      title: 'Middle School: Experiential Sciences & STEM',
+      desc: 'Introduction to distinct subject streams: Physics, Chemistry, Biology, Algebraic Mathematics, Social Sciences, Computer Coding (Python), and Hands-on Robotics hardware in our dedicated lab.',
+      features: [
+        'Practical Laboratory Demonstrations',
+        'Robotics & Algorithmic Problem Solving',
+        'Parliamentary Debates & Elocution',
+        'Inter-House Athletics & Structured Sports'
+      ],
+      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:30 PM'
+    },
+    senior: {
+      tag: 'Classes 9 to 12',
+      title: 'Secondary & Senior Secondary: CBSE Board Specialization',
+      desc: 'Rigorous preparation for CBSE Board examinations along with foundation coaching for JEE, NEET, CUET, and CA Foundation. Streams offered: Science (PCM/PCB), Commerce, and skill electives in Artificial Intelligence.',
+      features: [
+        'Science (PCM / PCB) with Modern Composite Labs',
+        'Commerce with Accountancy & Economics',
+        'Artificial Intelligence & Computer Science Electives',
+        'Career Mentorship & College Entrance Readiness'
+      ],
+      hours: 'MonG«ÙFri: 9:00 AM G«Ù 12:30 PM'
+    }
+  };
+
+  function renderStage(key) {
+    var data = stageData[key] || stageData.foundational;
+    var card = document.getElementById('stageDisplayCard');
+    if (!card) return;
+
+    card.style.opacity = '0';
+    setTimeout(function () {
+      card.innerHTML = [
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">',
+        '  <span class="kicker-tag" style="margin:0;">' + esc(data.tag) + '</span>',
+        '  <span style="font-size:0.82rem;font-weight:700;color:var(--navy-primary);background:var(--bg-surface-alt);padding:4px 12px;border-radius:var(--radius-full);">' + esc(data.hours) + '</span>',
+        '</div>',
+        '<h3 style="font-size:1.6rem;font-weight:800;color:var(--navy-primary);margin-bottom:14px;">' + esc(data.title) + '</h3>',
+        '<p style="font-size:1.05rem;line-height:1.7;color:var(--text-body);margin-bottom:24px;max-width:840px;">' + esc(data.desc) + '</p>',
+        '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:14px;border-top:1px solid var(--border-line);padding-top:20px;">',
+        data.features.map(function (f) {
+          return '<div style="display:flex;align-items:center;gap:10px;font-weight:700;font-size:0.92rem;color:var(--navy-primary);">' +
+            '<span style="color:var(--gold-deep);font-size:1.1rem;">G£ˆ</span>' +
+            '<span>' + esc(f) + '</span>' +
+            '</div>';
+        }).join(''),
+        '</div>'
+      ].join('');
+      card.style.opacity = '1';
+    }, 150);
+  }
+
+  function initStageExplorer() {
+    var tabsWrap = document.getElementById('stageTabs');
+    if (!tabsWrap) return;
+
+    renderStage('foundational');
+
+    tabsWrap.querySelectorAll('.stage-tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        tabsWrap.querySelectorAll('.stage-tab-btn').forEach(function (b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+        renderStage(this.dataset.stage);
+      });
+    });
+  }
+
+  /* ==========================================================================
+     6. Client-Side Hash Router
+     ========================================================================== */
+  
+  /* ==========================================================================
+     Opening Screen Animation (Intro Splash Screen)
+     ========================================================================== */
+  function initIntroSplash() {
+    var splash = document.getElementById('introSplash');
+    var bar = document.getElementById('introProgressBar');
+    var skip = document.getElementById('introSkipBtn');
+    if (!splash) return;
+
+    // Trigger golden progress bar charge
+    setTimeout(function () {
+      if (bar) bar.style.width = '100%';
+    }, 120);
+
+    function dismissSplash() {
+      splash.classList.add('dismissed');
+      setTimeout(function () {
+        splash.style.display = 'none';
+      }, 750);
+    }
+
+    if (skip) skip.addEventListener('click', dismissSplash);
+
+    // Auto dismiss after 2.2 seconds
+    setTimeout(dismissSplash, 2200);
+  }
+
+  /* ==========================================================================
+     Scroll-Triggered Reveal Animations
+     ========================================================================== */
+  function initScrollReveals() {
+    var elements = document.querySelectorAll('.scroll-reveal');
+    if (!elements.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      elements.forEach(function (el) { el.classList.add('revealed'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    elements.forEach(function (el) { observer.observe(el); });
+  }
+
+  function navigateTo(pageId) {
+    if (VALID_PAGES.indexOf(pageId) === -1) pageId = 'home';
+
+    var currentPage = document.querySelector('.page.active');
+    var targetPage = document.getElementById('page-' + pageId) || document.getElementById('page-home');
+
+    if (currentPage && currentPage !== targetPage && !prefersReducedMotion()) {
+      currentPage.classList.add('page-leaving');
+      setTimeout(function () {
+        currentPage.classList.remove('active', 'page-leaving');
+        targetPage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        initScrollReveals();
+    initCampusHotspots();
+    initTopperFilters();
+      }, 150);
+    } else {
+      if (currentPage) currentPage.classList.remove('active', 'page-leaving');
+      targetPage.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      initScrollReveals();
+    initCampusHotspots();
+    initTopperFilters();
+    }
+
+    // Update PillNav and Mobile Nav active states
+    document.querySelectorAll('[data-nav]').forEach(function (link) {
+      var isCurrent = link.getAttribute('data-nav') === pageId;
+      link.classList.toggle('active', isCurrent);
     });
 
     // Close Mobile Drawer
@@ -212,7 +464,7 @@
 
     if (tickerEl && list && list.length > 0) {
       var topNotice = list[0];
-      tickerEl.textContent = 'üì¢ ' + topNotice.title + ' ‚Ä¢ ' + (topNotice.text || 'Admissions open for Nursery to Class 12') + ' ‚Ä¢ Office: 07162-244732';
+      tickerEl.textContent = '=ÉÙÛ ' + topNotice.title + ' G«Û ' + (topNotice.text || 'Admissions open for Nursery to Class 12') + ' G«Û Office: 07162-244732';
     }
 
     if (!listWrap) return;
@@ -331,7 +583,7 @@
     gridWrap.innerHTML = items.map(function (g) {
       var isVideo = g.type === 'video';
       var media = isVideo
-        ? '<video src="' + esc(g.src) + '" muted playsinline></video><span class="media-play-pill">‚ñ∂</span>'
+        ? '<video src="' + esc(g.src) + '" muted playsinline></video><span class="media-play-pill">G˚¶</span>'
         : '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || '') + '" loading="lazy">';
 
       return '<div class="gallery-media-item" data-id="' + g.id + '">' +
@@ -619,7 +871,7 @@
     }
     wrap.innerHTML = state.gallery.map(function (g) {
       var thumb = g.type === 'video'
-        ? '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-accent);background:#0C2340;">‚ñ∂</div>'
+        ? '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-accent);background:#0C2340;">G˚¶</div>'
         : '<img class="thumb" src="' + esc(g.src) + '">';
 
       return '<div class="admin-entry-item">' +
@@ -665,7 +917,7 @@
     wrap.innerHTML = state.achievements.map(function (a) {
       var thumb = a.img
         ? '<img class="thumb" src="' + esc(a.img) + '">'
-        : '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-deep);background:var(--gold-soft);">üèÜ</div>';
+        : '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-deep);background:var(--gold-soft);">=É≈Â</div>';
 
       return '<div class="admin-entry-item">' +
         thumb +
@@ -714,7 +966,7 @@
         adWrap.innerHTML = admissions.map(function (item) {
           return '<div class="admin-entry-item">' +
             '<div class="entry-meta"><strong>' + esc(item.student) + ' (Class: ' + esc(item.class_applied || 'N/A') + ')</strong>' +
-            '<span>Parent: ' + esc(item.parent) + ' ‚Ä¢ Phone: ' + esc(item.phone) + (item.email ? ' ‚Ä¢ ' + esc(item.email) : '') + '</span>' +
+            '<span>Parent: ' + esc(item.parent) + ' G«Û Phone: ' + esc(item.phone) + (item.email ? ' G«Û ' + esc(item.email) : '') + '</span>' +
             '<p style="font-size:0.85rem;color:var(--text-body);margin-top:4px;">' + esc(item.message || 'No note') + '</p>' +
             '<span style="font-size:0.75rem;color:var(--text-muted);">' + esc(item.created_at) + '</span></div>' +
           '</div>';
@@ -730,7 +982,7 @@
         msgWrap.innerHTML = messages.map(function (m) {
           return '<div class="admin-entry-item">' +
             '<div class="entry-meta"><strong>' + esc(m.name) + ' (' + esc(m.phone) + ')</strong>' +
-            '<span>' + (m.email ? 'Email: ' + esc(m.email) + ' ‚Ä¢ ' : '') + esc(m.message) + '</span>' +
+            '<span>' + (m.email ? 'Email: ' + esc(m.email) + ' G«Û ' : '') + esc(m.message) + '</span>' +
             '<span style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:4px;">' + esc(m.created_at) + '</span></div>' +
           '</div>';
         }).join('');
@@ -964,9 +1216,8 @@
 
 
 
-
   /* ==========================================================================
-     Advanced Animations (Magnetic Buttons, Text Reveals, Counters)
+     Magnetic Buttons Physics
      ========================================================================== */
   function initMagneticButtons() {
     var magnets = document.querySelectorAll('.btn-gold, .btn-primary, .btn-outline, .pill-action-btn, .btn');
@@ -975,7 +1226,7 @@
         var rect = btn.getBoundingClientRect();
         var x = e.clientX - rect.left - rect.width / 2;
         var y = e.clientY - rect.top - rect.height / 2;
-        if(typeof gsap !== 'undefined') {
+        if (typeof gsap !== 'undefined') {
           gsap.to(btn, {
             duration: 0.3,
             x: x * 0.4,
@@ -985,7 +1236,7 @@
         }
       });
       btn.addEventListener('mouseleave', function () {
-        if(typeof gsap !== 'undefined') {
+        if (typeof gsap !== 'undefined') {
           gsap.to(btn, {
             duration: 0.5,
             x: 0,
@@ -997,11 +1248,14 @@
     });
   }
 
+  /* ==========================================================================
+     Staggered Text Reveals
+     ========================================================================== */
   function initStaggeredTextReveals() {
-    if(typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     var headings = document.querySelectorAll('.hero-glamour-title, .section-header h2, .board-main-title');
     headings.forEach(function (heading) {
-      if(heading.querySelector('.glow-gold-text')) return; // skip if complex html inside
+      if (heading.querySelector('.glow-gold-text')) return;
       var text = heading.innerText;
       var words = text.split(' ');
       heading.innerHTML = '';
@@ -1025,42 +1279,32 @@
     });
   }
 
-  // Attach new animations
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      initMagneticButtons();
-      initStaggeredTextReveals();
-    }, 800);
-  });
-
   /* ==========================================================================
      3D Holographic Tilt Cards (Apple TV Style)
      ========================================================================== */
   function init3DTiltCards() {
     var cards = document.querySelectorAll('.tilt-card');
-    cards.forEach(function(card) {
-      // Add glare overlay
+    cards.forEach(function (card) {
+      if (card.querySelector('.card-glare')) return;
       var glare = document.createElement('div');
       glare.className = 'card-glare';
       card.appendChild(glare);
 
-      card.addEventListener('mousemove', function(e) {
+      card.addEventListener('mousemove', function (e) {
         var rect = card.getBoundingClientRect();
         var x = e.clientX - rect.left;
         var y = e.clientY - rect.top;
         var centerX = rect.width / 2;
         var centerY = rect.height / 2;
-        var rotateX = (y - centerY) / centerY * -12;
-        var rotateY = (x - centerX) / centerX * 12;
+        var rotateX = (y - centerY) / centerY * -10;
+        var rotateY = (x - centerX) / centerX * 10;
 
-        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.03,1.03,1.03)';
+        card.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) scale3d(1.02,1.02,1.02)';
         card.style.transition = 'transform 0.1s ease';
-
-        // Move glare
-        glare.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, rgba(255,255,255,0.3) 0%, transparent 60%)';
+        glare.style.background = 'radial-gradient(circle at ' + x + 'px ' + y + 'px, rgba(255,255,255,0.25) 0%, transparent 60%)';
       });
 
-      card.addEventListener('mouseleave', function() {
+      card.addEventListener('mouseleave', function () {
         card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
         card.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
         glare.style.background = '';
@@ -1073,7 +1317,7 @@
      ========================================================================== */
   function initFluidMeshWave() {
     var hero = document.querySelector('.cinematic-hero-section');
-    if (!hero) return;
+    if (!hero || hero.querySelector('.fluid-mesh-canvas')) return;
 
     var canvas = document.createElement('canvas');
     canvas.className = 'fluid-mesh-canvas';
@@ -1126,32 +1370,17 @@
       ctx.fillStyle = grad2;
       ctx.fill();
 
-      // Wave 3 - Crimson subtle
-      ctx.beginPath();
-      ctx.moveTo(0, h * 0.8);
-      for (var x3 = 0; x3 <= w; x3 += 8) {
-        var y3 = h * 0.8 + Math.sin(x3 * 0.005 + t * 1.3) * 25 + Math.sin(x3 * 0.009 + t * 0.5) * 12;
-        ctx.lineTo(x3, y3);
-      }
-      ctx.lineTo(w, h);
-      ctx.lineTo(0, h);
-      ctx.closePath();
-      var grad3 = ctx.createLinearGradient(0, h * 0.75, 0, h);
-      grad3.addColorStop(0, 'rgba(156, 43, 34, 0.08)');
-      grad3.addColorStop(1, 'rgba(156, 43, 34, 0.01)');
-      ctx.fillStyle = grad3;
-      ctx.fill();
-
       requestAnimationFrame(draw);
     }
     draw();
   }
 
-  // Boot 3D Animations
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
+  // Hook new animations into window load safely
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      initMagneticButtons();
+      initStaggeredTextReveals();
       init3DTiltCards();
       initFluidMeshWave();
-    }, 1000);
+    }, 600);
   });
-
