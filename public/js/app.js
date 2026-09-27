@@ -160,11 +160,23 @@
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           var el = entry.target;
+          var box = el.closest('.counter-box');
+          var ring = box ? box.querySelector('.ring-stroke') : null;
           var targetVal = parseInt(el.dataset.target, 10);
           var prefix = el.dataset.prefix || '';
           var suffix = el.dataset.suffix || '';
           var duration = 1800;
           var start = performance.now();
+
+          // Animate golden progress ring
+          if (ring) {
+            ring.style.strokeDasharray = '214';
+            ring.style.strokeDashoffset = '214';
+            ring.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            setTimeout(function () {
+              ring.style.strokeDashoffset = '20';
+            }, 60);
+          }
 
           function step(now) {
             var progress = Math.min(1, (now - start) / duration);
@@ -1299,6 +1311,69 @@
     animId = requestAnimationFrame(loop);
   }
 
+  /* ==========================================================================
+     Interactive Scroll Controller (Progress Bar, PillNav Blur & Back-To-Top Ring)
+     ========================================================================== */
+  function initScrollInteractions() {
+    var progressBar = document.getElementById('scrollProgressBar');
+    var navBar = document.getElementById('pillNavBar');
+    var bttBtn = document.getElementById('backToTopBtn');
+    var bttRing = document.getElementById('bttRingProgress');
+    var bttCircumference = 126;
+
+    if (bttBtn) {
+      bttBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var progressPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        var clampedPercent = Math.min(100, Math.max(0, progressPercent));
+
+        // 1. Top progress indicator
+        if (progressBar) {
+          progressBar.style.width = clampedPercent + '%';
+        }
+
+        // 2. PillNav dynamic shrink & glass shadow
+        if (navBar) {
+          if (scrollTop > 60) {
+            navBar.classList.add('nav-scrolled');
+          } else {
+            navBar.classList.remove('nav-scrolled');
+          }
+        }
+
+        // 3. Back to Top button visibility and live circular progress
+        if (bttBtn) {
+          if (scrollTop > 350) {
+            bttBtn.classList.add('visible');
+            if (bttRing) {
+              var offset = bttCircumference - (clampedPercent / 100) * bttCircumference;
+              bttRing.style.strokeDashoffset = Math.max(0, offset);
+            }
+          } else {
+            bttBtn.classList.remove('visible');
+          }
+        }
+
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   // Boot sequence with double-init protection
   var booted = false;
   function bootApp() {
@@ -1313,6 +1388,7 @@
     initCounters();
     initStageExplorer();
     initFluidMeshWave();
+    initScrollInteractions();
 
     loadAllData(false).then(function () {
       routeFromHash();
