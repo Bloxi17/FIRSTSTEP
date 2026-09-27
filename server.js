@@ -180,7 +180,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d', etag: true }));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '1h',
+  etag: true,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+  }
+}));
 
 const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20, message: { error: 'Too many login attempts. Try again in a few minutes.' } });
 const formLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 30, message: { error: 'Too many submissions. Please try again later.' } });

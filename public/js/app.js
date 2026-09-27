@@ -305,16 +305,17 @@
     }, 120);
 
     function dismissSplash() {
+      if (splash.classList.contains('dismissed')) return;
       splash.classList.add('dismissed');
       setTimeout(function () {
         splash.style.display = 'none';
-      }, 750);
+      }, 600);
     }
 
     if (skip) skip.addEventListener('click', dismissSplash);
 
-    // Auto dismiss after 2.2 seconds
-    setTimeout(dismissSplash, 2200);
+    // Auto dismiss after 1.4 seconds
+    setTimeout(dismissSplash, 1400);
   }
 
   /* ==========================================================================
