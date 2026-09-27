@@ -3598,8 +3598,25 @@ button, input, select, textarea {
         <div class="intro-progress-bar" id="introProgressBar"></div>
       </div>
     </div>
-    <button class="intro-skip-btn" id="introSkipBtn">Skip Intro →</button>
+    <button class="intro-skip-btn" id="introSkipBtn">Skip Intro &#x2794;</button>
   </div>
+  <script>
+    // Bulletproof splash dismissal - always works regardless of app.js
+    (function() {
+      function dismissSplash() {
+        var s = document.getElementById('introSplash');
+        if (s) { s.classList.add('dismissed'); setTimeout(function(){ s.style.display='none'; }, 800); }
+      }
+      // Skip button
+      var skipBtn = document.getElementById('introSkipBtn');
+      if (skipBtn) skipBtn.addEventListener('click', dismissSplash);
+      // Auto dismiss after 3 seconds
+      setTimeout(dismissSplash, 3000);
+      // Progress bar
+      var pb = document.getElementById('introProgressBar');
+      if (pb) { pb.style.transition = 'width 2.5s ease'; setTimeout(function(){ pb.style.width = '100%'; }, 100); }
+    })();
+  </script>
 
 
 
@@ -5656,3 +5673,4 @@ button, input, select, textarea {
   pointer-events: none;
   opacity: 0.4;
 }</style>
+
