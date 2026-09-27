@@ -67,6 +67,26 @@
   /* ==========================================================================
      1. Header & Navigation Controller (Zero-Glitch Smooth Routing)
      ========================================================================== */
+  function initIntroSplash() {
+    var splash = document.getElementById('introSplash');
+    if (!splash) return;
+    var progressBar = document.getElementById('introProgressBar');
+    
+    // Animate progress bar
+    if (progressBar) {
+      progressBar.style.transition = 'width 2s ease';
+      progressBar.style.width = '100%';
+    }
+    
+    // Dismiss splash after 2.5 seconds
+    setTimeout(function() {
+      splash.classList.add('dismissed');
+      // Remove from DOM after animation
+      setTimeout(function() {
+        splash.style.display = 'none';
+      }, 800);
+    }, 2500);
+  }
   function initPillNav() {
     var mobileBtn = document.getElementById('mobileMenuBtn');
     var mobileDropdown = document.getElementById('mobileDropdown');
@@ -1134,3 +1154,4 @@
       initFluidMeshWave();
     }, 1000);
   });
+
