@@ -427,7 +427,7 @@
     }).join('');
 
     dotsWrap.innerHTML = list.length > 1 ? list.map(function (b, i) {
-      return '<button type="button" data-i="' + i + '" class="' + (i === 0 ? 'active' : '') + '" aria-label="Slide ' + (i + 1) + '" style="width:' + (i === 0 ? '24px' : '10px') + ';height:10px;border-radius:9999px;background:' + (i === 0 ? 'var(--gold-accent)' : 'rgba(255,255,255,0.6)') + ';border:none;cursor:pointer;transition:all 0.25s;"></button>';
+      return '<button type="button" data-i="' + i + '" class="' + (i === 0 ? 'active' : '') + '" aria-label="Slide ' + (i + 1) + '" style="width:' + (i === 0 ? '24px' : '10px') + ';height:10px;border-radius:9999px;background:' + (i === 0 ? 'var(--brass-accent)' : 'rgba(246,244,238,0.65)') + ';border:none;cursor:pointer;transition:all 0.25s;"></button>';
     }).join('') : '';
 
     heroIndex = 0;
@@ -439,7 +439,7 @@
       slideEls.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
       dotEls.forEach(function (d, i) {
         d.classList.toggle('active', i === idx);
-        d.style.background = i === idx ? 'var(--gold-accent)' : 'rgba(255,255,255,0.6)';
+        d.style.background = i === idx ? 'var(--brass-accent)' : 'rgba(246,244,238,0.65)';
         d.style.width = i === idx ? '24px' : '10px';
       });
     }
@@ -899,7 +899,7 @@
     }
     wrap.innerHTML = state.gallery.map(function (g) {
       var thumb = g.type === 'video'
-        ? '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-accent);background:#0C2340;">▶</div>'
+        ? '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--brass-accent);background:#112921;">▶</div>'
         : '<img class="thumb" src="' + esc(g.src) + '" alt="' + esc(g.caption || g.category) + '">';
 
       return '<div class="admin-entry-item">' +
@@ -1182,19 +1182,19 @@
       isMobile = width < 768;
 
       gradGold = ctx.createLinearGradient(0, height * 0.1, width, height * 0.9);
-      gradGold.addColorStop(0, 'rgba(244, 180, 26, 0.08)');
-      gradGold.addColorStop(0.5, 'rgba(244, 180, 26, 0.04)');
-      gradGold.addColorStop(1, 'rgba(244, 180, 26, 0.01)');
+      gradGold.addColorStop(0, 'rgba(184, 148, 110, 0.11)');
+      gradGold.addColorStop(0.5, 'rgba(184, 148, 110, 0.055)');
+      gradGold.addColorStop(1, 'rgba(184, 148, 110, 0.012)');
 
       gradNavy = ctx.createLinearGradient(0, height * 0.2, width, height * 0.85);
-      gradNavy.addColorStop(0, 'rgba(12, 35, 64, 0.055)');
-      gradNavy.addColorStop(0.5, 'rgba(16, 42, 77, 0.03)');
-      gradNavy.addColorStop(1, 'rgba(12, 35, 64, 0.008)');
+      gradNavy.addColorStop(0, 'rgba(17, 41, 33, 0.06)');
+      gradNavy.addColorStop(0.5, 'rgba(26, 58, 47, 0.03)');
+      gradNavy.addColorStop(1, 'rgba(17, 41, 33, 0.008)');
 
       gradCrimson = ctx.createLinearGradient(0, height * 0.3, width, height);
-      gradCrimson.addColorStop(0, 'rgba(196, 30, 58, 0.045)');
-      gradCrimson.addColorStop(0.6, 'rgba(156, 43, 34, 0.02)');
-      gradCrimson.addColorStop(1, 'rgba(196, 30, 58, 0.004)');
+      gradCrimson.addColorStop(0, 'rgba(72, 102, 88, 0.05)');
+      gradCrimson.addColorStop(0.6, 'rgba(118, 88, 54, 0.024)');
+      gradCrimson.addColorStop(1, 'rgba(17, 41, 33, 0.004)');
     }
 
     var time = 0;
