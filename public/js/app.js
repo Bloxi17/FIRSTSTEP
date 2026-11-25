@@ -1,11 +1,6 @@
 /**
- * First Step Senior Secondary School — Production Frontend Application
- * Integrated Components:
-  * 2. PillNav: GSAP-Powered Floating Navigation with Rising Circle Effect & Logo Spin
- * 3. Interactive 3D Tilt Physics on Cards
- * 4. Animated Milestone Counters (ScrollTrigger / IntersectionObserver)
- * 5. NEP 2020 Interactive Stage Explorer
- * 6. Lightbox & Full REST API Client for Dynamic SQLite Data Hydration
+ * First Step Senior Secondary School - Production Frontend Application
+ * Vibrant Campus Showcase (Clean White + Bento Pro Layout)
  */
 
 (function () {
@@ -19,6 +14,20 @@
     'achievements', 'gallery', 'contact', 'privacy', 'terms', 'admin'
   ];
 
+  var PAGE_TITLES = {
+    home: 'First Step Senior Secondary School | Chhindwara, M.P. (Estd. 1992)',
+    about: 'About School | First Step Senior Secondary School, Chhindwara',
+    academics: 'Academics & Curriculum | First Step Senior Secondary School',
+    admissions: 'Admissions 2026-27 | First Step Senior Secondary School',
+    facilities: 'Campus & Computer Lab | First Step Senior Secondary School',
+    achievements: 'Hall of Fame & Honors | First Step Senior Secondary School',
+    gallery: 'Campus Gallery | First Step Senior Secondary School',
+    contact: 'Contact & Location | First Step Senior Secondary School',
+    privacy: 'Privacy Policy | First Step Senior Secondary School',
+    terms: 'Terms & Conditions | First Step Senior Secondary School',
+    admin: 'Staff Console | First Step Senior Secondary School'
+  };
+
   var state = {
     banners: [],
     gallery: [],
@@ -29,6 +38,7 @@
   var heroIndex = 0;
   var heroTimer = null;
   var galFilter = 'All';
+  var lastFocusedBeforeModal = null;
 
   function prefersReducedMotion() {
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -65,32 +75,33 @@
   }
 
   /* ==========================================================================
-     1. Header & Navigation Controller (Zero-Glitch Smooth Routing)
+     1. Header & Navigation Controller
      ========================================================================== */
+  function setMobileDrawerState(isOpen) {
+    var mobileBtn = document.getElementById('mobileMenuBtn');
+    var mobileDropdown = document.getElementById('mobileDropdown');
+    if (!mobileDropdown || !mobileBtn) return;
+
+    mobileDropdown.classList.toggle('open', isOpen);
+    mobileBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    var iconOpen = mobileBtn.querySelector('.icon-open');
+    var iconClose = mobileBtn.querySelector('.icon-close');
+    if (iconOpen && iconClose) {
+      iconOpen.style.display = isOpen ? 'none' : 'block';
+      iconClose.style.display = isOpen ? 'block' : 'none';
+    }
+  }
+
   function initPillNav() {
     var mobileBtn = document.getElementById('mobileMenuBtn');
     var mobileDropdown = document.getElementById('mobileDropdown');
-    var logoLink = document.getElementById('pillLogoLink');
-    var logoImg = document.getElementById('pillLogoImg');
 
-    // Smooth Navigation Interceptor: Prevents browser anchor jump stutter
     document.querySelectorAll('a[data-nav]').forEach(function (link) {
       link.addEventListener('click', function (e) {
         var targetPage = this.getAttribute('data-nav');
         if (targetPage) {
           e.preventDefault();
-          if (mobileDropdown && mobileDropdown.classList.contains('open')) {
-            mobileDropdown.classList.remove('open');
-            if (mobileBtn) {
-              mobileBtn.setAttribute('aria-expanded', 'false');
-              var iconOpen = mobileBtn.querySelector('.icon-open');
-              var iconClose = mobileBtn.querySelector('.icon-close');
-              if (iconOpen && iconClose) {
-                iconOpen.style.display = 'block';
-                iconClose.style.display = 'none';
-              }
-            }
-          }
+          setMobileDrawerState(false);
           if (location.hash !== '#' + targetPage) {
             location.hash = '#' + targetPage;
           } else {
@@ -100,26 +111,30 @@
       });
     });
 
-    // Mobile Navigation Drawer Toggle
     if (mobileBtn && mobileDropdown) {
-      mobileBtn.addEventListener('click', function () {
-        var isOpen = mobileDropdown.classList.toggle('open');
-        this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        var iconOpen = this.querySelector('.icon-open');
-        var iconClose = this.querySelector('.icon-close');
-        if (iconOpen && iconClose) {
-          iconOpen.style.display = isOpen ? 'none' : 'block';
-          iconClose.style.display = isOpen ? 'block' : 'none';
+      mobileBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = !mobileDropdown.classList.contains('open');
+        setMobileDrawerState(isOpen);
+      });
+
+      document.addEventListener('click', function (e) {
+        if (mobileDropdown.classList.contains('open') &&
+            !mobileDropdown.contains(e.target) &&
+            !mobileBtn.contains(e.target)) {
+          setMobileDrawerState(false);
         }
       });
     }
   }
 
   /* ==========================================================================
-     3. Interactive 3D Tilt Physics for Cards
+     2. Interactive 3D Tilt Physics for Desktop Hover Devices
      ========================================================================== */
   function initCardTilts() {
     if (prefersReducedMotion()) return;
+    if (window.matchMedia && !window.matchMedia('(hover: hover)').matches) return;
+
     var cards = document.querySelectorAll('.tilt-card');
     cards.forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
@@ -128,26 +143,26 @@
         var y = e.clientY - rect.top;
         var centerX = rect.width / 2;
         var centerY = rect.height / 2;
-        var rotateX = ((y - centerY) / centerY) * -7;
-        var rotateY = ((x - centerX) / centerX) * 7;
+        var rotateX = ((y - centerY) / centerY) * -5;
+        var rotateY = ((x - centerX) / centerX) * 5;
 
-        card.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-6px)';
+        card.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-4px)';
       });
 
       card.addEventListener('mouseleave', function () {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        card.style.transform = '';
       });
     });
   }
 
   /* ==========================================================================
-     4. Animated Milestone Counters (IntersectionObserver)
+     3. Animated Milestone Counters (IntersectionObserver)
      ========================================================================== */
   function initCounters() {
     var counterEls = document.querySelectorAll('.counter-val');
     if (!counterEls.length) return;
 
-    if (!('IntersectionObserver' in window)) {
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
       counterEls.forEach(function (el) {
         var prefix = el.dataset.prefix || '';
         var suffix = el.dataset.suffix || '';
@@ -165,17 +180,16 @@
           var targetVal = parseInt(el.dataset.target, 10);
           var prefix = el.dataset.prefix || '';
           var suffix = el.dataset.suffix || '';
-          var duration = 1800;
+          var duration = 1500;
           var start = performance.now();
 
-          // Animate golden progress ring
           if (ring) {
             ring.style.strokeDasharray = '214';
             ring.style.strokeDashoffset = '214';
-            ring.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1)';
+            ring.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
             setTimeout(function () {
-              ring.style.strokeDashoffset = '20';
-            }, 60);
+              ring.style.strokeDashoffset = '22';
+            }, 50);
           }
 
           function step(now) {
@@ -193,17 +207,17 @@
           observer.unobserve(el);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
 
     counterEls.forEach(function (el) { observer.observe(el); });
   }
 
   /* ==========================================================================
-     5. Interactive NEP 2020 Stage Explorer
+     4. Interactive NEP 2020 Stage Explorer
      ========================================================================== */
   var stageData = {
     foundational: {
-      tag: 'Ages 3–8',
+      tag: 'Ages 3 to 8',
       title: 'Foundational Stage: Pre-Primary (Nursery, LKG, UKG)',
       desc: 'Play-way, joyful, activity-based discovery focusing on sensory motor skills, early phonics, vocabulary games, storytelling, and developing fine coordination in a secure, loving pre-primary wing.',
       features: [
@@ -212,43 +226,43 @@
         'Early Numbers, Shapes & Spatial Logic',
         'Safe, Nurturing & Attentive Classroom Care'
       ],
-      hours: 'Mon–Fri: 9:00 AM – 12:00 PM'
+      hours: 'Mon-Fri: 9:00 AM - 12:00 PM'
     },
     preparatory: {
       tag: 'Classes 1 to 5',
       title: 'Preparatory Stage: Building Core Foundations',
-      desc: 'Strengthening literacy, numeracy, environmental awareness, and introducing children to general science, computers, and expressive arts without excessive rote examination stress.',
+      desc: 'Strengthening literacy, numeracy, environmental awareness, and introducing children to general science, practical computer basics, and expressive arts without rote stress.',
       features: [
         'Reading Comprehension & Creative Writing',
         'Mathematical Operations & Logical Reasoning',
         'Hands-on Environmental & Science Projects',
-        'Introduction to Basic Computer Systems & Music'
+        'Introduction to Computer Systems & Music'
       ],
-      hours: 'Mon–Fri: 9:00 AM – 12:30 PM'
+      hours: 'Mon-Fri: 9:00 AM - 12:30 PM'
     },
     middle: {
       tag: 'Classes 6 to 8',
-      title: 'Middle School: Experiential Sciences & STEM',
-      desc: 'Introduction to distinct subject streams: Physics, Chemistry, Biology, Algebraic Mathematics, Social Sciences, Computer Coding (Python), and Hands-on Robotics hardware in our dedicated lab.',
+      title: 'Middle School: Experiential Sciences & Computing',
+      desc: 'Introduction to distinct subject streams: Physics, Chemistry, Biology, Algebraic Mathematics, Social Sciences, and practical Computer Applications in our spacious air-conditioned Computer Lab.',
       features: [
-        'Practical Laboratory Demonstrations',
-        'Robotics & Algorithmic Problem Solving',
+        'Practical Science Lab Demonstrations',
+        'Hands-on Computer Lab & IT Foundations',
         'Parliamentary Debates & Elocution',
         'Inter-House Athletics & Structured Sports'
       ],
-      hours: 'Mon–Fri: 9:00 AM – 12:30 PM'
+      hours: 'Mon-Fri: 9:00 AM - 12:30 PM'
     },
     senior: {
       tag: 'Classes 9 to 12',
       title: 'Secondary & Senior Secondary: CBSE Board Specialization',
-      desc: 'Rigorous preparation for CBSE Board examinations along with foundation coaching for JEE, NEET, CUET, and CA Foundation. Streams offered: Science (PCM/PCB), Commerce, and skill electives in Artificial Intelligence.',
+      desc: 'Focused preparation for CBSE Board examinations along with foundation readiness for competitive entrances. Streams offered: Science (PCM/PCB), Commerce, and Computer Science / IT.',
       features: [
-        'Science (PCM / PCB) with Modern Composite Labs',
+        'Science (PCM / PCB) with Composite Labs',
         'Commerce with Accountancy & Economics',
-        'Artificial Intelligence & Computer Science Electives',
-        'Career Mentorship & College Entrance Readiness'
+        'Computer Science & Information Technology',
+        'Career Mentorship & Board Exam Readiness'
       ],
-      hours: 'Mon–Fri: 9:00 AM – 12:30 PM'
+      hours: 'Mon-Fri: 9:00 AM - 12:30 PM'
     }
   };
 
@@ -260,23 +274,23 @@
     card.style.opacity = '0';
     setTimeout(function () {
       card.innerHTML = [
-        '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">',
+        '<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:14px;">',
         '  <span class="kicker-tag" style="margin:0;">' + esc(data.tag) + '</span>',
-        '  <span style="font-size:0.82rem;font-weight:700;color:var(--navy-primary);background:var(--bg-surface-alt);padding:4px 12px;border-radius:var(--radius-full);">' + esc(data.hours) + '</span>',
+        '  <span style="font-size:0.82rem;font-weight:700;color:var(--navy-primary);background:var(--bg-surface-alt);padding:5px 14px;border-radius:var(--radius-full);">' + esc(data.hours) + '</span>',
         '</div>',
-        '<h3 style="font-size:1.6rem;font-weight:800;color:var(--navy-primary);margin-bottom:14px;">' + esc(data.title) + '</h3>',
-        '<p style="font-size:1.05rem;line-height:1.7;color:var(--text-body);margin-bottom:24px;max-width:840px;">' + esc(data.desc) + '</p>',
-        '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:14px;border-top:1px solid var(--border-line);padding-top:20px;">',
+        '<h3 style="font-family:var(--font-heading);font-size:1.55rem;font-weight:800;color:var(--navy-primary);margin-bottom:12px;">' + esc(data.title) + '</h3>',
+        '<p style="font-size:1.02rem;line-height:1.68;color:var(--text-body);margin-bottom:22px;max-width:65ch;">' + esc(data.desc) + '</p>',
+        '<div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));gap:14px;border-top:1px solid var(--border-line);padding-top:18px;">',
         data.features.map(function (f) {
           return '<div style="display:flex;align-items:center;gap:10px;font-weight:700;font-size:0.92rem;color:var(--navy-primary);">' +
-            '<span style="color:var(--gold-deep);font-size:1.1rem;">✔</span>' +
+            '<span style="color:var(--gold-deep);font-size:1.05rem;">✔</span>' +
             '<span>' + esc(f) + '</span>' +
             '</div>';
         }).join(''),
         '</div>'
       ].join('');
       card.style.opacity = '1';
-    }, 150);
+    }, 120);
   }
 
   function initStageExplorer() {
@@ -299,11 +313,7 @@
   }
 
   /* ==========================================================================
-     6. Client-Side Hash Router
-     ========================================================================== */
-  
-  /* ==========================================================================
-     Opening Screen Animation (Intro Splash Screen)
+     5. Opening Screen Animation (Intro Splash Screen)
      ========================================================================== */
   function initIntroSplash() {
     var splash = document.getElementById('introSplash');
@@ -311,33 +321,30 @@
     var skip = document.getElementById('introSkipBtn');
     if (!splash) return;
 
-    // Trigger golden progress bar charge
     setTimeout(function () {
       if (bar) bar.style.width = '100%';
-    }, 120);
+    }, 80);
 
     function dismissSplash() {
       if (splash.classList.contains('dismissed')) return;
       splash.classList.add('dismissed');
       setTimeout(function () {
         splash.style.display = 'none';
-      }, 600);
+      }, 650);
     }
 
     if (skip) skip.addEventListener('click', dismissSplash);
-
-    // Auto dismiss after 1.4 seconds
     setTimeout(dismissSplash, 1400);
   }
 
   /* ==========================================================================
-     Scroll-Triggered Reveal Animations
+     6. Scroll-Triggered Reveal Animations & Hash Router
      ========================================================================== */
   function initScrollReveals() {
     var elements = document.querySelectorAll('.scroll-reveal');
     if (!elements.length) return;
 
-    if (!('IntersectionObserver' in window)) {
+    if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
       elements.forEach(function (el) { el.classList.add('revealed'); });
       return;
     }
@@ -349,7 +356,7 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
     elements.forEach(function (el) { observer.observe(el); });
   }
@@ -360,6 +367,8 @@
     var currentPage = document.querySelector('.page.active');
     var targetPage = document.getElementById('page-' + pageId) || document.getElementById('page-home');
 
+    document.title = PAGE_TITLES[pageId] || PAGE_TITLES.home;
+
     if (currentPage && currentPage !== targetPage && !prefersReducedMotion()) {
       currentPage.classList.add('page-leaving');
       setTimeout(function () {
@@ -367,37 +376,24 @@
         targetPage.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         initScrollReveals();
-    initCampusHotspots();
-    initTopperFilters();
+        initCampusHotspots();
+        initTopperFilters();
       }, 150);
     } else {
       if (currentPage) currentPage.classList.remove('active', 'page-leaving');
       targetPage.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'auto' });
       initScrollReveals();
-    initCampusHotspots();
-    initTopperFilters();
+      initCampusHotspots();
+      initTopperFilters();
     }
 
-    // Update PillNav and Mobile Nav active states
     document.querySelectorAll('[data-nav]').forEach(function (link) {
       var isCurrent = link.getAttribute('data-nav') === pageId;
       link.classList.toggle('active', isCurrent);
     });
 
-    // Close Mobile Drawer
-    var mobileDropdown = document.getElementById('mobileDropdown');
-    var mobileBtn = document.getElementById('mobileMenuBtn');
-    if (mobileDropdown) mobileDropdown.classList.remove('open');
-    if (mobileBtn) {
-      mobileBtn.setAttribute('aria-expanded', 'false');
-      var iconOpen = mobileBtn.querySelector('.icon-open');
-      var iconClose = mobileBtn.querySelector('.icon-close');
-      if (iconOpen && iconClose) {
-        iconOpen.style.display = 'block';
-        iconClose.style.display = 'none';
-      }
-    }
+    setMobileDrawerState(false);
 
     if (pageId === 'admin') {
       checkAdminSession();
@@ -414,7 +410,7 @@
   if (yrEl) yrEl.textContent = new Date().getFullYear();
 
   /* ==========================================================================
-     7. Hero Slider
+     7. Hero Slider (Inside Right Architectural Photo Stage)
      ========================================================================== */
   function renderHeroSlider() {
     var slidesWrap = document.getElementById('heroSlides');
@@ -430,9 +426,9 @@
       return '<div class="hero-bg-slide' + (i === 0 ? ' active' : '') + '" style="background-image:url(\'' + esc(b.img) + '\')" data-i="' + i + '"></div>';
     }).join('');
 
-    dotsWrap.innerHTML = list.map(function (b, i) {
-      return '<button data-i="' + i + '" class="' + (i === 0 ? 'active' : '') + '" aria-label="Slide ' + (i + 1) + '" style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);border:none;cursor:pointer;"></button>';
-    }).join('');
+    dotsWrap.innerHTML = list.length > 1 ? list.map(function (b, i) {
+      return '<button type="button" data-i="' + i + '" class="' + (i === 0 ? 'active' : '') + '" aria-label="Slide ' + (i + 1) + '" style="width:' + (i === 0 ? '24px' : '10px') + ';height:10px;border-radius:9999px;background:' + (i === 0 ? 'var(--gold-accent)' : 'rgba(255,255,255,0.6)') + ';border:none;cursor:pointer;transition:all 0.25s;"></button>';
+    }).join('') : '';
 
     heroIndex = 0;
     var slideEls = slidesWrap.querySelectorAll('.hero-bg-slide');
@@ -443,9 +439,8 @@
       slideEls.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
       dotEls.forEach(function (d, i) {
         d.classList.toggle('active', i === idx);
-        d.style.background = i === idx ? 'var(--gold-accent)' : 'rgba(255,255,255,0.4)';
-        d.style.width = i === idx ? '26px' : '10px';
-        d.style.borderRadius = i === idx ? '9999px' : '50%';
+        d.style.background = i === idx ? 'var(--gold-accent)' : 'rgba(255,255,255,0.6)';
+        d.style.width = i === idx ? '24px' : '10px';
       });
     }
 
@@ -468,19 +463,13 @@
   }
 
   /* ==========================================================================
-     8. Notice Board & Ticker
+     8. Notice Board & Hall of Fame Hydration
      ========================================================================== */
   function renderNotices() {
     var list = state.notices;
-    var tickerEl = document.getElementById('topTickerNotice');
     var listWrap = document.getElementById('noticeList');
-
-    if (tickerEl && list && list.length > 0) {
-      var topNotice = list[0];
-      tickerEl.textContent = '📢 ' + topNotice.title + ' • ' + (topNotice.text || 'Admissions open for Nursery to Class 12') + ' • Office: 07162-244732';
-    }
-
     if (!listWrap) return;
+
     if (!list || !list.length) {
       listWrap.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);">No active circulars at this moment.</div>';
       return;
@@ -505,11 +494,7 @@
     }).join('');
   }
 
-  /* ==========================================================================
-     9. Achievements & Hall of Fame
-     ========================================================================== */
   function renderAchievements() {
-    // 1. Homepage Teaser
     var homeWrap = document.getElementById('homeAchievements');
     if (homeWrap) {
       var preview = state.achievements.slice(0, 3);
@@ -518,31 +503,30 @@
       } else {
         homeWrap.innerHTML = preview.map(function (a) {
           var media = a.img
-            ? '<img src="' + esc(a.img) + '" alt="' + esc(a.title) + '">'
-            : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/></svg>';
+            ? '<img src="' + esc(a.img) + '" alt="' + esc(a.title) + '" loading="lazy">'
+            : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/></svg>';
 
           return '<div class="live-ach-row">' +
             '<div class="ach-media-thumb">' + media + '</div>' +
             '<div>' +
               '<span class="ach-meta-tag">' + esc(a.meta || 'Recognition') + '</span>' +
-              '<h4 style="font-size:1.05rem;margin:2px 0 4px;">' + esc(a.title) + '</h4>' +
-              '<p style="font-size:0.88rem;color:var(--text-muted);margin:0;">' + esc(a.desc || '') + '</p>' +
+              '<h4 style="font-size:1.02rem;color:var(--navy-primary);margin:2px 0 4px;">' + esc(a.title) + '</h4>' +
+              '<p style="font-size:0.86rem;color:var(--text-muted);margin:0;">' + esc(a.desc || '') + '</p>' +
             '</div>' +
           '</div>';
         }).join('');
       }
     }
 
-    // 2. Full Page Grid
     var fullWrap = document.getElementById('achGrid');
     if (fullWrap) {
       if (!state.achievements.length) {
-        fullWrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);grid-column:span 3;">No achievements recorded yet.</div>';
+        fullWrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);grid-column:1/-1;">No achievements recorded yet.</div>';
       } else {
         fullWrap.innerHTML = state.achievements.map(function (a) {
           var imgSection = a.img
-            ? '<div class="honor-photo-box"><img src="' + esc(a.img) + '" alt="' + esc(a.title) + '"></div>'
-            : '<div class="honor-photo-box"><div class="honor-icon-placeholder"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/></svg></div></div>';
+            ? '<div class="honor-photo-box"><img src="' + esc(a.img) + '" alt="' + esc(a.title) + '" loading="lazy"></div>'
+            : '<div class="honor-photo-box"><div class="honor-icon-placeholder"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1 3-6z"/></svg></div></div>';
 
           return '<div class="honor-card">' +
             imgSection +
@@ -558,7 +542,7 @@
   }
 
   /* ==========================================================================
-     10. Gallery & Lightbox Modal
+     9. Gallery & Accessible Lightbox Modal
      ========================================================================== */
   function renderGallery() {
     var filtersWrap = document.getElementById('galFilters');
@@ -572,7 +556,7 @@
     });
 
     filtersWrap.innerHTML = cats.map(function (c) {
-      return '<button data-cat="' + esc(c) + '" class="' + (c === galFilter ? 'active' : '') + '">' + esc(c) + '</button>';
+      return '<button type="button" data-cat="' + esc(c) + '" class="' + (c === galFilter ? 'active' : '') + '">' + esc(c) + '</button>';
     }).join('');
 
     filtersWrap.querySelectorAll('button').forEach(function (btn) {
@@ -596,41 +580,55 @@
     gridWrap.innerHTML = items.map(function (g) {
       var isVideo = g.type === 'video';
       var media = isVideo
-        ? '<video src="' + esc(g.src) + '" muted playsinline></video><span class="media-play-pill">▶</span>'
-        : '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || '') + '" loading="lazy">';
+        ? '<video src="' + esc(g.src) + '" muted playsinline></video><span class="media-play-pill" aria-hidden="true">▶</span>'
+        : '<img src="' + esc(g.src) + '" alt="' + esc(g.caption || g.category || 'Campus gallery item') + '" loading="lazy">';
 
-      return '<div class="gallery-media-item" data-id="' + g.id + '">' +
+      return '<button type="button" class="gallery-media-item" data-id="' + g.id + '" aria-label="View ' + esc(g.caption || g.category || 'photo') + '" style="padding:0;text-align:left;">' +
         media +
         '<div class="media-hover-overlay"><span>' + esc(g.caption || g.category) + '</span></div>' +
-      '</div>';
+      '</button>';
     }).join('');
 
     gridWrap.querySelectorAll('.gallery-media-item').forEach(function (el) {
       el.addEventListener('click', function () {
         var clicked = items.find(function (g) { return String(g.id) === el.dataset.id; });
-        if (clicked) openLightbox(clicked);
+        if (clicked) openLightbox(clicked, el);
       });
     });
   }
 
-  function openLightbox(item) {
+  function openLightbox(item, triggerEl) {
     var modal = document.getElementById('lightbox');
     var inner = document.getElementById('lightboxInner');
+    var mainEl = document.getElementById('main');
+    var closeEl = document.getElementById('lightboxClose');
     if (!modal || !inner) return;
+
+    lastFocusedBeforeModal = triggerEl || document.activeElement;
 
     var media = item.type === 'video'
       ? '<video src="' + esc(item.src) + '" controls autoplay playsinline></video>'
-      : '<img src="' + esc(item.src) + '" alt="' + esc(item.caption || '') + '">';
+      : '<img src="' + esc(item.src) + '" alt="' + esc(item.caption || 'Campus media preview') + '">';
 
     inner.innerHTML = media + '<div class="lightbox-caption-tag">' + esc(item.caption || item.category || '') + '</div>';
     modal.classList.add('open');
+    if (mainEl) mainEl.setAttribute('inert', '');
+    if (closeEl) closeEl.focus();
   }
 
   function closeLightbox() {
     var modal = document.getElementById('lightbox');
     var inner = document.getElementById('lightboxInner');
-    if (modal) modal.classList.remove('open');
+    var mainEl = document.getElementById('main');
+    if (!modal || !modal.classList.contains('open')) return;
+
+    modal.classList.remove('open');
     if (inner) inner.innerHTML = '';
+    if (mainEl) mainEl.removeAttribute('inert');
+    if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function') {
+      lastFocusedBeforeModal.focus();
+      lastFocusedBeforeModal = null;
+    }
   }
 
   var closeBtn = document.getElementById('lightboxClose');
@@ -642,16 +640,33 @@
     });
   }
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'Escape') {
+      closeLightbox();
+      setMobileDrawerState(false);
+    }
   });
 
   /* ==========================================================================
-     11. Public Forms (Admissions & Contact)
+     10. Public Forms (Accessible Inline Errors, No window.alert)
      ========================================================================== */
+  function showFormError(id, msg) {
+    var errEl = document.getElementById(id);
+    if (!errEl) return;
+    errEl.textContent = msg;
+    errEl.classList.add('show');
+  }
+
+  function clearFormError(id) {
+    var errEl = document.getElementById(id);
+    if (!errEl) return;
+    errEl.classList.remove('show');
+  }
+
   var adForm = document.getElementById('admissionForm');
   if (adForm) {
     adForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      clearFormError('admissionError');
       var btn = document.getElementById('adSubmitBtn');
       if (btn) btn.disabled = true;
 
@@ -677,7 +692,7 @@
           setTimeout(function () { banner.classList.remove('show'); }, 6000);
         }
       }).catch(function (err) {
-        alert('Submission failed: ' + err.message);
+        showFormError('admissionError', 'Submission failed: ' + err.message);
       }).finally(function () {
         if (btn) btn.disabled = false;
       });
@@ -688,6 +703,7 @@
   if (cForm) {
     cForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      clearFormError('contactError');
       var btn = this.querySelector('button[type=submit]');
       if (btn) btn.disabled = true;
 
@@ -711,7 +727,7 @@
           setTimeout(function () { banner.classList.remove('show'); }, 6000);
         }
       }).catch(function (err) {
-        alert('Message failed: ' + err.message);
+        showFormError('contactError', 'Message failed: ' + err.message);
       }).finally(function () {
         if (btn) btn.disabled = false;
       });
@@ -719,7 +735,7 @@
   }
 
   /* ==========================================================================
-     12. Admin Console & Dashboard
+     11. Admin Console & Dashboard
      ========================================================================== */
   function checkAdminSession() {
     api('/me').then(function (data) {
@@ -797,7 +813,6 @@
     setTimeout(function () { el.classList.remove('show'); }, 4000);
   }
 
-  // Admin CRUD Functions
   function renderAdminNotices() {
     var wrap = document.getElementById('noticeAdminList');
     if (!wrap) return;
@@ -808,7 +823,7 @@
     wrap.innerHTML = state.notices.map(function (n) {
       return '<div class="admin-entry-item">' +
         '<div class="entry-meta"><strong>' + esc(n.title) + '</strong><span>' + esc(n.text || '') + ' (' + esc(n.date || '') + ')</span></div>' +
-        '<button class="btn-delete-chip" data-del-notice="' + n.id + '">Delete</button>' +
+        '<button type="button" class="btn-delete-chip" data-del-notice="' + n.id + '">Delete</button>' +
       '</div>';
     }).join('');
 
@@ -845,9 +860,9 @@
     }
     wrap.innerHTML = state.banners.map(function (b) {
       return '<div class="admin-entry-item">' +
-        '<img class="thumb" src="' + esc(b.img) + '">' +
+        '<img class="thumb" src="' + esc(b.img) + '" alt="' + esc(b.caption || 'Hero Slide') + '">' +
         '<div class="entry-meta"><strong>' + esc(b.caption || 'Hero Slide') + '</strong><span>' + esc(b.img) + '</span></div>' +
-        '<button class="btn-delete-chip" data-del-ban="' + b.id + '">Delete</button>' +
+        '<button type="button" class="btn-delete-chip" data-del-ban="' + b.id + '">Delete</button>' +
       '</div>';
     }).join('');
 
@@ -885,12 +900,12 @@
     wrap.innerHTML = state.gallery.map(function (g) {
       var thumb = g.type === 'video'
         ? '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-accent);background:#0C2340;">▶</div>'
-        : '<img class="thumb" src="' + esc(g.src) + '">';
+        : '<img class="thumb" src="' + esc(g.src) + '" alt="' + esc(g.caption || g.category) + '">';
 
       return '<div class="admin-entry-item">' +
         thumb +
         '<div class="entry-meta"><strong>' + esc(g.caption || g.category) + '</strong><span>' + esc(g.category) + ' (' + esc(g.type) + ')</span></div>' +
-        '<button class="btn-delete-chip" data-del-g="' + g.id + '">Delete</button>' +
+        '<button type="button" class="btn-delete-chip" data-del-g="' + g.id + '">Delete</button>' +
       '</div>';
     }).join('');
 
@@ -929,13 +944,13 @@
     }
     wrap.innerHTML = state.achievements.map(function (a) {
       var thumb = a.img
-        ? '<img class="thumb" src="' + esc(a.img) + '">'
-        : '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-deep);background:var(--gold-soft);">🏆</div>';
+        ? '<img class="thumb" src="' + esc(a.img) + '" alt="' + esc(a.title) + '">'
+        : '<div class="thumb" style="display:flex;align-items:center;justify-content:center;color:var(--gold-deep);background:var(--gold-soft);">★</div>';
 
       return '<div class="admin-entry-item">' +
         thumb +
         '<div class="entry-meta"><strong>' + esc(a.title) + '</strong><span>' + esc(a.meta || '') + '</span></div>' +
-        '<button class="btn-delete-chip" data-del-a="' + a.id + '">Delete</button>' +
+        '<button type="button" class="btn-delete-chip" data-del-a="' + a.id + '">Delete</button>' +
       '</div>';
     }).join('');
 
@@ -979,7 +994,7 @@
         adWrap.innerHTML = admissions.map(function (item) {
           return '<div class="admin-entry-item">' +
             '<div class="entry-meta"><strong>' + esc(item.student) + ' (Class: ' + esc(item.class_applied || 'N/A') + ')</strong>' +
-            '<span>Parent: ' + esc(item.parent) + ' • Phone: ' + esc(item.phone) + (item.email ? ' • ' + esc(item.email) : '') + '</span>' +
+            '<span>Parent: ' + esc(item.parent) + ' · Phone: ' + esc(item.phone) + (item.email ? ' · ' + esc(item.email) : '') + '</span>' +
             '<p style="font-size:0.85rem;color:var(--text-body);margin-top:4px;">' + esc(item.message || 'No note') + '</p>' +
             '<span style="font-size:0.75rem;color:var(--text-muted);">' + esc(item.created_at) + '</span></div>' +
           '</div>';
@@ -995,7 +1010,7 @@
         msgWrap.innerHTML = messages.map(function (m) {
           return '<div class="admin-entry-item">' +
             '<div class="entry-meta"><strong>' + esc(m.name) + ' (' + esc(m.phone) + ')</strong>' +
-            '<span>' + (m.email ? 'Email: ' + esc(m.email) + ' • ' : '') + esc(m.message) + '</span>' +
+            '<span>' + (m.email ? 'Email: ' + esc(m.email) + ' · ' : '') + esc(m.message) + '</span>' +
             '<span style="font-size:0.75rem;color:var(--text-muted);display:block;margin-top:4px;">' + esc(m.created_at) + '</span></div>' +
           '</div>';
         }).join('');
@@ -1004,7 +1019,7 @@
   }
 
   /* ==========================================================================
-     13. Data Hydration & Boot
+     12. Data Hydration
      ========================================================================== */
   function loadAllData(includeAdmin) {
     return api('/public/all').then(function (data) {
@@ -1033,59 +1048,56 @@
     });
   }
 
-  
   /* ==========================================================================
-     Category 2 & 3: Interactive Hotspot Map, Topper Filters & Leaderboard
+     13. Interactive Campus Hotspot Map & Topper Filters
      ========================================================================== */
-
-  // 1. Campus Hotspot Map Data & Controller
   var hotspotData = {
-    robotics: {
+    computer: {
       photo: 'img/facility-robotics.jpg',
-      tag: 'Upper Technology Wing',
-      title: 'Robotics, STEM & AI Innovation Lab',
-      desc: 'Our flagship innovation workspace featuring 30+ dedicated Python and microcomputer workstations, Arduino boards, and sensors. Students develop problem-solving skills through hands-on prototype engineering.',
-      specs: ['30+ Workstations', 'Python & C++', 'Sensors & IoT', 'Microcontrollers']
+      tag: 'Technology Wing',
+      title: 'Modern Computer Laboratory',
+      desc: 'A spacious, air-conditioned computer laboratory equipped with modern desktop systems, high-speed internet connectivity, and structured IT curriculum from primary through senior secondary.',
+      specs: ['50+ Computers', '1:1 Access', 'High-Speed Fiber', 'IT & Coding']
     },
     classrooms: {
       photo: 'img/facility-smartclass.jpg',
       tag: 'Central Academic Block',
       title: 'Smart Interactive Classrooms',
-      desc: 'Digital touch-screen smart boards in every section equipped with comprehensive CBSE curriculum modules. Enables interactive quizzes, 3D anatomical/mathematical visualizations, and multimedia lectures.',
-      specs: ['75-inch 4K Displays', 'E-Learning Suite', 'Ergonomic Desks', 'Acoustic Balancing']
+      desc: 'Digital touch-screen smart boards in every section equipped with CBSE curriculum modules for interactive quizzes, anatomical/mathematical visualizations, and multimedia lectures.',
+      specs: ['4K Interactive Displays', 'E-Learning Suite', 'Ergonomic Desks', 'Airy Ventilation']
     },
     science: {
       photo: 'img/facility-science.jpg',
       tag: 'West Science Wing',
       title: 'Composite Science Laboratories',
-      desc: 'Dedicated practical experimental bays for Physics, Chemistry, and Biology. Built with state-of-the-art optical microscopes, fume exhausts, safety eye-wash stations, and precision instruments.',
+      desc: 'Dedicated practical experimental bays for Physics, Chemistry, and Biology. Built with optical microscopes, fume exhausts, safety stations, and precision instruments.',
       specs: ['Physics Station', 'Chemistry Lab', 'Biology Optics', 'CBSE Standardized']
     },
     sports: {
-      photo: 'img/facility-sports.jpg',
+      photo: 'img/building.jpg',
       tag: 'Campus Front Grounds',
       title: 'Athletics & Sports Complex',
-      desc: 'Expansive open ground and turf designed for inter-house football, cricket coaching nets, volleyball, track sprint lanes, and daily physical education under certified athletic trainers.',
-      specs: ['Full-size Turf', 'Cricket Nets', 'Volleyball Court', 'Yoga Conditioning']
+      desc: 'Expansive open ground designed for inter-house football, cricket coaching nets, volleyball, track sprint lanes, and daily physical education under trained instructors.',
+      specs: ['Open Grounds', 'Cricket Nets', 'Volleyball Court', 'Morning Yoga']
     },
     library: {
       photo: 'img/facility-library.jpg',
       tag: 'East Tranquil Wing',
       title: 'Literary Library & Resource Center',
-      desc: 'A quiet reading hall containing over 5,000 volumes, CBSE reference guides, historical encyclopedias, national daily newspapers, and student-published literary anthologies.',
-      specs: ['5,000+ Titles', 'Reading Hall', 'Competitive Exam Shelf', 'Periodical Corner']
+      desc: 'A quiet reading hall containing thousands of titles, CBSE reference guides, encyclopedias, national daily newspapers, and student-published literary anthologies.',
+      specs: ['5,000+ Titles', 'Reading Hall', 'Exam Reference Shelf', 'Periodicals']
     }
   };
 
   function renderHotspot(key) {
-    var data = hotspotData[key] || hotspotData.robotics;
+    var data = hotspotData[key] || hotspotData.computer;
     var container = document.getElementById('hotspotDetailCard');
     if (!container) return;
 
     container.style.opacity = '0';
     setTimeout(function () {
       container.innerHTML = [
-        '<img src="' + esc(data.photo) + '" alt="' + esc(data.title) + '" class="spot-detail-photo">',
+        '<img src="' + esc(data.photo) + '" alt="' + esc(data.title) + '" class="spot-detail-photo" loading="lazy">',
         '<span class="spot-detail-tag">' + esc(data.tag) + '</span>',
         '<h3>' + esc(data.title) + '</h3>',
         '<p>' + esc(data.desc) + '</p>',
@@ -1094,14 +1106,14 @@
         '</div>'
       ].join('');
       container.style.opacity = '1';
-    }, 120);
+    }, 100);
   }
 
   function initCampusHotspots() {
     var pins = document.querySelectorAll('.map-hotspot-pin');
     if (!pins.length) return;
 
-    renderHotspot('robotics');
+    renderHotspot('computer');
 
     pins.forEach(function (pin) {
       pin.addEventListener('click', function () {
@@ -1112,7 +1124,6 @@
     });
   }
 
-  // 2. Toppers Wall of Fame Interactive Filter
   function initTopperFilters() {
     var filterWrap = document.getElementById('topperFilterTabs');
     var cards = document.querySelectorAll('.topper-honor-card');
@@ -1127,20 +1138,19 @@
         cards.forEach(function (card) {
           if (filter === 'all' || card.dataset.category === filter) {
             card.style.display = 'flex';
-            setTimeout(function () { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+            setTimeout(function () { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 40);
           } else {
             card.style.opacity = '0';
-            card.style.transform = 'translateY(10px)';
-            setTimeout(function () { card.style.display = 'none'; }, 200);
+            card.style.transform = 'translateY(8px)';
+            setTimeout(function () { card.style.display = 'none'; }, 180);
           }
         });
       });
     });
   }
 
-
   /* ==========================================================================
-     3D Fluid Mesh Wave Animation (Subtle Gold, Navy & Crimson on White Background)
+     14. 3D Fluid Mesh Wave Animation (Subtle Gold, Navy & Crimson on White)
      ========================================================================== */
   function initFluidMeshWave() {
     var canvas = document.getElementById('fluidMeshCanvas');
@@ -1148,11 +1158,6 @@
 
     var ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
-
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      renderStaticWave();
-      return;
-    }
 
     var width = 0;
     var height = 0;
@@ -1176,30 +1181,21 @@
 
       isMobile = width < 768;
 
-      // Pre-compile smooth gradients on resize (zero allocation in loop for max mobile FPS)
       gradGold = ctx.createLinearGradient(0, height * 0.1, width, height * 0.9);
-      gradGold.addColorStop(0, 'rgba(218, 165, 32, 0.08)');
-      gradGold.addColorStop(0.5, 'rgba(244, 180, 26, 0.05)');
-      gradGold.addColorStop(1, 'rgba(218, 165, 32, 0.01)');
+      gradGold.addColorStop(0, 'rgba(244, 180, 26, 0.08)');
+      gradGold.addColorStop(0.5, 'rgba(244, 180, 26, 0.04)');
+      gradGold.addColorStop(1, 'rgba(244, 180, 26, 0.01)');
 
       gradNavy = ctx.createLinearGradient(0, height * 0.2, width, height * 0.85);
-      gradNavy.addColorStop(0, 'rgba(12, 35, 64, 0.06)');
-      gradNavy.addColorStop(0.5, 'rgba(16, 42, 77, 0.04)');
-      gradNavy.addColorStop(1, 'rgba(12, 35, 64, 0.01)');
+      gradNavy.addColorStop(0, 'rgba(12, 35, 64, 0.055)');
+      gradNavy.addColorStop(0.5, 'rgba(16, 42, 77, 0.03)');
+      gradNavy.addColorStop(1, 'rgba(12, 35, 64, 0.008)');
 
       gradCrimson = ctx.createLinearGradient(0, height * 0.3, width, height);
-      gradCrimson.addColorStop(0, 'rgba(196, 30, 58, 0.05)');
-      gradCrimson.addColorStop(0.6, 'rgba(156, 43, 34, 0.03)');
-      gradCrimson.addColorStop(1, 'rgba(196, 30, 58, 0.005)');
+      gradCrimson.addColorStop(0, 'rgba(196, 30, 58, 0.045)');
+      gradCrimson.addColorStop(0.6, 'rgba(156, 43, 34, 0.02)');
+      gradCrimson.addColorStop(1, 'rgba(196, 30, 58, 0.004)');
     }
-
-    var resizeTimer = null;
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(resize, 100);
-    }, { passive: true });
-
-    resize();
 
     var time = 0;
     var lastTimestamp = 0;
@@ -1235,71 +1231,6 @@
       ctx.fill();
     }
 
-    function loop(timestamp) {
-      if (!isRunning) return;
-
-      if (!lastTimestamp) lastTimestamp = timestamp;
-      var delta = (timestamp - lastTimestamp) / 1000;
-      lastTimestamp = timestamp;
-
-      if (delta > 0.1) delta = 0.1;
-      time += delta * 1.2;
-
-      ctx.clearRect(0, 0, width, height);
-
-      // Living, breathing expansion factor
-      var breath = Math.sin(time * 0.6) * 12;
-
-      // Wave 1: Royal Navy (Deep base wave, slow and majestic)
-      drawWaveRibbon(
-        height * 0.45,
-        isMobile ? 35 : 55,
-        0.0022,
-        0.5,
-        0.0,
-        breath * 0.8,
-        gradNavy
-      );
-
-      // Wave 2: Warm Golden Amber (Mid-layer wave, gentle fluid flow)
-      drawWaveRibbon(
-        height * 0.58,
-        isMobile ? 30 : 48,
-        0.0031,
-        0.7,
-        2.1,
-        breath,
-        gradGold
-      );
-
-      // Wave 3: Crimson Accent (Front wave, lively ripple crest)
-      drawWaveRibbon(
-        height * 0.70,
-        isMobile ? 25 : 40,
-        0.0042,
-        0.9,
-        4.2,
-        breath * 0.6,
-        gradCrimson
-      );
-
-      animId = requestAnimationFrame(loop);
-    }
-
-    // Battery-saving visibility handling for mobile
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) {
-        isRunning = false;
-        if (animId) cancelAnimationFrame(animId);
-      } else {
-        if (!isRunning) {
-          isRunning = true;
-          lastTimestamp = 0;
-          animId = requestAnimationFrame(loop);
-        }
-      }
-    });
-
     function renderStaticWave() {
       resize();
       ctx.clearRect(0, 0, width, height);
@@ -1308,11 +1239,53 @@
       drawWaveRibbon(height * 0.7, 30, 0.0045, 0, 4, 0, gradCrimson);
     }
 
+    if (prefersReducedMotion()) {
+      renderStaticWave();
+      return;
+    }
+
+    var resizeTimer = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 100);
+    }, { passive: true });
+
+    resize();
+
+    function loop(timestamp) {
+      if (!isRunning) return;
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      var delta = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+      if (delta > 0.1) delta = 0.1;
+      time += delta * 1.1;
+
+      ctx.clearRect(0, 0, width, height);
+      var breath = Math.sin(time * 0.6) * 12;
+
+      drawWaveRibbon(height * 0.46, isMobile ? 34 : 52, 0.0022, 0.5, 0.0, breath * 0.8, gradNavy);
+      drawWaveRibbon(height * 0.58, isMobile ? 28 : 45, 0.0031, 0.7, 2.1, breath, gradGold);
+      drawWaveRibbon(height * 0.70, isMobile ? 22 : 36, 0.0042, 0.9, 4.2, breath * 0.6, gradCrimson);
+
+      animId = requestAnimationFrame(loop);
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        isRunning = false;
+        if (animId) cancelAnimationFrame(animId);
+      } else if (!isRunning) {
+        isRunning = true;
+        lastTimestamp = 0;
+        animId = requestAnimationFrame(loop);
+      }
+    });
+
     animId = requestAnimationFrame(loop);
   }
 
   /* ==========================================================================
-     Interactive Scroll Controller (Progress Bar, PillNav Blur & Back-To-Top Ring)
+     15. Interactive Scroll Controller
      ========================================================================== */
   function initScrollInteractions() {
     var progressBar = document.getElementById('scrollProgressBar');
@@ -1324,7 +1297,7 @@
     if (bttBtn) {
       bttBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
       });
     }
 
@@ -1339,21 +1312,12 @@
         var progressPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         var clampedPercent = Math.min(100, Math.max(0, progressPercent));
 
-        // 1. Top progress indicator
         if (progressBar) {
           progressBar.style.width = clampedPercent + '%';
         }
-
-        // 2. PillNav dynamic shrink & glass shadow
         if (navBar) {
-          if (scrollTop > 60) {
-            navBar.classList.add('nav-scrolled');
-          } else {
-            navBar.classList.remove('nav-scrolled');
-          }
+          navBar.classList.toggle('nav-scrolled', scrollTop > 40);
         }
-
-        // 3. Back to Top button visibility and live circular progress
         if (bttBtn) {
           if (scrollTop > 350) {
             bttBtn.classList.add('visible');
@@ -1374,7 +1338,9 @@
     onScroll();
   }
 
-  // Boot sequence with double-init protection
+  /* ==========================================================================
+     16. Application Boot Sequence
+     ========================================================================== */
   var booted = false;
   function bootApp() {
     if (booted) return;
