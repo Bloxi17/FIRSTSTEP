@@ -32,12 +32,14 @@
     banners: [],
     gallery: [],
     achievements: [],
-    notices: []
+    notices: [],
+    announcement: null
   };
 
   var heroIndex = 0;
   var heroTimer = null;
   var galFilter = 'All';
+  var noticeFilter = 'All';
   var lastFocusedBeforeModal = null;
 
   function prefersReducedMotion() {
@@ -463,23 +465,110 @@
   }
 
   /* ==========================================================================
-     8. Notice Board & Hall of Fame Hydration
+     8. Notice Board, Category Filters & Urgent Announcement Ribbon
      ========================================================================== */
-  function renderNotices() {
-    var list = state.notices;
-    var listWrap = document.getElementById('noticeList');
-    if (!listWrap) return;
+  function getNoticeCategory(n) {
+    if (n.category && ['General', 'Admissions', 'Exams', 'Holidays'].indexOf(n.category) !== -1) {
+      return n.category;
+    }
+    var txt = ((n.title || '') + ' ' + (n.text || '')).toLowerCase();
+    if (/admission|enquir|session|registration/.test(txt)) return 'Admissions';
+    if (/exam|test|practical|olympiad|board|assessment|result/.test(txt)) return 'Exams';
+    if (/holiday|vacation|timings|closed|break|festival/.test(txt)) return 'Holidays';
+    return 'General';
+  }
 
-    if (!list || !list.length) {
-      listWrap.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);">No active circulars at this moment.</div>';
+  function renderUrgentRibbon() {
+    var shell = document.getElementById('urgentRibbonShell');
+    var textEl = document.getElementById('urgentRibbonText');
+    var linkEl = document.getElementById('urgentRibbonLink');
+    if (!shell || !textEl || !linkEl) return;
+
+    var ann = state.announcement;
+    var enabled = ann && ann.enabled && ann.text;
+    var key = enabled ? (ann.text + '|' + (ann.linkNav || '') + '|' + (ann.linkLabel || '')) : '';
+    var isDismissed = false;
+    try {
+      isDismissed = key && sessionStorage.getItem('fs_dismissed_ann') === key;
+    } catch (e) {}
+
+    if (!enabled || isDismissed) {
+      shell.hidden = true;
+      document.body.classList.remove('has-urgent-ribbon');
       return;
     }
 
-    listWrap.innerHTML = list.map(function (n) {
+    textEl.textContent = ann.text;
+    var nav = ann.linkNav || 'admissions';
+    linkEl.setAttribute('href', '#' + nav);
+    linkEl.setAttribute('data-nav', nav);
+    linkEl.textContent = (ann.linkLabel || 'Apply Now') + ' →';
+    shell.dataset.annKey = key;
+    shell.hidden = false;
+    document.body.classList.add('has-urgent-ribbon');
+  }
+
+  var ribbonCloseBtn = document.getElementById('urgentRibbonClose');
+  if (ribbonCloseBtn) {
+    ribbonCloseBtn.addEventListener('click', function () {
+      var shell = document.getElementById('urgentRibbonShell');
+      if (!shell) return;
+      try {
+        if (shell.dataset.annKey) sessionStorage.setItem('fs_dismissed_ann', shell.dataset.annKey);
+      } catch (e) {}
+      shell.hidden = true;
+      document.body.classList.remove('has-urgent-ribbon');
+    });
+  }
+
+  var ribbonLinkEl = document.getElementById('urgentRibbonLink');
+  if (ribbonLinkEl) {
+    ribbonLinkEl.addEventListener('click', function (e) {
+      var target = this.getAttribute('data-nav');
+      if (target) {
+        e.preventDefault();
+        navigateTo(target);
+      }
+    });
+  }
+
+  function renderNotices() {
+    var list = state.notices || [];
+    var listWrap = document.getElementById('noticeList');
+    if (!listWrap) return;
+
+    var filtered = noticeFilter === 'All'
+      ? list
+      : list.filter(function (n) { return getNoticeCategory(n) === noticeFilter; });
+
+    if (!filtered.length) {
+      listWrap.innerHTML = '<div style="text-align:center;padding:30px;color:var(--text-muted);">' +
+        (noticeFilter === 'All'
+          ? 'No active circulars at this moment.'
+          : 'No circulars under "' + esc(noticeFilter) + '". <button type="button" class="gold-link reset-notice-filter-btn" style="background:none;border:none;cursor:pointer;">Show All</button>') +
+        '</div>';
+      var resetBtn = listWrap.querySelector('.reset-notice-filter-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          noticeFilter = 'All';
+          document.querySelectorAll('#noticeFilterBar .notice-filter-btn').forEach(function (b) {
+            var isAll = b.dataset.noticeCat === 'All';
+            b.classList.toggle('active', isAll);
+            b.setAttribute('aria-selected', isAll ? 'true' : 'false');
+          });
+          renderNotices();
+        });
+      }
+      return;
+    }
+
+    listWrap.innerHTML = filtered.map(function (n) {
       var dateRaw = n.date || 'Notice';
       var parts = dateRaw.split('/');
       var day = parts[0] || 'NEW';
       var month = parts[1] ? 'M' + parts[1] : 'INFO';
+      var cat = getNoticeCategory(n);
+      var catCls = 'cat-' + cat.toLowerCase();
 
       return '<div class="live-notice-row">' +
         '<div class="notice-calendar-chip">' +
@@ -487,12 +576,25 @@
           '<span class="chip-month">' + esc(month) + '</span>' +
         '</div>' +
         '<div class="notice-text-col">' +
+          '<span class="notice-cat-badge ' + esc(catCls) + '">' + esc(cat) + '</span>' +
           '<h4>' + esc(n.title) + '</h4>' +
           '<p>' + esc(n.text || '') + '</p>' +
         '</div>' +
       '</div>';
     }).join('');
   }
+
+  document.querySelectorAll('#noticeFilterBar .notice-filter-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      noticeFilter = this.dataset.noticeCat || 'All';
+      document.querySelectorAll('#noticeFilterBar .notice-filter-btn').forEach(function (b) {
+        var active = b === btn;
+        b.classList.toggle('active', active);
+        b.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      renderNotices();
+    });
+  });
 
   function renderAchievements() {
     var homeWrap = document.getElementById('homeAchievements');
@@ -510,7 +612,7 @@
             '<div class="ach-media-thumb">' + media + '</div>' +
             '<div>' +
               '<span class="ach-meta-tag">' + esc(a.meta || 'Recognition') + '</span>' +
-              '<h4 style="font-size:1.02rem;color:var(--navy-primary);margin:2px 0 4px;">' + esc(a.title) + '</h4>' +
+              '<h4 style="font-size:1.02rem;color:var(--hunter-primary);margin:2px 0 4px;">' + esc(a.title) + '</h4>' +
               '<p style="font-size:0.86rem;color:var(--text-muted);margin:0;">' + esc(a.desc || '') + '</p>' +
             '</div>' +
           '</div>';
@@ -813,6 +915,44 @@
     setTimeout(function () { el.classList.remove('show'); }, 4000);
   }
 
+  function renderAdminAnnouncement() {
+    var en = document.getElementById('annEnabled');
+    var tx = document.getElementById('annText');
+    var nv = document.getElementById('annNav');
+    var lb = document.getElementById('annLabel');
+    var ann = state.announcement;
+    if (!ann) return;
+    if (en) en.checked = !!ann.enabled;
+    if (tx) tx.value = ann.text || '';
+    if (nv && ann.linkNav) nv.value = ann.linkNav;
+    if (lb) lb.value = ann.linkLabel || 'Apply Now';
+  }
+
+  var annSaveBtn = document.getElementById('annSaveBtn');
+  if (annSaveBtn) {
+    annSaveBtn.addEventListener('click', function () {
+      var en = document.getElementById('annEnabled');
+      var tx = document.getElementById('annText');
+      var nv = document.getElementById('annNav');
+      var lb = document.getElementById('annLabel');
+      var payload = {
+        enabled: en ? en.checked : false,
+        text: tx ? tx.value.trim() : '',
+        linkNav: nv ? nv.value : 'admissions',
+        linkLabel: lb ? lb.value.trim() : 'Apply Now'
+      };
+      api('/announcement', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function () {
+        try { sessionStorage.removeItem('fs_dismissed_ann'); } catch (e) {}
+        flashAdmin('annStatus', 'Announcement ribbon updated live.', true);
+        loadAllData(true);
+      }).catch(function (err) { flashAdmin('annStatus', err.message, false); });
+    });
+  }
+
   function renderAdminNotices() {
     var wrap = document.getElementById('noticeAdminList');
     if (!wrap) return;
@@ -821,8 +961,9 @@
       return;
     }
     wrap.innerHTML = state.notices.map(function (n) {
+      var cat = getNoticeCategory(n);
       return '<div class="admin-entry-item">' +
-        '<div class="entry-meta"><strong>' + esc(n.title) + '</strong><span>' + esc(n.text || '') + ' (' + esc(n.date || '') + ')</span></div>' +
+        '<div class="entry-meta"><strong>[' + esc(cat) + '] ' + esc(n.title) + '</strong><span>' + esc(n.text || '') + ' (' + esc(n.date || '') + ')</span></div>' +
         '<button type="button" class="btn-delete-chip" data-del-notice="' + n.id + '">Delete</button>' +
       '</div>';
     }).join('');
@@ -840,10 +981,15 @@
     nAddBtn.addEventListener('click', function () {
       var t = document.getElementById('noticeTitle');
       var b = document.getElementById('noticeText');
+      var c = document.getElementById('noticeCategory');
       if (!t.value.trim()) { flashAdmin('noticeStatus', 'Title is required.', false); return; }
       api('/notices', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: t.value.trim(), text: b.value.trim() })
+        body: JSON.stringify({
+          title: t.value.trim(),
+          category: c ? c.value : 'General',
+          text: b.value.trim()
+        })
       }).then(function () {
         flashAdmin('noticeStatus', 'Notice published successfully.', true);
         t.value = ''; b.value = ''; loadAllData(true);
@@ -1027,13 +1173,16 @@
       state.gallery = data.gallery || [];
       state.achievements = data.achievements || [];
       state.notices = data.notices || [];
+      state.announcement = data.announcement || null;
 
+      renderUrgentRibbon();
       renderHeroSlider();
       renderNotices();
       renderAchievements();
       renderGallery();
 
       if (includeAdmin) {
+        renderAdminAnnouncement();
         renderAdminNotices();
         renderAdminBanners();
         renderAdminGallery();
@@ -1045,6 +1194,24 @@
       }
     }).catch(function (err) {
       console.warn('Public API hydration fallback:', err);
+      state.announcement = state.announcement || {
+        text: 'Admissions Open for Session 2026-27 (Nursery to Class 12) — Campus Enquiries Open',
+        linkNav: 'admissions',
+        linkLabel: 'Apply Now',
+        enabled: 1
+      };
+      if (!state.notices.length) {
+        state.notices = [
+          { id: 1, title: 'Admissions open for Academic Session 2026-27', category: 'Admissions', date: '24/09/2026', text: 'Enquiries are open for Nursery through Class 12. Connect with the school office or submit online.' },
+          { id: 2, title: 'Modern Computer Lab & Coding Practical Schedule', category: 'Exams', date: '20/09/2026', text: 'Weekly practical sessions and unit assessments in Computer Science commence this month for Middle & Senior wings.' },
+          { id: 3, title: 'School Office & Winter Vacation Schedule', category: 'Holidays', date: 'Mon-Fri', text: 'The school administrative office is open Monday to Friday, 9:00 AM to 12:30 PM for parent visits and holiday circulars.' }
+        ];
+      }
+      renderUrgentRibbon();
+      renderHeroSlider();
+      renderNotices();
+      renderAchievements();
+      renderGallery();
     });
   }
 

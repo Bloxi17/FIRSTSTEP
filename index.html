@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 
   <!-- Master Stylesheet (Timeless Heritage & Scholarly — Natural Cream + Forest Green) -->
-  <link rel="stylesheet" href="public/css/style.css?v=5.1" id="mainThemeSheet">
+  <link rel="stylesheet" href="public/css/style.css?v=5.2" id="mainThemeSheet">
   <script>
     (function () {
       var sheet = document.getElementById('mainThemeSheet');
@@ -34,7 +34,7 @@
         sheet.onerror = function () {
           if (!this.getAttribute('data-fallback-attempted')) {
             this.setAttribute('data-fallback-attempted', 'true');
-            this.href = 'public/css/style.css?v=5.1';
+            this.href = 'public/css/style.css?v=5.2';
           }
         };
       }
@@ -163,6 +163,22 @@
   </header>
 
   <main id="main" tabindex="-1">
+
+    <!-- Dismissible Top Urgent Announcement Ribbon (Admin Controlled) -->
+    <div id="urgentRibbonShell" class="urgent-ribbon-shell" hidden>
+      <div class="wrap">
+        <div class="urgent-ribbon-bar" role="region" aria-label="Important School Announcement">
+          <div class="urgent-ribbon-main">
+            <span class="urgent-ribbon-tag"><span class="urgent-dot" aria-hidden="true"></span>Announcement</span>
+            <p class="urgent-ribbon-text" id="urgentRibbonText"></p>
+          </div>
+          <div class="urgent-ribbon-actions">
+            <a href="#admissions" id="urgentRibbonLink" data-nav="admissions" class="urgent-ribbon-cta">Apply Now →</a>
+            <button type="button" id="urgentRibbonClose" class="urgent-ribbon-close" aria-label="Dismiss announcement">&times;</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ================================================================= -->
     <!-- VIEW: HOME (Clean White Asymmetric Hero + Bento Pro Campus Grid)  -->
@@ -369,6 +385,14 @@
                 <div class="board-status-badge">
                   <span class="pulse-dot-red"></span> Live Updates
                 </div>
+              </div>
+
+              <div class="notice-filter-bar" id="noticeFilterBar" role="tablist" aria-label="Filter school circulars">
+                <button type="button" class="notice-filter-btn active" data-notice-cat="All" role="tab" aria-selected="true">All</button>
+                <button type="button" class="notice-filter-btn" data-notice-cat="Exams" role="tab" aria-selected="false">Exams</button>
+                <button type="button" class="notice-filter-btn" data-notice-cat="Admissions" role="tab" aria-selected="false">Admissions</button>
+                <button type="button" class="notice-filter-btn" data-notice-cat="Holidays" role="tab" aria-selected="false">Holidays</button>
+                <button type="button" class="notice-filter-btn" data-notice-cat="General" role="tab" aria-selected="false">General</button>
               </div>
 
               <div class="notices-scroll-box" id="noticeList">
@@ -1457,11 +1481,54 @@
 
             <div class="dash-pane active" data-panel="notices">
               <div class="admin-editor-card">
+                <h4>Top Announcement Ribbon (Urgent Alert)</h4>
+                <div class="status-msg" id="annStatus" role="status"></div>
+                <div class="field-wrap admin-checkbox-wrap">
+                  <label class="admin-checkbox-label" for="annEnabled">
+                    <input type="checkbox" id="annEnabled" checked>
+                    <span>Show urgent announcement strip across top of website</span>
+                  </label>
+                </div>
+                <div class="field-wrap">
+                  <label for="annText">Announcement Message</label>
+                  <input id="annText" maxlength="240" placeholder="e.g. Admissions Open for Session 2026-27 (Nursery to Class 12)">
+                </div>
+                <div class="form-field-row">
+                  <div class="field-wrap">
+                    <label for="annNav">Button Destination</label>
+                    <select id="annNav">
+                      <option value="admissions">Admissions Page</option>
+                      <option value="academics">Academics Page</option>
+                      <option value="facilities">Campus Facilities</option>
+                      <option value="achievements">Hall of Fame</option>
+                      <option value="contact">Contact Us</option>
+                    </select>
+                  </div>
+                  <div class="field-wrap">
+                    <label for="annLabel">Button Text</label>
+                    <input id="annLabel" maxlength="32" value="Apply Now" placeholder="Apply Now">
+                  </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="annSaveBtn">Save Announcement Ribbon</button>
+              </div>
+
+              <div class="admin-editor-card">
                 <h4>Publish New Circular / Notice</h4>
                 <div class="status-msg" id="noticeStatus" role="status"></div>
-                <div class="field-wrap">
-                  <label for="noticeTitle">Notice Title</label>
-                  <input id="noticeTitle" placeholder="e.g. Annual Sports & Cultural Meet 2026">
+                <div class="form-field-row">
+                  <div class="field-wrap">
+                    <label for="noticeTitle">Notice Title</label>
+                    <input id="noticeTitle" placeholder="e.g. Annual Sports & Cultural Meet 2026">
+                  </div>
+                  <div class="field-wrap">
+                    <label for="noticeCategory">Category</label>
+                    <select id="noticeCategory">
+                      <option value="General">General</option>
+                      <option value="Admissions">Admissions</option>
+                      <option value="Exams">Exams</option>
+                      <option value="Holidays">Holidays</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="field-wrap">
                   <label for="noticeText">Details / Full Message</label>
@@ -1689,6 +1756,6 @@
     <svg class="btt-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </button>
 
-  <script src="public/js/app.js?v=5.0" onerror="if(!this.dataset.retried){this.dataset.retried=1; var s=document.createElement('script'); s.src='public/js/app.js?v=5.0'; document.body.appendChild(s);}" defer></script>
+  <script src="public/js/app.js?v=5.2" onerror="if(!this.dataset.retried){this.dataset.retried=1; var s=document.createElement('script'); s.src='public/js/app.js?v=5.2'; document.body.appendChild(s);}" defer></script>
 </body>
 </html>

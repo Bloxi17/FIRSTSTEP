@@ -61,9 +61,18 @@ db.exec(`
   CREATE TABLE IF NOT EXISTS notices (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
+    category TEXT DEFAULT 'General',
     notice_date TEXT,
     body TEXT,
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  );
+  CREATE TABLE IF NOT EXISTS announcements (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    text TEXT NOT NULL,
+    link_nav TEXT DEFAULT 'admissions',
+    link_label TEXT DEFAULT 'Apply Now',
+    enabled INTEGER DEFAULT 1,
+    updated_at TEXT DEFAULT CURRENT_TIMESTAMP
   );
   CREATE TABLE IF NOT EXISTS admissions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -96,12 +105,21 @@ if (achCount === 0) {
   seedAch.run('Eco Club Leadership', 'Riya Nair (Class 12)', 'Led the Eco Club and organised a school-wide tree plantation drive, building environmental awareness across classes.');
   seedAch.run('International Commerce Olympiad, 1st Prize', 'Ainesh (Class 11)', 'Won 1st Prize in the International Commerce Olympiad (ICO) showcasing academic mastery in commerce and analytical aptitude.');
 }
+const noticeCols = db.prepare("PRAGMA table_info(notices)").all().map(c => c.name);
+if (!noticeCols.includes('category')) {
+  db.exec("ALTER TABLE notices ADD COLUMN category TEXT DEFAULT 'General'");
+}
 const noticeCount = db.prepare('SELECT COUNT(*) AS c FROM notices').get().c;
 if (noticeCount === 0) {
-  const seedNotice = db.prepare('INSERT INTO notices (title, notice_date, body) VALUES (?, ?, ?)');
-  seedNotice.run('Admissions open for Academic Session 2026-27', '24/09/2026', 'Enquiries are open for Nursery through Class 12. Connect with the school office or submit online.');
-  seedNotice.run('Robotics & AI Hands-On Lab Schedule', '20/09/2026', 'Special weekly practical sessions in Coding and Artificial Intelligence commence this month for Middle & Senior wings.');
-  seedNotice.run('School Office Timings', 'Mon-Fri', 'The school administrative office is open Monday to Friday, 9:00 AM to 12:30 PM for parent visits and fee queries.');
+  const seedNotice = db.prepare('INSERT INTO notices (title, category, notice_date, body) VALUES (?, ?, ?, ?)');
+  seedNotice.run('Admissions open for Academic Session 2026-27', 'Admissions', '24/09/2026', 'Enquiries are open for Nursery through Class 12. Connect with the school office or submit online.');
+  seedNotice.run('Modern Computer Lab & Coding Practical Schedule', 'Exams', '20/09/2026', 'Weekly practical sessions and unit assessments in Computer Science commence this month for Middle & Senior wings.');
+  seedNotice.run('School Office & Winter Vacation Schedule', 'Holidays', 'Mon-Fri', 'The school administrative office is open Monday to Friday, 9:00 AM to 12:30 PM for parent visits and holiday circulars.');
+}
+const annCount = db.prepare('SELECT COUNT(*) AS c FROM announcements').get().c;
+if (annCount === 0) {
+  db.prepare('INSERT INTO announcements (id, text, link_nav, link_label, enabled) VALUES (1, ?, ?, ?, 1)')
+    .run('Admissions Open for Session 2026-27 (Nursery to Class 12) — Campus Enquiries Open', 'admissions', 'Apply Now');
 }
 const bannerCount = db.prepare('SELECT COUNT(*) AS c FROM banners').get().c;
 if (bannerCount === 0) {
@@ -250,11 +268,13 @@ app.get('/api/me', (req, res) => {
 /* Public read routes                                                      */
 /* ---------------------------------------------------------------------- */
 app.get('/api/public/all', (req, res) => {
+  const ann = db.prepare('SELECT text, link_nav AS linkNav, link_label AS linkLabel, enabled FROM announcements WHERE id = 1').get();
   res.json({
     banners: db.prepare('SELECT id, img_path AS img, caption FROM banners ORDER BY id ASC').all(),
     gallery: db.prepare('SELECT id, category, type, src_path AS src, caption FROM gallery ORDER BY id DESC').all(),
     achievements: db.prepare('SELECT id, title, meta, description AS desc, img_path AS img FROM achievements ORDER BY id DESC').all(),
-    notices: db.prepare('SELECT id, title, notice_date AS date, body AS text FROM notices ORDER BY id DESC').all()
+    notices: db.prepare("SELECT id, title, COALESCE(NULLIF(TRIM(category), ''), 'General') AS category, notice_date AS date, body AS text FROM notices ORDER BY id DESC").all(),
+    announcement: ann || { text: '', linkNav: 'admissions', linkLabel: 'Apply Now', enabled: 0 }
   });
 });
 
@@ -318,19 +338,37 @@ app.delete('/api/achievements/:id', requireAuth, (req, res) => {
 });
 
 /* ---------------------------------------------------------------------- */
-/* Notices (admin)                                                         */
+/* Notices & Announcement Ribbon (admin)                                   */
 /* ---------------------------------------------------------------------- */
+const VALID_NOTICE_CATS = ['General', 'Admissions', 'Exams', 'Holidays'];
+const VALID_NAV_TARGETS = ['home', 'about', 'academics', 'admissions', 'facilities', 'achievements', 'gallery', 'contact'];
+
 app.post('/api/notices', requireAuth, (req, res) => {
-  const title = (req.body.title || '').trim();
+  const title = (req.body.title || '').trim().slice(0, 180);
   if (!title) return res.status(400).json({ error: 'A title is required.' });
+  const rawCat = String(req.body.category || 'General').trim();
+  const category = VALID_NOTICE_CATS.includes(rawCat) ? rawCat : 'General';
   const date = new Date().toLocaleDateString('en-IN');
-  const info = db.prepare('INSERT INTO notices (title, notice_date, body) VALUES (?, ?, ?)')
-    .run(title, date, req.body.text || '');
-  res.json({ id: info.lastInsertRowid, title, date, text: req.body.text || '' });
+  const text = String(req.body.text || '').trim().slice(0, 1000);
+  const info = db.prepare('INSERT INTO notices (title, category, notice_date, body) VALUES (?, ?, ?, ?)')
+    .run(title, category, date, text);
+  res.json({ id: info.lastInsertRowid, title, category, date, text });
 });
 app.delete('/api/notices/:id', requireAuth, (req, res) => {
   db.prepare('DELETE FROM notices WHERE id = ?').run(req.params.id);
   res.json({ ok: true });
+});
+app.put('/api/announcement', requireAuth, (req, res) => {
+  const b = req.body || {};
+  const text = String(b.text || '').trim().slice(0, 240);
+  const enabled = b.enabled ? 1 : 0;
+  if (enabled && !text) return res.status(400).json({ error: 'Announcement text is required when enabled.' });
+  const rawNav = String(b.linkNav || 'admissions').trim();
+  const linkNav = VALID_NAV_TARGETS.includes(rawNav) ? rawNav : 'admissions';
+  const linkLabel = String(b.linkLabel || 'Learn More').trim().slice(0, 32) || 'Learn More';
+  db.prepare('INSERT OR REPLACE INTO announcements (id, text, link_nav, link_label, enabled, updated_at) VALUES (1, ?, ?, ?, ?, CURRENT_TIMESTAMP)')
+    .run(text, linkNav, linkLabel, enabled);
+  res.json({ text, linkNav, linkLabel, enabled });
 });
 
 /* ---------------------------------------------------------------------- */
